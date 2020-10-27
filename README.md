@@ -1,6 +1,6 @@
-# burnsville_mern-app - 
+# burnsville_mern-app 
 
-Simple eCommerce platform built with the MERN stack.
+- Simple eCommerce platform built with the MERN stack.
 
 Deployed here: https://burnsvilleapp.herokuapp.com/
 

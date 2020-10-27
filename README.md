@@ -2,7 +2,7 @@
 
 # Simple eCommerce platform built with the MERN stack.
 
-Deployed here: https://burnsvilleapp.herokuapp.com/ - #NB - logout first and then log back in
+Deployed here: https://burnsvilleapp.herokuapp.com/
 
 ### Table of Contents
 

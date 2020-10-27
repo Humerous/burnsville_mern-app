@@ -1,6 +1,6 @@
-# burnsville_mern-app - Simple eCommerce platform built with the MERN stack.
+# burnsville_mern-app - 
 
-A simple app with the the uses Express server offering a REST API with Node.js.
+Simple eCommerce platform built with the MERN stack.
 
 Deployed here: https://burnsvilleapp.herokuapp.com/
 

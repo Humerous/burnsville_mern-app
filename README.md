@@ -96,7 +96,7 @@ You're sections headers will be used to reference location of destination.
 # Sample User Logins
 
 - admin@example.com (Admin)
-  123456
+-  123456
 
 - kenny@example.com (Customer)
 - 123456

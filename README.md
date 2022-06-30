@@ -152,7 +152,7 @@ You're sections headers will be used to reference location of destination.
 
 MIT License
 
-Copyright (c) [2020][david k miller]
+Copyright (c) [2022][david k miller]
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

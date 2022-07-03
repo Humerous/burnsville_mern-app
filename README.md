@@ -25,7 +25,7 @@ You're sections headers will be used to reference location of destination.
 - React
 - Mongo DB
 - Mongo DB compass UI -[mongo DB compass](#https://www.mongodb.com/products/compass)
-- PayPal API -[PayPal](#https://developer.paypal.com/classic-home/)
+- PayPal API - [PayPal](#https://developer.paypal.com/classic-home/)
 - Full featured shopping cart
 - Product reviews and ratings
 - Top products carousel

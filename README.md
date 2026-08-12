@@ -1,8 +1,8 @@
-# Burnsville - Mern-App 
+# Burnsville - Mern-App
 
 # Simple eCommerce platform built with the MERN stack.
 
-Deployed here: https://burnsvilleapp.herokuapp.com/
+Historical Heroku deployment is no longer active.
 
 ### Table of Contents
 
@@ -96,7 +96,7 @@ You're sections headers will be used to reference location of destination.
 # Sample User Logins
 
 - admin@example.com (Admin)
--  123456
+- 123456
 
 - kenny@example.com (Customer)
 - 123456
@@ -107,7 +107,6 @@ You're sections headers will be used to reference location of destination.
 ### GET Routes
 
 - visit http://localhost: I'm 5000
-
   - /api/users
   - /api/orders
   - /api/products
@@ -138,7 +137,6 @@ You're sections headers will be used to reference location of destination.
   - Method: DELETE
 
 ## References
-
 
 - All info gathered from a site called - https://heatonist.com/
 

@@ -9,6 +9,8 @@ import Paginate from '../components/Paginate';
 import ProductCarousel from '../components/ProductCarousel';
 import HomeHero from '../components/home/HomeHero';
 import ShopByHeat from '../components/home/ShopByHeat';
+import HomeProductShowcase from '../components/home/HomeProductShowcase';
+import BrandProofStrip from '../components/home/BrandProofStrip';
 import Meta from '../components/Meta';
 import { listProducts } from '../actions/productActions';
 
@@ -22,7 +24,6 @@ const HomeScreen = ({ match }) => {
 
   // The approved Hero belongs only to the exact homepage route.
   const isHomepage = match.path === '/' && !keyword;
-  const ProductListHeading = isHomepage ? 'h2' : 'h1';
 
   // <---- HOME - dispatch state ---->
   const dispatch = useDispatch();
@@ -43,33 +44,43 @@ const HomeScreen = ({ match }) => {
         <>
           <HomeHero />
           <ShopByHeat />
+          <HomeProductShowcase
+            loading={loading}
+            error={error}
+            products={products}
+          />
+          <BrandProofStrip />
         </>
-      ) : !keyword ? (
-        <ProductCarousel />
-      ) : (
-        <Link to='/' className='btn btn-warning'>
-          Go Back
-        </Link>
-      )}
-      <ProductListHeading>Latest Products</ProductListHeading>
-      {loading ? (
-        <Loader />
-      ) : error ? (
-        <Message variant='danger'>{error}</Message>
       ) : (
         <>
-          <Row>
-            {products.map((product) => (
-              <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-                <Product product={product} />
-              </Col>
-            ))}
-          </Row>
-          <Paginate
-            pages={pages}
-            page={page}
-            keyword={keyword ? keyword : ''}
-          />
+          {!keyword ? (
+            <ProductCarousel />
+          ) : (
+            <Link to='/' className='btn btn-warning'>
+              Go Back
+            </Link>
+          )}
+          <h1>Latest Products</h1>
+          {loading ? (
+            <Loader />
+          ) : error ? (
+            <Message variant='danger'>{error}</Message>
+          ) : (
+            <>
+              <Row>
+                {products.map((product) => (
+                  <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+                    <Product product={product} />
+                  </Col>
+                ))}
+              </Row>
+              <Paginate
+                pages={pages}
+                page={page}
+                keyword={keyword ? keyword : ''}
+              />
+            </>
+          )}
         </>
       )}
     </>

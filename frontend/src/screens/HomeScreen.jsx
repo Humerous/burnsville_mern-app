@@ -11,6 +11,7 @@ import HomeHero from '../components/home/HomeHero';
 import ShopByHeat from '../components/home/ShopByHeat';
 import HomeProductShowcase from '../components/home/HomeProductShowcase';
 import BrandProofStrip from '../components/home/BrandProofStrip';
+import NewsletterSignup from '../components/home/NewsletterSignup';
 import Meta from '../components/Meta';
 import { listProducts } from '../actions/productActions';
 
@@ -50,6 +51,7 @@ const HomeScreen = ({ match }) => {
             products={products}
           />
           <BrandProofStrip />
+          <NewsletterSignup />
         </>
       ) : (
         <>

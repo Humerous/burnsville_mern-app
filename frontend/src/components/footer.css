@@ -1,0 +1,208 @@
+.burnsville-footer,
+.burnsville-footer * {
+  box-sizing: border-box;
+}
+
+.burnsville-footer {
+  --footer-cream: var(--burnsville-cream, #f3ede4);
+  --footer-onyx: var(--burnsville-onyx, #111111);
+  --footer-red: var(--burnsville-chilli, #d2282b);
+  background-color: var(--footer-onyx);
+  background-image:
+    radial-gradient(circle at 17% 24%, rgba(243, 237, 228, 0.1) 0 0.7px, transparent 1px),
+    radial-gradient(circle at 82% 72%, rgba(210, 40, 43, 0.18) 0 0.7px, transparent 1px);
+  background-size: 37px 43px, 47px 41px;
+  color: var(--footer-cream);
+}
+
+.burnsville-footer__inner {
+  display: grid;
+  gap: clamp(34px, 5vw, 76px);
+  grid-template-columns: minmax(210px, 1.25fr) minmax(420px, 1.75fr) minmax(210px, 0.8fr);
+  margin: 0 auto;
+  max-width: 1440px;
+  padding: 48px 56px 44px;
+}
+
+.burnsville-footer__brand .burnsville-logo {
+  display: inline-flex;
+}
+
+.burnsville-footer__brand .burnsville-logo__wordmark {
+  color: var(--footer-cream);
+  font-size: clamp(2rem, 2.7vw, 2.8rem);
+}
+
+.burnsville-footer__brand .burnsville-logo__descriptor {
+  font-size: 0.68rem;
+}
+
+.burnsville-footer__brand .burnsville-logo__rule {
+  width: 28px;
+}
+
+.burnsville-footer__brand > p {
+  color: rgba(243, 237, 228, 0.68);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  margin: 18px 0 0;
+  max-width: 250px;
+}
+
+.burnsville-footer__nav {
+  display: grid;
+  gap: 26px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.burnsville-footer__group h2 {
+  color: var(--footer-cream);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  margin: 0 0 13px;
+  padding: 0;
+  text-transform: uppercase;
+}
+
+.burnsville-footer__group ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.burnsville-footer__group li + li {
+  margin-top: 7px;
+}
+
+.burnsville-footer__group a {
+  color: rgba(243, 237, 228, 0.74);
+  display: inline-flex;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.79rem;
+  min-height: 28px;
+  text-decoration: none;
+  transition: color 150ms cubic-bezier(0.25, 0.7, 0.2, 1);
+}
+
+.burnsville-footer__group a:hover {
+  color: var(--footer-red);
+  text-decoration: none;
+}
+
+.burnsville-footer a:focus-visible {
+  outline: 3px solid var(--footer-cream);
+  outline-offset: 4px;
+}
+
+.burnsville-footer__statement {
+  align-items: flex-start;
+  border-left: 1px solid rgba(243, 237, 228, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 30px;
+}
+
+.burnsville-footer__statement span {
+  color: var(--footer-red);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.burnsville-footer__statement strong {
+  color: var(--footer-cream);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: clamp(1.35rem, 1.7vw, 1.9rem);
+  font-weight: 900;
+  letter-spacing: 0.035em;
+  line-height: 1.06;
+  margin-top: 8px;
+  text-transform: uppercase;
+}
+
+.burnsville-footer__legal {
+  border-top: 1px solid rgba(243, 237, 228, 0.16);
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  max-width: 1440px;
+  padding: 16px 56px 18px;
+}
+
+.burnsville-footer__legal p {
+  color: rgba(243, 237, 228, 0.56);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.67rem;
+  letter-spacing: 0.09em;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+@media (max-width: 980px) {
+  .burnsville-footer__inner {
+    grid-template-columns: minmax(190px, 0.8fr) minmax(0, 1.5fr);
+    padding-inline: 30px;
+  }
+
+  .burnsville-footer__statement {
+    border-left: 0;
+    border-top: 1px solid rgba(243, 237, 228, 0.2);
+    grid-column: 1 / -1;
+    padding: 26px 0 0;
+  }
+
+  .burnsville-footer__legal {
+    padding-inline: 30px;
+  }
+}
+
+@media (max-width: 700px) {
+  .burnsville-footer__inner {
+    display: block;
+    padding: 38px 20px 30px;
+  }
+
+  .burnsville-footer__brand {
+    border-bottom: 1px solid rgba(243, 237, 228, 0.2);
+    padding-bottom: 28px;
+  }
+
+  .burnsville-footer__brand > p {
+    max-width: 310px;
+  }
+
+  .burnsville-footer__nav {
+    gap: 24px 16px;
+    margin-top: 30px;
+  }
+
+  .burnsville-footer__statement {
+    margin-top: 30px;
+  }
+
+  .burnsville-footer__legal {
+    display: block;
+    padding: 16px 20px 20px;
+  }
+
+  .burnsville-footer__legal p + p {
+    margin-top: 7px;
+  }
+}
+
+@media (max-width: 420px) {
+  .burnsville-footer__nav {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .burnsville-footer__group a {
+    transition: none;
+  }
+}

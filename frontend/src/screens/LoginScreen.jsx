@@ -1,83 +1,106 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Form, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-import FormContainer from '../components/FormContainer';
+import Meta from '../components/Meta';
 import { login } from '../actions/userActions';
+import './account-auth.css';
 
-// <---- LOGIN SCREEN FUNCTION - location, history, dispatch, setEmail, setPassword ---->
 const LoginScreen = ({ location, history }) => {
-  // <---- LOGIN - setEmail, setPassword state ---->
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  // <---- LOGIN - dispatch state ---->
   const dispatch = useDispatch();
 
-  // <---- LOGIN - userLogin state ---->
   const userLogin = useSelector((state) => state.userLogin);
   const { loading, error, userInfo } = userLogin;
 
-  // <---- LOGIN - setEmail, redirect state ---->
   const redirect = location.search ? location.search.split('=')[1] : '/';
 
-  // <---- LOGIN EFFECT FOR USER INFO - userInfo, redirect   ---->
   useEffect(() => {
     if (userInfo) {
       history.push(redirect);
     }
   }, [history, userInfo, redirect]);
 
-  // <---- LOGIN FUNCTION - submitHandler ---->
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(login(email, password));
   };
 
   return (
-    <FormContainer>
-      <h1>Sign In</h1>
-      {error && <Message variant='danger'>{error}</Message>}
-      {loading && <Loader />}
-      <Form onSubmit={submitHandler}>
-        <Form.Group controlId='email'>
-          <Form.Label>Email Address</Form.Label>
-          <Form.Control
-            type='email'
-            placeholder='Enter email'
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
+    <section
+      className='burnsville-account-auth'
+      aria-labelledby='burnsville-login-title'
+    >
+      <Meta
+        title='Sign In | Burnsville'
+        description='Sign in to your Burnsville account.'
+      />
 
-        <Form.Group controlId='password'>
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type='password'
-            placeholder='Enter password'
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
+      <div className='burnsville-account-auth__inner'>
+        <aside className='burnsville-account-auth__introduction'>
+          <p className='burnsville-account-auth__eyebrow'>Account access</p>
+          <h2>Welcome back</h2>
+          <p>Sign in to review your account and order details.</p>
+          <div className='burnsville-account-auth__accent' aria-hidden='true' />
+        </aside>
 
-        <Button type='submit' variant='primary'>
-          Sign In
-        </Button>
-      </Form>
+        <div className='burnsville-account-auth__panel'>
+          <header>
+            <p className='burnsville-account-auth__eyebrow'>Member sign in</p>
+            <h1 id='burnsville-login-title'>Sign in</h1>
+          </header>
 
-      <Row className='py-3'>
-        <Col>
-          New Customer?{' '}
-          <Link to={redirect ? `/register?redirect=${redirect}` : '/register'}>
-            Register
-          </Link>
-        </Col>
-      </Row>
-    </FormContainer>
+          {error && <Message variant='danger'>{error}</Message>}
+          {loading && <Loader />}
+
+          <form onSubmit={submitHandler}>
+            <div className='burnsville-account-auth__field'>
+              <label htmlFor='email'>Email address</label>
+              <input
+                id='email'
+                type='email'
+                placeholder='Enter email'
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+
+            <div className='burnsville-account-auth__field'>
+              <label htmlFor='password'>Password</label>
+              <input
+                id='password'
+                type='password'
+                placeholder='Enter password'
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+
+            <button type='submit'>Sign in</button>
+          </form>
+
+          <p className='burnsville-account-auth__switch'>
+            New customer?{' '}
+            <Link to={redirect ? `/register?redirect=${redirect}` : '/register'}>
+              Register
+            </Link>
+          </p>
+        </div>
+      </div>
+    </section>
   );
 };
 
-// <---- EXPORT ---->
+LoginScreen.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+  location: PropTypes.shape({
+    search: PropTypes.string.isRequired,
+  }).isRequired,
+};
+
 export default LoginScreen;

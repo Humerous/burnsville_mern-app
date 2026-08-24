@@ -1,38 +1,32 @@
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Form, Button, Row, Col } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-import FormContainer from '../components/FormContainer';
+import Meta from '../components/Meta';
 import { register } from '../actions/userActions';
+import './account-auth.css';
 
-// <---- USER REGISTER SCREEN FUNCTION -  location, history, dispatch, userList, userLogin, userDelete ---->
 const RegisterScreen = ({ location, history }) => {
-  // <---- SET REGISTER STATE - setName, setEmail , setPassword, setConfirmPassword, setMessage ---->
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState(null);
-
-  // <---- REGISTER - dsipatch state ---->
   const dispatch = useDispatch();
 
-  // <---- REGISTER - userRegister state ---->
   const userRegister = useSelector((state) => state.userRegister);
   const { loading, error, userInfo } = userRegister;
 
   const redirect = location.search ? location.search.split('=')[1] : '/';
 
-  // <---- REGISTER EFFECT FOR USER INFO - info , isAdmin  ---->
   useEffect(() => {
     if (userInfo) {
       history.push(redirect);
     }
   }, [history, userInfo, redirect]);
 
-  // <---- SUBMIT  REGISTER HANDLER -  password is correct ---->
   const submitHandler = (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
@@ -43,68 +37,100 @@ const RegisterScreen = ({ location, history }) => {
   };
 
   return (
-    <FormContainer>
-      <h1>Sign Up</h1>
-      {message && <Message variant='danger'>{message}</Message>}
-      {error && <Message variant='danger'>{error}</Message>}
-      {loading && <Loader />}
-      <Form onSubmit={submitHandler}>
-        <Form.Group controlId='name'>
-          <Form.Label>Name</Form.Label>
-          <Form.Control
-            type='name'
-            placeholder='Enter name'
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
+    <section
+      className='burnsville-account-auth burnsville-account-auth--register'
+      aria-labelledby='burnsville-register-title'
+    >
+      <Meta
+        title='Register | Burnsville'
+        description='Create a Burnsville account.'
+      />
 
-        <Form.Group controlId='email'>
-          <Form.Label>Email Address</Form.Label>
-          <Form.Control
-            type='email'
-            placeholder='Enter email'
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
+      <div className='burnsville-account-auth__inner'>
+        <aside className='burnsville-account-auth__introduction'>
+          <p className='burnsville-account-auth__eyebrow'>Create an account</p>
+          <h2>Join Burnsville</h2>
+          <p>Create an account to keep your details and orders together.</p>
+          <div className='burnsville-account-auth__accent' aria-hidden='true' />
+        </aside>
 
-        <Form.Group controlId='password'>
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type='password'
-            placeholder='Enter password'
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
+        <div className='burnsville-account-auth__panel'>
+          <header>
+            <p className='burnsville-account-auth__eyebrow'>New account</p>
+            <h1 id='burnsville-register-title'>Register</h1>
+          </header>
 
-        <Form.Group controlId='confirmPassword'>
-          <Form.Label>Confirm Password</Form.Label>
-          <Form.Control
-            type='password'
-            placeholder='Confirm password'
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
+          {message && <Message variant='danger'>{message}</Message>}
+          {error && <Message variant='danger'>{error}</Message>}
+          {loading && <Loader />}
 
-        <Button type='submit' variant='primary'>
-          Register
-        </Button>
-      </Form>
+          <form onSubmit={submitHandler}>
+            <div className='burnsville-account-auth__field'>
+              <label htmlFor='name'>Name</label>
+              <input
+                id='name'
+                type='name'
+                placeholder='Enter name'
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
 
-      <Row className='py-3'>
-        <Col>
-          Have an Account?{' '}
-          <Link to={redirect ? `/login?redirect=${redirect}` : '/login'}>
-            Login
-          </Link>
-        </Col>
-      </Row>
-    </FormContainer>
+            <div className='burnsville-account-auth__field'>
+              <label htmlFor='email'>Email address</label>
+              <input
+                id='email'
+                type='email'
+                placeholder='Enter email'
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+
+            <div className='burnsville-account-auth__field'>
+              <label htmlFor='password'>Password</label>
+              <input
+                id='password'
+                type='password'
+                placeholder='Enter password'
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+
+            <div className='burnsville-account-auth__field'>
+              <label htmlFor='confirmPassword'>Confirm password</label>
+              <input
+                id='confirmPassword'
+                type='password'
+                placeholder='Confirm password'
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+            </div>
+
+            <button type='submit'>Register</button>
+          </form>
+
+          <p className='burnsville-account-auth__switch'>
+            Have an account?{' '}
+            <Link to={redirect ? `/login?redirect=${redirect}` : '/login'}>
+              Login
+            </Link>
+          </p>
+        </div>
+      </div>
+    </section>
   );
 };
 
-// <---- EXPORT ---->
+RegisterScreen.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+  location: PropTypes.shape({
+    search: PropTypes.string.isRequired,
+  }).isRequired,
+};
+
 export default RegisterScreen;

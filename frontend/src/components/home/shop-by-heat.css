@@ -1,0 +1,465 @@
+.burnsville-heat-strip,
+.burnsville-heat-strip * {
+  box-sizing: border-box;
+}
+
+.burnsville-heat-strip {
+  --heat-strip-cream: var(--burnsville-cream, #f3ede4);
+  --heat-strip-onyx: var(--burnsville-onyx, #111111);
+  --heat-strip-red: var(--burnsville-chilli, #d2282b);
+  --heat-strip-rule: rgba(17, 17, 17, 0.22);
+  background-color: var(--heat-strip-cream);
+  background-image:
+    radial-gradient(circle at 22% 34%, rgba(17, 17, 17, 0.09) 0 0.7px, transparent 1px),
+    radial-gradient(circle at 75% 68%, rgba(184, 35, 27, 0.07) 0 0.7px, transparent 1px);
+  background-size: 31px 37px, 43px 47px;
+  border-bottom: 1px solid var(--heat-strip-rule);
+  color: var(--heat-strip-onyx);
+  margin-left: calc(50% - 50vw);
+  position: relative;
+  width: 100vw;
+}
+
+.burnsville-heat-strip__inner {
+  align-items: stretch;
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr) 148px;
+  margin: 0 auto;
+  max-width: 1440px;
+  min-height: 108px;
+  padding: 0 44px;
+}
+
+.burnsville-heat-strip__heading {
+  align-items: center;
+  border-right: 1px solid var(--heat-strip-rule);
+  display: flex;
+  min-width: 0;
+  padding-right: 26px;
+}
+
+.burnsville-heat-strip__heading h2 {
+  color: var(--heat-strip-onyx);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 1.6rem;
+  font-stretch: condensed;
+  font-weight: 900;
+  letter-spacing: 0.035em;
+  line-height: 0.92;
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
+}
+
+.burnsville-heat-strip__heading h2 span {
+  display: block;
+}
+
+.burnsville-heat-strip__nav,
+.burnsville-heat-strip__levels,
+.burnsville-heat-strip__item {
+  min-width: 0;
+}
+
+.burnsville-heat-strip__nav {
+  height: 100%;
+}
+
+.burnsville-heat-strip__levels {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  height: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.burnsville-heat-strip__item {
+  display: flex;
+}
+
+.burnsville-heat-strip__level {
+  --heat-color: #d2282b;
+  --heat-label-color: #b8231b;
+  --pepper-scale: 1;
+  --flare-opacity: 0;
+  align-items: center;
+  border-right: 1px solid var(--heat-strip-rule);
+  color: var(--heat-strip-onyx);
+  display: grid;
+  flex: 1;
+  gap: 11px;
+  grid-template-columns: 44px minmax(0, 1fr);
+  min-height: 84px;
+  min-width: 0;
+  padding: 12px 16px;
+  text-decoration: none;
+  transition:
+    background-color 150ms cubic-bezier(0.25, 0.7, 0.2, 1),
+    box-shadow 150ms cubic-bezier(0.25, 0.7, 0.2, 1),
+    transform 150ms cubic-bezier(0.25, 0.7, 0.2, 1);
+}
+
+.burnsville-heat-strip__level:hover {
+  background: rgba(17, 17, 17, 0.045);
+  box-shadow: inset 0 -3px 0 var(--heat-color);
+  color: var(--heat-strip-onyx);
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+.burnsville-heat-strip__level:active {
+  background: rgba(17, 17, 17, 0.075);
+  transform: scale(0.985);
+}
+
+.burnsville-heat-strip__level:focus-visible,
+.burnsville-heat-strip__guide-link:focus-visible {
+  outline: 3px solid var(--heat-strip-onyx);
+  outline-offset: -4px;
+  position: relative;
+  z-index: 2;
+}
+
+.burnsville-heat-strip__level--mild {
+  --heat-color: #3e7f3a;
+  --heat-label-color: #356d32;
+  --pepper-scale: 0.82;
+}
+
+.burnsville-heat-strip__level--medium {
+  --heat-color: #d98b21;
+  --heat-label-color: #9a5800;
+  --pepper-scale: 0.9;
+}
+
+.burnsville-heat-strip__level--hot {
+  --heat-color: #d2282b;
+  --heat-label-color: #b8231b;
+  --pepper-scale: 0.98;
+}
+
+.burnsville-heat-strip__level--very-hot {
+  --heat-color: #c72025;
+  --heat-label-color: #a7191e;
+  --pepper-scale: 1.05;
+  --flare-opacity: 0.66;
+}
+
+.burnsville-heat-strip__level--extreme {
+  --heat-color: #ad171d;
+  --heat-label-color: #8d1117;
+  --pepper-scale: 1.12;
+  --flare-opacity: 1;
+}
+
+.burnsville-heat-strip__pepper {
+  display: block;
+  height: 54px;
+  position: relative;
+  transform: scale(var(--pepper-scale));
+  transform-origin: center;
+  width: 40px;
+}
+
+.burnsville-heat-strip__pepper-body {
+  background: var(--heat-color);
+  border: 1px solid rgba(17, 17, 17, 0.72);
+  border-radius: 72% 28% 76% 36%;
+  box-shadow:
+    inset -4px -3px 0 rgba(17, 17, 17, 0.14),
+    1px 2px 0 rgba(17, 17, 17, 0.28);
+  height: 38px;
+  left: 8px;
+  position: absolute;
+  top: 12px;
+  transform: rotate(23deg) skewY(-7deg);
+  width: 21px;
+}
+
+.burnsville-heat-strip__pepper-body::after {
+  border-left: 2px solid rgba(243, 237, 228, 0.58);
+  border-radius: 50%;
+  content: '';
+  height: 21px;
+  left: 5px;
+  position: absolute;
+  top: 7px;
+  transform: rotate(4deg);
+  width: 5px;
+}
+
+.burnsville-heat-strip__pepper-stem {
+  border-left: 4px solid #3e6d31;
+  border-radius: 78% 0 0 0;
+  border-top: 3px solid #3e6d31;
+  height: 13px;
+  left: 18px;
+  position: absolute;
+  top: 4px;
+  transform: rotate(20deg);
+  width: 9px;
+}
+
+.burnsville-heat-strip__pepper-flare {
+  border-left: 3px solid #e89419;
+  border-radius: 50%;
+  bottom: 2px;
+  height: 20px;
+  left: 1px;
+  opacity: var(--flare-opacity);
+  position: absolute;
+  transform: rotate(-17deg);
+  width: 8px;
+}
+
+.burnsville-heat-strip__pepper-flare::after {
+  border-left: 2px solid var(--heat-color);
+  border-radius: 50%;
+  bottom: 2px;
+  content: '';
+  height: 14px;
+  left: 5px;
+  position: absolute;
+  transform: rotate(17deg);
+  width: 7px;
+}
+
+.burnsville-heat-strip__level-copy {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.burnsville-heat-strip__level-copy strong {
+  color: var(--heat-label-color);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.035em;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+.burnsville-heat-strip__level-copy > span {
+  color: var(--heat-strip-onyx);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  margin-top: 7px;
+  white-space: nowrap;
+}
+
+.burnsville-heat-strip__guide-link {
+  align-items: center;
+  align-self: center;
+  color: var(--heat-strip-onyx);
+  display: inline-flex;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 0.7rem;
+  gap: 9px;
+  justify-self: end;
+  letter-spacing: 0.08em;
+  min-height: 44px;
+  padding: 10px 2px 8px;
+  position: relative;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.burnsville-heat-strip__guide-link::after {
+  background: var(--heat-strip-red);
+  bottom: 7px;
+  content: '';
+  height: 1px;
+  left: 2px;
+  position: absolute;
+  right: 2px;
+  transform: scaleX(0.34);
+  transform-origin: left;
+  transition: transform 150ms cubic-bezier(0.25, 0.7, 0.2, 1);
+}
+
+.burnsville-heat-strip__guide-link:hover,
+.burnsville-heat-strip__guide-link:focus-visible {
+  color: var(--heat-strip-red);
+  text-decoration: none;
+}
+
+.burnsville-heat-strip__guide-link:hover::after,
+.burnsville-heat-strip__guide-link:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.burnsville-heat-strip__guide-link > span {
+  color: var(--heat-strip-red);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+@media (max-width: 1120px) {
+  .burnsville-heat-strip__inner {
+    grid-template-columns: 126px minmax(0, 1fr) 128px;
+    padding-inline: 22px;
+  }
+
+  .burnsville-heat-strip__heading {
+    padding-right: 18px;
+  }
+
+  .burnsville-heat-strip__heading h2 {
+    font-size: 1.4rem;
+  }
+
+  .burnsville-heat-strip__level {
+    gap: 6px;
+    grid-template-columns: 38px minmax(0, 1fr);
+    padding-inline: 8px;
+  }
+
+  .burnsville-heat-strip__level-copy strong {
+    font-size: 0.84rem;
+  }
+
+  .burnsville-heat-strip__level-copy > span {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .burnsville-heat-strip__inner {
+    grid-template-columns: minmax(0, 1fr) auto;
+    min-height: 0;
+    padding: 16px 20px 14px;
+  }
+
+  .burnsville-heat-strip__heading {
+    border-right: 0;
+    min-height: 44px;
+    padding-right: 12px;
+  }
+
+  .burnsville-heat-strip__heading h2 {
+    display: flex;
+    font-size: 1.3rem;
+    gap: 7px;
+    line-height: 1;
+  }
+
+  .burnsville-heat-strip__heading h2 span {
+    display: inline;
+  }
+
+  .burnsville-heat-strip__guide-link {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .burnsville-heat-strip__nav {
+    border-top: 1px solid var(--heat-strip-rule);
+    grid-column: 1 / -1;
+    grid-row: 2;
+    margin-top: 7px;
+  }
+
+  .burnsville-heat-strip__level {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    justify-content: center;
+    min-height: 100px;
+    padding: 9px 3px 10px;
+    text-align: center;
+  }
+
+  .burnsville-heat-strip__pepper {
+    height: 47px;
+    width: 34px;
+  }
+
+  .burnsville-heat-strip__level-copy {
+    align-items: center;
+  }
+
+  .burnsville-heat-strip__level-copy strong {
+    font-size: 0.7rem;
+    line-height: 1;
+    white-space: normal;
+  }
+
+  .burnsville-heat-strip__level-copy > span {
+    font-size: 0.66rem;
+    margin-top: 4px;
+  }
+}
+
+@media (max-width: 560px) {
+  .burnsville-heat-strip__inner {
+    padding: 13px 16px 12px;
+  }
+
+  .burnsville-heat-strip__heading h2 {
+    font-size: 1.15rem;
+  }
+
+  .burnsville-heat-strip__guide-link {
+    font-size: 0.64rem;
+    gap: 6px;
+    letter-spacing: 0.06em;
+  }
+
+  .burnsville-heat-strip__level {
+    min-height: 98px;
+    padding-inline: 2px;
+  }
+
+  .burnsville-heat-strip__pepper {
+    transform: scale(calc(var(--pepper-scale) * 0.9));
+  }
+
+  .burnsville-heat-strip__level-copy strong {
+    font-size: 0.64rem;
+    letter-spacing: 0.025em;
+  }
+
+  .burnsville-heat-strip__level-copy > span {
+    font-size: 0.61rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .burnsville-heat-strip__inner {
+    padding-inline: 10px;
+  }
+
+  .burnsville-heat-strip__heading h2 {
+    font-size: 1.02rem;
+  }
+
+  .burnsville-heat-strip__guide-link {
+    font-size: 0.58rem;
+  }
+
+  .burnsville-heat-strip__level-copy strong {
+    font-size: 0.58rem;
+  }
+
+  .burnsville-heat-strip__level-copy > span {
+    font-size: 0.56rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .burnsville-heat-strip__level,
+  .burnsville-heat-strip__guide-link::after {
+    transition-duration: 0.01ms !important;
+  }
+
+  .burnsville-heat-strip__level:hover,
+  .burnsville-heat-strip__level:active {
+    transform: none;
+  }
+}

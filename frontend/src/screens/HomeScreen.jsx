@@ -8,6 +8,7 @@ import Loader from '../components/Loader';
 import Paginate from '../components/Paginate';
 import ProductCarousel from '../components/ProductCarousel';
 import HomeHero from '../components/home/HomeHero';
+import ShopByHeat from '../components/home/ShopByHeat';
 import Meta from '../components/Meta';
 import { listProducts } from '../actions/productActions';
 
@@ -39,7 +40,10 @@ const HomeScreen = ({ match }) => {
     <>
       <Meta />
       {isHomepage ? (
-        <HomeHero />
+        <>
+          <HomeHero />
+          <ShopByHeat />
+        </>
       ) : !keyword ? (
         <ProductCarousel />
       ) : (

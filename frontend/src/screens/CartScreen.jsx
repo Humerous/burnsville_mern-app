@@ -1,131 +1,184 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  Row,
-  Col,
-  ListGroup,
-  Image,
-  Form,
-  Button,
-  Card,
-} from 'react-bootstrap';
-import Message from '../components/Message';
+import Meta from '../components/Meta';
 import { addToCart, removeFromCart } from '../actions/cartActions';
+import './cart-screen.css';
 
-// <---- CART SCREEN FUNCTION - location, history, dispatch, setEmail, setPassword ---->
+const formatPrice = (price) => `R${Number(price).toFixed(2)}`;
+
 const CartScreen = ({ match, location, history }) => {
-  // <---- CART - productId by params---->
   const productId = match.params.id;
-
-  // <---- CART - productId by params---->
   const qty = location.search ? Number(location.search.split('=')[1]) : 1;
-
-  // <---- CART - dispatch state ---->
   const dispatch = useDispatch();
 
-  // <---- CART - cartItem ---->
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
-  // <---- CART EFFECT FOR USER INFO - keyword, pageNumber   ---->
   useEffect(() => {
     if (productId) {
       dispatch(addToCart(productId, qty));
     }
   }, [dispatch, productId, qty]);
 
-  // <---- CART HANDLER - removeFromCartHandler ---->
   const removeFromCartHandler = (id) => {
     dispatch(removeFromCart(id));
   };
 
-  // <---- CART HANDLER - checkoutHandler ---->
   const checkoutHandler = () => {
     history.push('/login?redirect=shipping');
   };
 
+  const itemCount = cartItems.reduce((total, item) => total + item.qty, 0);
+  const subtotal = cartItems.reduce(
+    (total, item) => total + item.qty * item.price,
+    0
+  );
+
   return (
-    <Row>
-      <Col md={8}>
-        <h1>Shopping Cart</h1>
-        {cartItems.length === 0 ? (
-          <Message>
-            Your cart is empty <Link to='/'>Go Back</Link>
-          </Message>
-        ) : (
-          <ListGroup variant='flush'>
-            {cartItems.map((item) => (
-              <ListGroup.Item key={item.product}>
-                <Row>
-                  <Col md={2}>
-                    <Image src={item.image} alt={item.name} fluid rounded />
-                  </Col>
-                  <Col md={3}>
-                    <Link to={`/product/${item.product}`}>{item.name}</Link>
-                  </Col>
-                  <Col md={2}>R{item.price}</Col>
-                  <Col md={2}>
-                    <Form.Control
-                      as='select'
-                      value={item.qty}
-                      onChange={(e) =>
-                        dispatch(
-                          addToCart(item.product, Number(e.target.value))
-                        )
-                      }
+    <section className='burnsville-cart' aria-labelledby='burnsville-cart-title'>
+      <Meta
+        title='Shopping Cart | Burnsville'
+        description='Review the items in your Burnsville shopping cart.'
+      />
+
+      <header className='burnsville-cart__header'>
+        <div className='burnsville-cart__header-inner'>
+          <nav className='burnsville-cart__breadcrumb' aria-label='Breadcrumb'>
+            <Link to='/'>Home</Link>
+            <span aria-hidden='true'>/</span>
+            <span aria-current='page'>Cart</span>
+          </nav>
+          <p className='burnsville-cart__eyebrow'>Your selection</p>
+          <h1 id='burnsville-cart-title'>Shopping cart</h1>
+          <p className='burnsville-cart__intro'>
+            Review your items and quantities before checkout.
+          </p>
+        </div>
+      </header>
+
+      <div className='burnsville-cart__inner'>
+        <div className='burnsville-cart__layout'>
+          <div className='burnsville-cart__items-panel'>
+            <div className='burnsville-cart__items-heading'>
+              <h2>Cart items</h2>
+              <span aria-live='polite'>
+                {itemCount} {itemCount === 1 ? 'item' : 'items'}
+              </span>
+            </div>
+
+            {cartItems.length === 0 ? (
+              <div className='burnsville-cart__empty' role='status'>
+                <p className='burnsville-cart__eyebrow'>Cart empty</p>
+                <h2>Your cart is empty</h2>
+                <p>Choose a sauce to begin your order.</p>
+                <Link to='/'>Continue shopping</Link>
+              </div>
+            ) : (
+              <ul className='burnsville-cart__items'>
+                {cartItems.map((item) => (
+                  <li className='burnsville-cart__item' key={item.product}>
+                    <Link
+                      className='burnsville-cart__item-image'
+                      to={`/product/${item.product}`}
                     >
-                      {[...Array(item.countInStock).keys()].map((x) => (
-                        <option key={x + 1} value={x + 1}>
-                          {x + 1}
-                        </option>
-                      ))}
-                    </Form.Control>
-                  </Col>
-                  <Col md={2}>
-                    <Button
+                      <img src={item.image} alt={item.name} />
+                    </Link>
+
+                    <div className='burnsville-cart__item-details'>
+                      <p className='burnsville-cart__item-label'>Burnsville cart item</p>
+                      <h2>
+                        <Link to={`/product/${item.product}`}>
+                          {item.name}
+                        </Link>
+                      </h2>
+                      <p className='burnsville-cart__unit-price'>
+                        {formatPrice(item.price)} each
+                      </p>
+                    </div>
+
+                    <div className='burnsville-cart__quantity'>
+                      <label htmlFor={`cart-quantity-${item.product}`}>
+                        Quantity
+                      </label>
+                      <select
+                        id={`cart-quantity-${item.product}`}
+                        value={item.qty}
+                        onChange={(event) =>
+                          dispatch(
+                            addToCart(item.product, Number(event.target.value))
+                          )
+                        }
+                      >
+                        {[...Array(item.countInStock).keys()].map((value) => (
+                          <option key={value + 1} value={value + 1}>
+                            {value + 1}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div className='burnsville-cart__item-total'>
+                      <span>Item total</span>
+                      <strong>{formatPrice(item.qty * item.price)}</strong>
+                    </div>
+
+                    <button
+                      className='burnsville-cart__remove'
                       type='button'
-                      variant='light'
                       onClick={() => removeFromCartHandler(item.product)}
+                      aria-label={`Remove ${item.name} from cart`}
                     >
-                      <i className='fas fa-trash' style={{ color: 'red' }}></i>
-                    </Button>
-                  </Col>
-                </Row>
-              </ListGroup.Item>
-            ))}
-          </ListGroup>
-        )}
-      </Col>
-      <Col md={4}>
-        <Card>
-          <ListGroup variant='flush'>
-            <ListGroup.Item>
-              <h2>
-                Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)})
-                items
-              </h2>
-              R
-              {cartItems
-                .reduce((acc, item) => acc + item.qty * item.price, 0)
-                .toFixed(2)}
-            </ListGroup.Item>
-            <ListGroup.Item>
-              <Button
-                type='button'
-                className='btn-block'
-                disabled={cartItems.length === 0}
-                onClick={checkoutHandler}
-              >
-                Proceed To Checkout
-              </Button>
-            </ListGroup.Item>
-          </ListGroup>
-        </Card>
-      </Col>
-    </Row>
+                      Remove
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+
+          <aside className='burnsville-cart__summary' aria-labelledby='cart-summary-title'>
+            <p className='burnsville-cart__eyebrow'>Order total</p>
+            <h2 id='cart-summary-title'>Summary</h2>
+
+            <dl>
+              <div>
+                <dt>Items</dt>
+                <dd>{itemCount}</dd>
+              </div>
+              <div className='burnsville-cart__subtotal'>
+                <dt>Subtotal</dt>
+                <dd>{formatPrice(subtotal)}</dd>
+              </div>
+            </dl>
+
+            <button
+              type='button'
+              disabled={cartItems.length === 0}
+              onClick={checkoutHandler}
+            >
+              Proceed to checkout
+            </button>
+          </aside>
+        </div>
+      </div>
+    </section>
   );
 };
 
-// <---- EXPORT ---->
+CartScreen.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+  location: PropTypes.shape({
+    search: PropTypes.string.isRequired,
+  }).isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string,
+    }).isRequired,
+  }).isRequired,
+};
+
 export default CartScreen;

@@ -1,0 +1,546 @@
+.burnsville-cart,
+.burnsville-cart * {
+  box-sizing: border-box;
+}
+
+.burnsville-cart {
+  --cart-cream: var(--burnsville-cream, #f3ede4);
+  --cart-onyx: var(--burnsville-onyx, #111111);
+  --cart-red: var(--burnsville-chilli, #d2282b);
+  --cart-red-dark: var(--burnsville-chilli-text, #b8231b);
+  --cart-green: var(--burnsville-pepper, #3e7f3a);
+  --cart-orange: #d98b21;
+  background-color: var(--cart-cream);
+  background-image:
+    radial-gradient(circle at 16% 28%, rgba(17, 17, 17, 0.08) 0 0.7px, transparent 1px),
+    radial-gradient(circle at 81% 72%, rgba(184, 35, 27, 0.07) 0 0.7px, transparent 1px);
+  background-size: 37px 41px, 43px 47px;
+  color: var(--cart-onyx);
+  margin-bottom: -1rem;
+  margin-left: calc(50% - 50vw);
+  margin-top: -1rem;
+  min-height: 80vh;
+  width: 100vw;
+}
+
+.burnsville-cart__header {
+  border-bottom: 1px solid rgba(17, 17, 17, 0.3);
+  position: relative;
+}
+
+.burnsville-cart__header::after {
+  background: linear-gradient(90deg, var(--cart-red-dark), transparent 72%);
+  bottom: 0;
+  content: '';
+  height: 4px;
+  left: 0;
+  position: absolute;
+  right: 0;
+}
+
+.burnsville-cart__header-inner,
+.burnsville-cart__inner {
+  margin: 0 auto;
+  max-width: 1440px;
+}
+
+.burnsville-cart__header-inner {
+  padding: 38px 44px 44px;
+  position: relative;
+}
+
+.burnsville-cart__header-inner::after {
+  background: linear-gradient(
+    90deg,
+    var(--cart-green) 0 29%,
+    transparent 29% 35%,
+    var(--cart-orange) 35% 64%,
+    transparent 64% 70%,
+    var(--cart-red) 70% 100%
+  );
+  bottom: 46px;
+  content: '';
+  height: 4px;
+  opacity: 0.82;
+  position: absolute;
+  right: 44px;
+  width: 116px;
+}
+
+.burnsville-cart__breadcrumb {
+  align-items: center;
+  color: rgba(17, 17, 17, 0.58);
+  display: flex;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.7rem;
+  gap: 8px;
+  letter-spacing: 0.07em;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+}
+
+.burnsville-cart__breadcrumb a {
+  color: var(--cart-red-dark);
+  text-decoration: none;
+}
+
+.burnsville-cart__eyebrow,
+.burnsville-cart__item-label {
+  color: var(--cart-red-dark);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 0.76rem;
+  letter-spacing: 0.13em;
+  margin: 0 0 10px;
+  text-transform: uppercase;
+}
+
+.burnsville-cart__eyebrow::after {
+  background: var(--cart-red-dark);
+  content: '';
+  display: inline-block;
+  height: 1px;
+  margin-left: 12px;
+  transform: translateY(-3px);
+  width: 50px;
+}
+
+.burnsville-cart__header h1,
+.burnsville-cart__empty h2 {
+  color: var(--cart-onyx);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: clamp(3.4rem, 6vw, 6rem);
+  font-weight: 900;
+  letter-spacing: 0.015em;
+  line-height: 0.92;
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
+}
+
+.burnsville-cart__intro {
+  color: rgba(17, 17, 17, 0.72);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 18px 0 0;
+}
+
+.burnsville-cart__inner {
+  padding: 40px 44px 72px;
+}
+
+.burnsville-cart__layout {
+  align-items: start;
+  display: grid;
+  gap: 30px;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 380px);
+}
+
+.burnsville-cart__items-panel {
+  min-width: 0;
+}
+
+.burnsville-cart__items-heading {
+  align-items: center;
+  border-bottom: 1px solid rgba(17, 17, 17, 0.3);
+  display: flex;
+  justify-content: space-between;
+  min-height: 54px;
+}
+
+.burnsville-cart__items-heading h2,
+.burnsville-cart__summary h2,
+.burnsville-cart__item-details h2 {
+  color: var(--cart-onyx);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  letter-spacing: 0.04em;
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
+}
+
+.burnsville-cart__items-heading h2 {
+  font-size: 1.15rem;
+}
+
+.burnsville-cart__items-heading span {
+  color: rgba(17, 17, 17, 0.66);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.burnsville-cart__items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.burnsville-cart__item {
+  align-items: center;
+  border-bottom: 1px solid rgba(17, 17, 17, 0.28);
+  display: grid;
+  gap: 22px;
+  grid-template-columns: 124px minmax(180px, 1fr) 100px 112px 74px;
+  padding: 24px 0;
+}
+
+.burnsville-cart__item-image {
+  align-items: center;
+  background:
+    radial-gradient(circle at center, rgba(210, 40, 43, 0.14), transparent 48%),
+    var(--cart-onyx);
+  display: flex;
+  height: 124px;
+  justify-content: center;
+  overflow: hidden;
+  padding: 12px;
+}
+
+.burnsville-cart__item-image img {
+  filter: drop-shadow(0 8px 8px rgba(0, 0, 0, 0.34));
+  height: 100%;
+  object-fit: contain;
+  transition: transform 200ms cubic-bezier(0.25, 0.7, 0.2, 1);
+  width: 100%;
+}
+
+.burnsville-cart__item-image:hover img {
+  transform: scale(1.035);
+}
+
+.burnsville-cart__item-label {
+  font-size: 0.64rem;
+  margin-bottom: 6px;
+}
+
+.burnsville-cart__item-details h2 {
+  font-size: 1.32rem;
+  line-height: 1.08;
+}
+
+.burnsville-cart__item-details h2 a {
+  color: var(--cart-onyx);
+  text-decoration: none;
+}
+
+.burnsville-cart__unit-price {
+  color: rgba(17, 17, 17, 0.64);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.78rem;
+  margin: 10px 0 0;
+}
+
+.burnsville-cart__quantity,
+.burnsville-cart__item-total {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.burnsville-cart__quantity label,
+.burnsville-cart__item-total span {
+  color: rgba(17, 17, 17, 0.64);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.66rem;
+  letter-spacing: 0.07em;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.burnsville-cart__quantity select {
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(17, 17, 17, 0.46);
+  border-radius: 0;
+  box-shadow: none;
+  color: var(--cart-onyx);
+  font-family: Arial, Helvetica, sans-serif;
+  height: 44px;
+  min-width: 72px;
+  padding: 8px 30px 8px 12px;
+}
+
+.burnsville-cart__item-total strong {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+}
+
+.burnsville-cart__remove {
+  background: transparent;
+  border: 0;
+  color: var(--cart-red-dark);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.07em;
+  min-height: 44px;
+  padding: 8px 4px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-transform: uppercase;
+}
+
+.burnsville-cart__remove:hover {
+  color: var(--cart-onyx);
+}
+
+.burnsville-cart__summary {
+  background: var(--cart-onyx);
+  border-top: 4px solid var(--cart-red);
+  color: var(--cart-cream);
+  padding: 30px;
+  position: sticky;
+  top: 92px;
+}
+
+.burnsville-cart__summary .burnsville-cart__eyebrow {
+  color: var(--cart-orange);
+}
+
+.burnsville-cart__summary .burnsville-cart__eyebrow::after {
+  background: var(--cart-orange);
+}
+
+.burnsville-cart__summary h2 {
+  color: var(--cart-cream);
+  font-size: 2.2rem;
+  line-height: 1;
+}
+
+.burnsville-cart__summary dl {
+  margin: 28px 0;
+}
+
+.burnsville-cart__summary dl div {
+  align-items: center;
+  border-top: 1px solid rgba(243, 237, 228, 0.2);
+  display: flex;
+  font-family: Arial, Helvetica, sans-serif;
+  justify-content: space-between;
+  padding: 16px 0;
+}
+
+.burnsville-cart__summary dt,
+.burnsville-cart__summary dd {
+  margin: 0;
+}
+
+.burnsville-cart__summary dt {
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.burnsville-cart__summary dd {
+  font-weight: 700;
+}
+
+.burnsville-cart__summary .burnsville-cart__subtotal {
+  border-bottom: 1px solid rgba(243, 237, 228, 0.2);
+}
+
+.burnsville-cart__summary .burnsville-cart__subtotal dd {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 1.42rem;
+  letter-spacing: 0.05em;
+}
+
+.burnsville-cart__summary > button,
+.burnsville-cart__empty > a {
+  align-items: center;
+  background: var(--cart-red);
+  border: 1px solid var(--cart-red);
+  border-radius: 0;
+  color: #ffffff;
+  display: inline-flex;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 0.78rem;
+  justify-content: center;
+  letter-spacing: 0.09em;
+  min-height: 48px;
+  padding: 12px 22px;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition:
+    background-color 150ms cubic-bezier(0.25, 0.7, 0.2, 1),
+    border-color 150ms cubic-bezier(0.25, 0.7, 0.2, 1),
+    color 150ms cubic-bezier(0.25, 0.7, 0.2, 1),
+    transform 150ms cubic-bezier(0.25, 0.7, 0.2, 1);
+}
+
+.burnsville-cart__summary > button {
+  width: 100%;
+}
+
+.burnsville-cart__summary > button:hover:not(:disabled),
+.burnsville-cart__empty > a:hover {
+  background: var(--cart-cream);
+  border-color: var(--cart-cream);
+  color: var(--cart-onyx);
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+.burnsville-cart__summary > button:disabled {
+  background: rgba(243, 237, 228, 0.16);
+  border-color: transparent;
+  color: rgba(243, 237, 228, 0.42);
+  cursor: not-allowed;
+}
+
+.burnsville-cart__empty {
+  align-items: center;
+  border: 1px solid rgba(17, 17, 17, 0.28);
+  border-top: 3px solid var(--cart-orange);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 390px;
+  padding: 48px 24px;
+  text-align: center;
+}
+
+.burnsville-cart__empty h2 {
+  font-size: clamp(2.5rem, 5vw, 4.3rem);
+  max-width: 620px;
+}
+
+.burnsville-cart__empty > p:not(.burnsville-cart__eyebrow) {
+  color: rgba(17, 17, 17, 0.68);
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 18px 0 24px;
+}
+
+.burnsville-cart a:focus-visible,
+.burnsville-cart button:focus-visible,
+.burnsville-cart select:focus-visible {
+  outline: 3px solid var(--cart-red-dark);
+  outline-offset: 3px;
+}
+
+@media (max-width: 1120px) {
+  .burnsville-cart__item {
+    gap: 18px;
+    grid-template-columns: 108px minmax(160px, 1fr) 90px 102px 68px;
+  }
+
+  .burnsville-cart__item-image {
+    height: 108px;
+  }
+}
+
+@media (max-width: 920px) {
+  .burnsville-cart__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .burnsville-cart__summary {
+    position: static;
+  }
+}
+
+@media (max-width: 700px) {
+  .burnsville-cart__header-inner,
+  .burnsville-cart__inner {
+    padding-inline: 24px;
+  }
+
+  .burnsville-cart__header-inner::after {
+    right: 24px;
+  }
+
+  .burnsville-cart__item {
+    align-items: start;
+    grid-template-columns: 104px minmax(0, 1fr);
+  }
+
+  .burnsville-cart__item-image {
+    grid-row: 1 / span 2;
+    height: 104px;
+  }
+
+  .burnsville-cart__quantity,
+  .burnsville-cart__item-total,
+  .burnsville-cart__remove {
+    grid-column: 2;
+  }
+
+  .burnsville-cart__quantity,
+  .burnsville-cart__item-total {
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .burnsville-cart__remove {
+    justify-self: start;
+  }
+}
+
+@media (max-width: 480px) {
+  .burnsville-cart__header-inner {
+    padding: 30px 18px 36px;
+  }
+
+  .burnsville-cart__header-inner::after {
+    bottom: 38px;
+    right: 18px;
+    width: 76px;
+  }
+
+  .burnsville-cart__header h1 {
+    font-size: clamp(3rem, 17vw, 4.3rem);
+  }
+
+  .burnsville-cart__intro {
+    max-width: 27ch;
+  }
+
+  .burnsville-cart__inner {
+    padding: 30px 18px 50px;
+  }
+
+  .burnsville-cart__layout {
+    gap: 24px;
+  }
+
+  .burnsville-cart__item {
+    gap: 16px;
+    grid-template-columns: 88px minmax(0, 1fr);
+    padding: 20px 0;
+  }
+
+  .burnsville-cart__item-image {
+    height: 88px;
+    padding: 9px;
+  }
+
+  .burnsville-cart__item-details h2 {
+    font-size: 1.14rem;
+  }
+
+  .burnsville-cart__summary {
+    padding: 26px 22px;
+  }
+
+  .burnsville-cart__empty {
+    min-height: 340px;
+    padding-inline: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .burnsville-cart__item-image img,
+  .burnsville-cart__summary > button,
+  .burnsville-cart__empty > a {
+    transition: none;
+  }
+
+  .burnsville-cart__item-image:hover img,
+  .burnsville-cart__summary > button:hover:not(:disabled),
+  .burnsville-cart__empty > a:hover {
+    transform: none;
+  }
+}

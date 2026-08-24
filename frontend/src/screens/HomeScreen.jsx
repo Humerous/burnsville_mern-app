@@ -7,6 +7,7 @@ import Message from '../components/Message';
 import Loader from '../components/Loader';
 import Paginate from '../components/Paginate';
 import ProductCarousel from '../components/ProductCarousel';
+import HomeHero from '../components/home/HomeHero';
 import Meta from '../components/Meta';
 import { listProducts } from '../actions/productActions';
 
@@ -17,6 +18,10 @@ const HomeScreen = ({ match }) => {
 
   // <---- HOME - pageNumber by params---->
   const pageNumber = match.params.pageNumber || 1;
+
+  // The approved Hero belongs only to the exact homepage route.
+  const isHomepage = match.path === '/' && !keyword;
+  const ProductListHeading = isHomepage ? 'h2' : 'h1';
 
   // <---- HOME - dispatch state ---->
   const dispatch = useDispatch();
@@ -33,14 +38,16 @@ const HomeScreen = ({ match }) => {
   return (
     <>
       <Meta />
-      {!keyword ? (
+      {isHomepage ? (
+        <HomeHero />
+      ) : !keyword ? (
         <ProductCarousel />
       ) : (
         <Link to='/' className='btn btn-warning'>
           Go Back
         </Link>
       )}
-      <h1>Latest Products</h1>
+      <ProductListHeading>Latest Products</ProductListHeading>
       {loading ? (
         <Loader />
       ) : error ? (

@@ -1,0 +1,494 @@
+.burnsville-home-hero,
+.burnsville-home-hero * {
+  box-sizing: border-box;
+}
+
+.burnsville-home-hero {
+  --hero-cream: var(--burnsville-cream, #f3ede4);
+  --hero-onyx: var(--burnsville-onyx, #111111);
+  --hero-red: var(--burnsville-chilli, #d2282b);
+  --hero-red-dark: var(--burnsville-chilli-text, #b8231b);
+  display: grid;
+  grid-template-columns: minmax(0, 54%) minmax(0, 46%);
+  margin-left: calc(50% - 50vw);
+  margin-top: -1rem;
+  min-height: clamp(420px, 32vw, 500px);
+  overflow: hidden;
+  position: relative;
+  width: 100vw;
+}
+
+.burnsville-home-hero__content {
+  align-items: center;
+  background-color: var(--hero-cream);
+  background-image:
+    radial-gradient(circle at 16% 22%, rgba(17, 17, 17, 0.12) 0 0.8px, transparent 1px),
+    radial-gradient(circle at 78% 38%, rgba(184, 35, 27, 0.08) 0 0.7px, transparent 1px),
+    linear-gradient(105deg, rgba(255, 255, 255, 0.18), transparent 48%);
+  background-size: 29px 31px, 37px 41px, 100% 100%;
+  color: var(--hero-onyx);
+  display: flex;
+  padding: clamp(54px, 5.2vw, 82px) 48px clamp(56px, 5.5vw, 88px)
+    max(56px, calc((100vw - 1440px) / 2 + 56px));
+  position: relative;
+  z-index: 2;
+}
+
+.burnsville-home-hero__content::after {
+  background: linear-gradient(90deg, transparent, rgba(17, 17, 17, 0.12));
+  bottom: 0;
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 1px;
+}
+
+.burnsville-home-hero__copy {
+  animation: burnsville-hero-copy-in 400ms cubic-bezier(0.25, 0.7, 0.2, 1) both;
+  max-width: 690px;
+  width: 100%;
+}
+
+.burnsville-home-hero__eyebrow {
+  color: var(--hero-onyx);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: clamp(0.78rem, 0.95vw, 0.95rem);
+  letter-spacing: 0.2em;
+  line-height: 1.25;
+  margin: 0 0 18px;
+  text-transform: uppercase;
+}
+
+.burnsville-home-hero__eyebrow::after {
+  background: var(--hero-red);
+  content: '';
+  display: inline-block;
+  height: 2px;
+  margin-left: 14px;
+  transform: translateY(-3px);
+  width: 42px;
+}
+
+.burnsville-home-hero__title {
+  color: var(--hero-onyx);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: clamp(3.65rem, 5.15vw, 5.4rem);
+  font-stretch: condensed;
+  font-weight: 900;
+  letter-spacing: 0.005em;
+  line-height: 0.91;
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
+}
+
+.burnsville-home-hero__title span {
+  display: block;
+}
+
+.burnsville-home-hero__title-accent {
+  color: var(--hero-red-dark);
+  margin-top: 7px;
+}
+
+.burnsville-home-hero__summary {
+  color: rgba(17, 17, 17, 0.82);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: clamp(1rem, 1.25vw, 1.15rem);
+  font-weight: 500;
+  line-height: 1.55;
+  margin: 24px 0 0;
+  max-width: 560px;
+}
+
+.burnsville-home-hero__actions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 28px;
+}
+
+.burnsville-home-hero__cta {
+  align-items: center;
+  border: 2px solid transparent;
+  display: inline-flex;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 0.86rem;
+  justify-content: center;
+  letter-spacing: 0.1em;
+  min-height: 48px;
+  padding: 12px 25px;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition:
+    background-color 150ms cubic-bezier(0.25, 0.7, 0.2, 1),
+    border-color 150ms cubic-bezier(0.25, 0.7, 0.2, 1),
+    color 150ms cubic-bezier(0.25, 0.7, 0.2, 1),
+    transform 150ms cubic-bezier(0.25, 0.7, 0.2, 1);
+}
+
+.burnsville-home-hero__cta:hover {
+  text-decoration: none;
+  transform: translateY(-2px);
+}
+
+.burnsville-home-hero__cta:active {
+  transform: scale(0.98);
+}
+
+.burnsville-home-hero__cta:focus-visible {
+  outline: 3px solid var(--hero-onyx);
+  outline-offset: 4px;
+}
+
+.burnsville-home-hero__cta--primary {
+  background: var(--hero-red);
+  border-color: var(--hero-red);
+  color: #ffffff;
+}
+
+.burnsville-home-hero__cta--primary:hover,
+.burnsville-home-hero__cta--primary:focus-visible {
+  background: var(--hero-red-dark);
+  border-color: var(--hero-red-dark);
+  color: #ffffff;
+}
+
+.burnsville-home-hero__cta--secondary {
+  background: transparent;
+  border-color: var(--hero-red-dark);
+  color: var(--hero-onyx);
+  gap: 14px;
+}
+
+.burnsville-home-hero__cta--secondary:hover,
+.burnsville-home-hero__cta--secondary:focus-visible {
+  background: rgba(184, 35, 27, 0.08);
+  color: var(--hero-onyx);
+}
+
+.burnsville-home-hero__cta--secondary span {
+  color: var(--hero-red-dark);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.burnsville-home-hero__visual {
+  align-items: center;
+  background:
+    radial-gradient(circle at 52% 68%, rgba(210, 40, 43, 0.32), transparent 24%),
+    radial-gradient(circle at 78% 16%, rgba(210, 40, 43, 0.09), transparent 22%),
+    linear-gradient(145deg, #181410 0%, #0f0f0f 58%, #080808 100%);
+  color: var(--hero-cream);
+  display: flex;
+  isolation: isolate;
+  justify-content: center;
+  min-width: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.burnsville-home-hero__visual::before {
+  background-image:
+    radial-gradient(circle, rgba(243, 237, 228, 0.18) 0 0.7px, transparent 1px),
+    radial-gradient(circle, rgba(210, 40, 43, 0.32) 0 0.8px, transparent 1.2px);
+  background-position: 0 0, 14px 11px;
+  background-size: 31px 37px, 47px 43px;
+  content: '';
+  inset: 0;
+  opacity: 0.46;
+  position: absolute;
+  z-index: -3;
+}
+
+.burnsville-home-hero__visual::after {
+  background: linear-gradient(180deg, transparent 45%, rgba(0, 0, 0, 0.72));
+  content: '';
+  inset: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+.burnsville-home-hero__visual-orbit {
+  border: 1px solid rgba(243, 237, 228, 0.2);
+  border-radius: 50%;
+  height: clamp(260px, 28vw, 410px);
+  position: absolute;
+  right: -8%;
+  top: -21%;
+  width: clamp(260px, 28vw, 410px);
+}
+
+.burnsville-home-hero__visual-orbit::before,
+.burnsville-home-hero__visual-orbit::after {
+  border: 1px solid rgba(210, 40, 43, 0.22);
+  border-radius: inherit;
+  content: '';
+  inset: 12%;
+  position: absolute;
+}
+
+.burnsville-home-hero__visual-orbit::after {
+  border-color: rgba(243, 237, 228, 0.08);
+  inset: 25%;
+}
+
+.burnsville-home-hero__visual-type {
+  animation: burnsville-hero-visual-in 450ms 80ms cubic-bezier(0.25, 0.7, 0.2, 1) both;
+  display: flex;
+  flex-direction: column;
+  margin-top: -12px;
+  padding: 34px 38px 32px;
+  position: relative;
+  text-align: center;
+  width: min(78%, 430px);
+  z-index: 2;
+}
+
+.burnsville-home-hero__visual-type::before,
+.burnsville-home-hero__visual-type::after {
+  background: linear-gradient(90deg, transparent, var(--hero-red), transparent);
+  content: '';
+  height: 2px;
+  left: 0;
+  position: absolute;
+  right: 0;
+}
+
+.burnsville-home-hero__visual-type::before {
+  top: 0;
+}
+
+.burnsville-home-hero__visual-type::after {
+  bottom: 0;
+}
+
+.burnsville-home-hero__visual-brand,
+.burnsville-home-hero__visual-flavour {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.burnsville-home-hero__visual-brand {
+  color: rgba(243, 237, 228, 0.72);
+  font-size: clamp(0.74rem, 1vw, 0.9rem);
+}
+
+.burnsville-home-hero__visual-heat {
+  color: transparent;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: clamp(6.2rem, 11vw, 10rem);
+  letter-spacing: 0.02em;
+  line-height: 0.82;
+  margin: 17px 0 14px;
+  text-transform: uppercase;
+  -webkit-text-stroke: 2px rgba(243, 237, 228, 0.88);
+}
+
+.burnsville-home-hero__visual-flavour {
+  color: var(--hero-red);
+  font-size: clamp(1.15rem, 2vw, 1.65rem);
+}
+
+.burnsville-home-hero__visual-ground {
+  background:
+    radial-gradient(ellipse at 55% 100%, rgba(210, 40, 43, 0.46), transparent 42%),
+    linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.92));
+  bottom: 0;
+  height: 42%;
+  left: 0;
+  position: absolute;
+  right: 0;
+  z-index: 1;
+}
+
+.burnsville-home-hero__ember {
+  background: var(--hero-red);
+  border-radius: 50%;
+  box-shadow: 0 0 12px rgba(210, 40, 43, 0.72);
+  height: 4px;
+  position: absolute;
+  transform: rotate(-28deg);
+  width: 17px;
+  z-index: 3;
+}
+
+.burnsville-home-hero__ember--one {
+  bottom: 18%;
+  left: 12%;
+}
+
+.burnsville-home-hero__ember--two {
+  bottom: 28%;
+  height: 3px;
+  right: 18%;
+  width: 12px;
+}
+
+.burnsville-home-hero__ember--three {
+  left: 24%;
+  top: 22%;
+  width: 9px;
+}
+
+.burnsville-home-hero__ember--four {
+  right: 9%;
+  top: 39%;
+  width: 14px;
+}
+
+@keyframes burnsville-hero-copy-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes burnsville-hero-visual-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 1120px) {
+  .burnsville-home-hero {
+    grid-template-columns: minmax(0, 58%) minmax(0, 42%);
+  }
+
+  .burnsville-home-hero__content {
+    padding-left: 42px;
+    padding-right: 34px;
+  }
+
+  .burnsville-home-hero__title {
+    font-size: clamp(3.4rem, 5.7vw, 4.3rem);
+  }
+}
+
+@media (max-width: 860px) {
+  .burnsville-home-hero {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+  }
+
+  .burnsville-home-hero__content {
+    min-height: 410px;
+    padding: 54px 32px 58px;
+  }
+
+  .burnsville-home-hero__copy {
+    max-width: 660px;
+  }
+
+  .burnsville-home-hero__title {
+    font-size: clamp(3.7rem, 10.5vw, 5.35rem);
+  }
+
+  .burnsville-home-hero__visual {
+    min-height: 300px;
+  }
+
+  .burnsville-home-hero__visual-type {
+    margin-top: 0;
+    width: min(70%, 430px);
+  }
+
+  .burnsville-home-hero__visual-heat {
+    font-size: clamp(6.5rem, 22vw, 9rem);
+  }
+}
+
+@media (max-width: 560px) {
+  .burnsville-home-hero__content {
+    min-height: 0;
+    padding: 42px 24px 48px;
+  }
+
+  .burnsville-home-hero__eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.17em;
+    margin-bottom: 16px;
+  }
+
+  .burnsville-home-hero__eyebrow::after {
+    margin-left: 10px;
+    width: 28px;
+  }
+
+  .burnsville-home-hero__title {
+    font-size: clamp(2.85rem, 13vw, 3.75rem);
+    line-height: 0.94;
+  }
+
+  .burnsville-home-hero__summary {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-top: 20px;
+  }
+
+  .burnsville-home-hero__actions {
+    align-items: stretch;
+    display: grid;
+    gap: 12px;
+    margin-top: 25px;
+  }
+
+  .burnsville-home-hero__cta {
+    justify-content: center;
+    min-height: 48px;
+    width: 100%;
+  }
+
+  .burnsville-home-hero__visual {
+    min-height: 250px;
+  }
+
+  .burnsville-home-hero__visual-type {
+    padding: 27px 22px 25px;
+    width: min(78%, 330px);
+  }
+
+  .burnsville-home-hero__visual-heat {
+    font-size: clamp(5rem, 29vw, 7rem);
+  }
+
+  .burnsville-home-hero__visual-flavour {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .burnsville-home-hero__content {
+    padding-inline: 20px;
+  }
+
+  .burnsville-home-hero__title {
+    font-size: 2.65rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .burnsville-home-hero *,
+  .burnsville-home-hero *::before,
+  .burnsville-home-hero *::after {
+    animation: none !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

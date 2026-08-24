@@ -1,0 +1,681 @@
+.burnsville-product-detail,
+.burnsville-product-detail * {
+  box-sizing: border-box;
+}
+
+.burnsville-product-detail {
+  --product-cream: var(--burnsville-cream, #f3ede4);
+  --product-onyx: var(--burnsville-onyx, #111111);
+  --product-red: var(--burnsville-chilli, #d2282b);
+  --product-red-dark: var(--burnsville-chilli-text, #b8231b);
+  --product-green: var(--burnsville-pepper, #3e7f3a);
+  --product-orange: #d98b21;
+  background-color: var(--product-cream);
+  background-image:
+    radial-gradient(circle at 18% 31%, rgba(17, 17, 17, 0.08) 0 0.7px, transparent 1px),
+    radial-gradient(circle at 82% 69%, rgba(184, 35, 27, 0.07) 0 0.7px, transparent 1px);
+  background-size: 37px 41px, 43px 47px;
+  color: var(--product-onyx);
+  margin-bottom: -1rem;
+  margin-left: calc(50% - 50vw);
+  margin-top: -1rem;
+  min-height: 80vh;
+  width: 100vw;
+}
+
+.burnsville-product-detail__product {
+  border-bottom: 1px solid rgba(17, 17, 17, 0.35);
+}
+
+.burnsville-product-detail__product-inner,
+.burnsville-product-detail__reviews-inner {
+  margin: 0 auto;
+  max-width: 1440px;
+}
+
+.burnsville-product-detail__product-inner {
+  padding: 34px 44px 64px;
+}
+
+.burnsville-product-detail__breadcrumb {
+  align-items: center;
+  color: rgba(17, 17, 17, 0.58);
+  display: flex;
+  flex-wrap: wrap;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.7rem;
+  gap: 8px;
+  letter-spacing: 0.07em;
+  margin-bottom: 28px;
+  text-transform: uppercase;
+}
+
+.burnsville-product-detail__breadcrumb a {
+  color: var(--product-red-dark);
+  text-decoration: none;
+}
+
+.burnsville-product-detail__breadcrumb [aria-current='page'] {
+  max-width: 44ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.burnsville-product-detail__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.06fr) minmax(360px, 0.94fr);
+  min-height: 650px;
+}
+
+.burnsville-product-detail__media {
+  align-items: center;
+  background:
+    radial-gradient(circle at 50% 46%, rgba(210, 40, 43, 0.14), transparent 36%),
+    linear-gradient(145deg, #1d1d1b, var(--product-onyx) 72%);
+  display: flex;
+  justify-content: center;
+  min-height: 650px;
+  overflow: hidden;
+  padding: 58px;
+  position: relative;
+}
+
+.burnsville-product-detail__media::before {
+  border: 1px solid rgba(243, 237, 228, 0.2);
+  content: '';
+  inset: 22px;
+  pointer-events: none;
+  position: absolute;
+}
+
+.burnsville-product-detail__media::after {
+  background: repeating-linear-gradient(
+    135deg,
+    rgba(243, 237, 228, 0.05) 0,
+    rgba(243, 237, 228, 0.05) 1px,
+    transparent 1px,
+    transparent 9px
+  );
+  content: '';
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+.burnsville-product-detail__media img {
+  filter: drop-shadow(0 24px 24px rgba(0, 0, 0, 0.4));
+  max-height: 520px;
+  max-width: 100%;
+  object-fit: contain;
+  position: relative;
+  transition: transform 300ms cubic-bezier(0.25, 0.7, 0.2, 1);
+  z-index: 1;
+}
+
+.burnsville-product-detail__media:hover img {
+  transform: scale(1.018);
+}
+
+.burnsville-product-detail__media-accent {
+  background: linear-gradient(
+    90deg,
+    var(--product-green) 0 28%,
+    transparent 28% 34%,
+    var(--product-orange) 34% 63%,
+    transparent 63% 69%,
+    var(--product-red) 69% 100%
+  );
+  height: 4px;
+  left: 44px;
+  position: absolute;
+  top: 44px;
+  width: 126px;
+  z-index: 2;
+}
+
+.burnsville-product-detail__information {
+  border: 1px solid rgba(17, 17, 17, 0.3);
+  border-left: 0;
+  padding: clamp(38px, 5vw, 72px);
+}
+
+.burnsville-product-detail__eyebrow,
+.burnsville-product-detail__state-label {
+  color: var(--product-red-dark);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 0.76rem;
+  letter-spacing: 0.13em;
+  margin: 0 0 12px;
+  text-transform: uppercase;
+}
+
+.burnsville-product-detail__eyebrow::after {
+  background: var(--product-red-dark);
+  content: '';
+  display: inline-block;
+  height: 1px;
+  margin-left: 12px;
+  transform: translateY(-3px);
+  width: 50px;
+}
+
+.burnsville-product-detail__information h1,
+.burnsville-product-detail__state h1 {
+  color: var(--product-onyx);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: clamp(3.1rem, 5vw, 5.6rem);
+  font-weight: 900;
+  letter-spacing: 0.015em;
+  line-height: 0.93;
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
+}
+
+.burnsville-product-detail__rating {
+  color: var(--product-red-dark);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.82rem;
+  margin: 24px 0 14px;
+}
+
+.burnsville-product-detail__rating .rating,
+.burnsville-product-detail__review-rating .rating {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1px;
+}
+
+.burnsville-product-detail__rating .rating span,
+.burnsville-product-detail__review-rating .rating span {
+  margin: 0;
+}
+
+.burnsville-product-detail__rating .rating span:last-child {
+  color: rgba(17, 17, 17, 0.66);
+  margin-left: 8px;
+}
+
+.burnsville-product-detail__price {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 2rem;
+  letter-spacing: 0.04em;
+  margin: 0 0 30px;
+}
+
+.burnsville-product-detail__description {
+  border-bottom: 1px solid rgba(17, 17, 17, 0.24);
+  border-top: 1px solid rgba(17, 17, 17, 0.24);
+  padding: 24px 0;
+}
+
+.burnsville-product-detail__description h2,
+.burnsville-product-detail__review-form-panel h2 {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 1.18rem;
+  letter-spacing: 0.08em;
+  margin: 0 0 12px;
+  padding: 0;
+  text-transform: uppercase;
+}
+
+.burnsville-product-detail__description p,
+.burnsville-product-detail__review p,
+.burnsville-product-detail__empty-review p,
+.burnsville-product-detail__signin-message {
+  color: rgba(17, 17, 17, 0.76);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.94rem;
+  line-height: 1.65;
+  margin: 0;
+}
+
+.burnsville-product-detail__purchase {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  margin-top: 28px;
+}
+
+.burnsville-product-detail__availability {
+  display: flex;
+  flex-direction: column;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.74rem;
+  gap: 5px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.burnsville-product-detail__availability strong {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.06em;
+}
+
+.burnsville-product-detail__in-stock {
+  color: var(--product-green);
+}
+
+.burnsville-product-detail__out-of-stock {
+  color: var(--product-red-dark);
+}
+
+.burnsville-product-detail__quantity {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+}
+
+.burnsville-product-detail__quantity label,
+.burnsville-product-detail__field label {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.burnsville-product-detail__quantity select,
+.burnsville-product-detail__field select,
+.burnsville-product-detail__field textarea {
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(17, 17, 17, 0.48);
+  border-radius: 0;
+  box-shadow: none;
+  color: var(--product-onyx);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.burnsville-product-detail__quantity select {
+  height: 44px;
+  min-width: 76px;
+  padding: 8px 30px 8px 12px;
+}
+
+.burnsville-product-detail__cart-button,
+.burnsville-product-detail__state-link,
+.burnsville-product-detail__review-form-panel button {
+  align-items: center;
+  background: var(--product-red);
+  border: 1px solid var(--product-red);
+  border-radius: 0;
+  color: #ffffff;
+  display: inline-flex;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 0.8rem;
+  justify-content: center;
+  letter-spacing: 0.09em;
+  min-height: 48px;
+  padding: 12px 24px;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition:
+    background-color 150ms cubic-bezier(0.25, 0.7, 0.2, 1),
+    border-color 150ms cubic-bezier(0.25, 0.7, 0.2, 1),
+    transform 150ms cubic-bezier(0.25, 0.7, 0.2, 1);
+}
+
+.burnsville-product-detail__cart-button {
+  grid-column: 1 / -1;
+  width: 100%;
+}
+
+.burnsville-product-detail__cart-button:hover:not(:disabled),
+.burnsville-product-detail__state-link:hover,
+.burnsville-product-detail__review-form-panel button:hover {
+  background: var(--product-onyx);
+  border-color: var(--product-onyx);
+  color: #ffffff;
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+.burnsville-product-detail__cart-button:disabled {
+  background: rgba(17, 17, 17, 0.18);
+  border-color: transparent;
+  color: rgba(17, 17, 17, 0.52);
+  cursor: not-allowed;
+}
+
+.burnsville-product-detail__reviews {
+  background-color: rgba(255, 255, 255, 0.14);
+}
+
+.burnsville-product-detail__reviews-inner {
+  display: grid;
+  gap: 36px;
+  grid-template-columns: minmax(180px, 0.55fr) minmax(320px, 1.25fr) minmax(320px, 1fr);
+  padding: 62px 44px 76px;
+}
+
+.burnsville-product-detail__reviews-heading h2,
+.burnsville-product-detail__empty-review h3,
+.burnsville-product-detail__review h3 {
+  color: var(--product-onyx);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  letter-spacing: 0.04em;
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
+}
+
+.burnsville-product-detail__reviews-heading h2 {
+  font-size: clamp(2.4rem, 4vw, 4.2rem);
+  line-height: 0.95;
+}
+
+.burnsville-product-detail__reviews-heading > p:last-child {
+  color: rgba(17, 17, 17, 0.65);
+  font-family: Arial, Helvetica, sans-serif;
+  margin-top: 14px;
+}
+
+.burnsville-product-detail__review-list {
+  border-top: 3px solid var(--product-orange);
+}
+
+.burnsville-product-detail__review,
+.burnsville-product-detail__empty-review {
+  border-bottom: 1px solid rgba(17, 17, 17, 0.26);
+  padding: 24px 0;
+}
+
+.burnsville-product-detail__review-meta {
+  align-items: baseline;
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+}
+
+.burnsville-product-detail__review h3,
+.burnsville-product-detail__empty-review h3 {
+  font-size: 1.06rem;
+}
+
+.burnsville-product-detail__review time {
+  color: rgba(17, 17, 17, 0.58);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+}
+
+.burnsville-product-detail__review-rating {
+  margin: 10px 0 12px;
+}
+
+.burnsville-product-detail__review-form-panel {
+  border: 1px solid rgba(17, 17, 17, 0.34);
+  border-top: 3px solid var(--product-green);
+  padding: 26px;
+}
+
+.burnsville-product-detail__review-form-panel h2 {
+  font-size: 1.55rem;
+  line-height: 1.05;
+}
+
+.burnsville-product-detail__review-form-panel form {
+  margin-top: 24px;
+}
+
+.burnsville-product-detail__field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.burnsville-product-detail__field select,
+.burnsville-product-detail__field textarea {
+  min-height: 48px;
+  padding: 12px;
+  width: 100%;
+}
+
+.burnsville-product-detail__field textarea {
+  min-height: 132px;
+  resize: vertical;
+}
+
+.burnsville-product-detail__form-error {
+  background: rgba(184, 35, 27, 0.1);
+  border-left: 4px solid var(--product-red-dark);
+  color: var(--product-red-dark);
+  font-family: Arial, Helvetica, sans-serif;
+  margin-top: 20px;
+  padding: 14px;
+}
+
+.burnsville-product-detail__signin-message {
+  border-top: 1px solid rgba(17, 17, 17, 0.22);
+  margin-top: 24px;
+  padding-top: 20px;
+}
+
+.burnsville-product-detail__signin-message a {
+  color: var(--product-red-dark);
+  font-weight: 700;
+}
+
+.burnsville-product-detail__state {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 80vh;
+  padding: 72px 24px;
+  position: relative;
+  text-align: center;
+}
+
+.burnsville-product-detail__state::before {
+  border: 1px solid rgba(17, 17, 17, 0.27);
+  content: '';
+  inset: 32px max(24px, calc((100vw - 1352px) / 2));
+  pointer-events: none;
+  position: absolute;
+}
+
+.burnsville-product-detail__state--error::after {
+  background: linear-gradient(
+    90deg,
+    var(--product-green) 0 28%,
+    var(--product-orange) 28% 64%,
+    var(--product-red) 64% 100%
+  );
+  content: '';
+  height: 4px;
+  position: absolute;
+  top: 32px;
+  width: min(280px, 52vw);
+}
+
+.burnsville-product-detail__state h1 {
+  font-size: clamp(2.8rem, 5vw, 5rem);
+  max-width: 760px;
+}
+
+.burnsville-product-detail__state-message {
+  color: rgba(17, 17, 17, 0.7);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.5;
+  margin: 20px 0 26px;
+  max-width: 620px;
+}
+
+.burnsville-product-detail__state-link {
+  background: var(--product-onyx);
+  border-color: var(--product-onyx);
+  position: relative;
+}
+
+.burnsville-product-detail__loader {
+  animation: burnsville-product-loader 800ms linear infinite;
+  border: 3px solid rgba(17, 17, 17, 0.18);
+  border-radius: 50%;
+  border-top-color: var(--product-red-dark);
+  height: 44px;
+  margin-bottom: 24px;
+  width: 44px;
+}
+
+.burnsville-product-detail a:focus-visible,
+.burnsville-product-detail button:focus-visible,
+.burnsville-product-detail select:focus-visible,
+.burnsville-product-detail textarea:focus-visible {
+  outline: 3px solid var(--product-red-dark);
+  outline-offset: 3px;
+}
+
+@keyframes burnsville-product-loader {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 1040px) {
+  .burnsville-product-detail__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(340px, 0.9fr);
+  }
+
+  .burnsville-product-detail__reviews-inner {
+    grid-template-columns: minmax(180px, 0.45fr) minmax(300px, 1fr);
+  }
+
+  .burnsville-product-detail__review-form-panel {
+    grid-column: 2;
+  }
+}
+
+@media (max-width: 780px) {
+  .burnsville-product-detail__product-inner {
+    padding: 28px 24px 46px;
+  }
+
+  .burnsville-product-detail__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .burnsville-product-detail__media {
+    min-height: 500px;
+    padding: 48px;
+  }
+
+  .burnsville-product-detail__media img {
+    max-height: 400px;
+  }
+
+  .burnsville-product-detail__information {
+    border-left: 1px solid rgba(17, 17, 17, 0.3);
+    border-top: 0;
+    padding: 42px 32px;
+  }
+
+  .burnsville-product-detail__reviews-inner {
+    grid-template-columns: 1fr;
+    padding: 48px 24px 58px;
+  }
+
+  .burnsville-product-detail__review-form-panel {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 520px) {
+  .burnsville-product-detail__product-inner {
+    padding: 24px 18px 38px;
+  }
+
+  .burnsville-product-detail__breadcrumb {
+    margin-bottom: 20px;
+  }
+
+  .burnsville-product-detail__breadcrumb [aria-current='page'] {
+    max-width: 24ch;
+  }
+
+  .burnsville-product-detail__media {
+    min-height: 390px;
+    padding: 40px;
+  }
+
+  .burnsville-product-detail__media::before {
+    inset: 14px;
+  }
+
+  .burnsville-product-detail__media-accent {
+    left: 28px;
+    top: 28px;
+    width: 92px;
+  }
+
+  .burnsville-product-detail__media img {
+    max-height: 310px;
+  }
+
+  .burnsville-product-detail__information {
+    padding: 34px 24px;
+  }
+
+  .burnsville-product-detail__information h1 {
+    font-size: clamp(2.75rem, 15vw, 4rem);
+  }
+
+  .burnsville-product-detail__purchase {
+    grid-template-columns: 1fr;
+  }
+
+  .burnsville-product-detail__quantity {
+    justify-content: space-between;
+  }
+
+  .burnsville-product-detail__cart-button {
+    grid-column: auto;
+  }
+
+  .burnsville-product-detail__reviews-inner {
+    gap: 30px;
+    padding: 42px 18px 50px;
+  }
+
+  .burnsville-product-detail__review-form-panel {
+    padding: 24px 20px;
+  }
+
+  .burnsville-product-detail__state {
+    min-height: 80vh;
+    padding-inline: 30px;
+  }
+
+  .burnsville-product-detail__state::before {
+    inset: 20px 18px;
+  }
+
+  .burnsville-product-detail__state--error::after {
+    top: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .burnsville-product-detail__media img,
+  .burnsville-product-detail__cart-button,
+  .burnsville-product-detail__state-link,
+  .burnsville-product-detail__review-form-panel button {
+    transition: none;
+  }
+
+  .burnsville-product-detail__media:hover img,
+  .burnsville-product-detail__cart-button:hover:not(:disabled),
+  .burnsville-product-detail__state-link:hover,
+  .burnsville-product-detail__review-form-panel button:hover {
+    transform: none;
+  }
+
+  .burnsville-product-detail__loader {
+    animation: none;
+    border-top-color: var(--product-onyx);
+  }
+}

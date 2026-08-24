@@ -1,20 +1,17 @@
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Button, Row, Col, ListGroup, Image, Card } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
+import Meta from '../components/Meta';
 import CheckoutSteps from '../components/CheckoutSteps';
 import { createOrder } from '../actions/orderActions';
+import './place-order-screen.css';
 
-// <---- USER PLACE ORDER SCREEN FUNCTION - history, dispatch, setQty, setRating, setComment ---->
 const PlaceOrderScreen = ({ history }) => {
-  // <---- PLACE ORDER  - dsipatch state ---->
   const dispatch = useDispatch();
-
-  // <---- PLACE ORDER  - cart state ---->
   const cart = useSelector((state) => state.cart);
 
-  // <---- PLACE ORDER  - calculate prices ---->
   const addDecimals = (num) => {
     return (Math.round(num * 100) / 100).toFixed(2);
   };
@@ -33,7 +30,6 @@ const PlaceOrderScreen = ({ history }) => {
   const orderCreate = useSelector((state) => state.orderCreate);
   const { order, success, error } = orderCreate;
 
-  // <---- SET PLACE ORDER INFO EFFECT FOR USER INFO  ---->
   useEffect(() => {
     if (success) {
       history.push(`/order/${order._id}`);
@@ -41,7 +37,6 @@ const PlaceOrderScreen = ({ history }) => {
     // eslint-disable-next-line
   }, [history, success]);
 
-  // <---- PLACE ORDER HANDLER - placeOrderHandler ---->
   const placeOrderHandler = () => {
     dispatch(
       createOrder({
@@ -57,111 +52,137 @@ const PlaceOrderScreen = ({ history }) => {
   };
 
   return (
-    <>
-      <CheckoutSteps step1 step2 step3 step4 />
-      <Row>
-        <Col md={8}>
-          <ListGroup variant='flush'>
-            <ListGroup.Item>
-              <h2>Shipping</h2>
-              <p>
-                <strong>Address:</strong>
-                {cart.shippingAddress.address}, {cart.shippingAddress.city}{' '}
-                {cart.shippingAddress.postalCode},{' '}
-                {cart.shippingAddress.country}
-              </p>
-            </ListGroup.Item>
+    <section
+      className='burnsville-place-order'
+      aria-labelledby='burnsville-place-order-title'
+    >
+      <Meta
+        title='Review Order | Burnsville'
+        description='Review the details of your Burnsville order before placing it.'
+      />
 
-            <ListGroup.Item>
-              <h2>Payment Method</h2>
-              <strong>Method: </strong>
-              {cart.paymentMethod}
-            </ListGroup.Item>
+      <div className='burnsville-place-order__inner'>
+        <CheckoutSteps step1 step2 step3 step4 />
 
-            <ListGroup.Item>
-              <h2>Order Items</h2>
+        <header className='burnsville-place-order__header'>
+          <div>
+            <p className='burnsville-place-order__eyebrow'>Final checkout step</p>
+            <h1 id='burnsville-place-order-title'>Review your order</h1>
+          </div>
+          <p>Check the order details below before placing your order.</p>
+        </header>
+
+        <div className='burnsville-place-order__layout'>
+          <div className='burnsville-place-order__details'>
+            <div className='burnsville-place-order__overview'>
+              <section aria-labelledby='burnsville-shipping-summary'>
+                <p className='burnsville-place-order__section-number'>01</p>
+                <h2 id='burnsville-shipping-summary'>Shipping</h2>
+                <p>
+                  <strong>Address:</strong>
+                  {cart.shippingAddress.address}, {cart.shippingAddress.city}{' '}
+                  {cart.shippingAddress.postalCode}, {cart.shippingAddress.country}
+                </p>
+              </section>
+
+              <section aria-labelledby='burnsville-payment-summary'>
+                <p className='burnsville-place-order__section-number'>02</p>
+                <h2 id='burnsville-payment-summary'>Payment method</h2>
+                <p>
+                  <strong>Method: </strong>
+                  {cart.paymentMethod}
+                </p>
+              </section>
+            </div>
+
+            <section
+              className='burnsville-place-order__items-panel'
+              aria-labelledby='burnsville-order-items'
+            >
+              <div className='burnsville-place-order__section-heading'>
+                <div>
+                  <p className='burnsville-place-order__section-number'>03</p>
+                  <h2 id='burnsville-order-items'>Order items</h2>
+                </div>
+                <span>{cart.cartItems.length} items</span>
+              </div>
+
               {cart.cartItems.length === 0 ? (
                 <Message>Your cart is empty</Message>
               ) : (
-                <ListGroup variant='flush'>
+                <ul className='burnsville-place-order__items'>
                   {cart.cartItems.map((item, index) => (
-                    <ListGroup.Item key={index}>
-                      <Row>
-                        <Col md={1}>
-                          <Image
-                            src={item.image}
-                            alt={item.name}
-                            fluid
-                            rounded
-                          />
-                        </Col>
-                        <Col>
-                          <Link to={`/product/${item.product}`}>
-                            {item.name}
-                          </Link>
-                        </Col>
-                        <Col md={4}>
-                          {item.qty} x R{item.price} = R
-                          {parseInt(item.qty * item.price)}
-                        </Col>
-                      </Row>
-                    </ListGroup.Item>
+                    <li className='burnsville-place-order__item' key={index}>
+                      <div className='burnsville-place-order__image-wrap'>
+                        <img src={item.image} alt={item.name} />
+                      </div>
+                      <div className='burnsville-place-order__item-details'>
+                        <Link to={`/product/${item.product}`}>{item.name}</Link>
+                        <span>Quantity {item.qty}</span>
+                      </div>
+                      <p className='burnsville-place-order__item-price'>
+                        <span>
+                          {item.qty} x R{item.price}
+                        </span>
+                        <strong>R{parseInt(item.qty * item.price)}</strong>
+                      </p>
+                    </li>
                   ))}
-                </ListGroup>
+                </ul>
               )}
-            </ListGroup.Item>
-          </ListGroup>
-        </Col>
-        <Col md={4}>
-          <Card>
-            <ListGroup variant='flush'>
-              <ListGroup.Item>
-                <h2>Order Summary</h2>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <Row>
-                  <Col>Items</Col>
-                  <Col>R{cart.itemsPrice}</Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <Row>
-                  <Col>Shipping</Col>
-                  <Col>R{cart.shippingPrice}</Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <Row>
-                  <Col>Vat</Col>
-                  <Col>R{cart.vatPrice}</Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <Row>
-                  <Col>Total</Col>
-                  <Col>R{cart.totalPrice}</Col>
-                </Row>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                {error && <Message variant='danger'>{error}</Message>}
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <Button
-                  type='button'
-                  className='btn-block'
-                  disabled={cart.cartItems === 0}
-                  onClick={placeOrderHandler}
-                >
-                  Place Order
-                </Button>
-              </ListGroup.Item>
-            </ListGroup>
-          </Card>
-        </Col>
-      </Row>
-    </>
+            </section>
+          </div>
+
+          <aside
+            className='burnsville-place-order__summary'
+            aria-labelledby='burnsville-order-summary'
+          >
+            <p className='burnsville-place-order__eyebrow'>Order total</p>
+            <h2 id='burnsville-order-summary'>Order summary</h2>
+
+            <dl>
+              <div>
+                <dt>Items</dt>
+                <dd>R{cart.itemsPrice}</dd>
+              </div>
+              <div>
+                <dt>Shipping</dt>
+                <dd>R{cart.shippingPrice}</dd>
+              </div>
+              <div>
+                <dt>VAT</dt>
+                <dd>R{cart.vatPrice}</dd>
+              </div>
+              <div className='burnsville-place-order__total'>
+                <dt>Total</dt>
+                <dd>R{cart.totalPrice}</dd>
+              </div>
+            </dl>
+
+            {error && (
+              <div className='burnsville-place-order__error'>
+                <Message variant='danger'>{error}</Message>
+              </div>
+            )}
+
+            <button
+              type='button'
+              disabled={cart.cartItems === 0}
+              onClick={placeOrderHandler}
+            >
+              Place order
+            </button>
+          </aside>
+        </div>
+      </div>
+    </section>
   );
 };
 
-// <---- EXPORT ---->
+PlaceOrderScreen.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
 export default PlaceOrderScreen;

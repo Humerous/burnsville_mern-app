@@ -1,35 +1,56 @@
-import React, { useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import React, { forwardRef, useState } from 'react';
+import { SearchIcon } from './header/HeaderIcons';
 
-// <---- SEARCH BOX FUNCTION - history, setKeyword ---->
-const SearchBox = ({ history }) => {
-  const [keyword, setKeyword] = useState('');
+const SearchBox = forwardRef(
+  (
+    {
+      autoFocus = false,
+      className = '',
+      history,
+      id = 'product-search',
+      onNavigate,
+    },
+    inputRef
+  ) => {
+    const [keyword, setKeyword] = useState('');
 
-  // <---- SEARCH BOX  HANDLER - placeOrderHandler ---->
-  const submitHandler = (e) => {
-    e.preventDefault();
-    if (keyword.trim()) {
-      history.push(`/search/${keyword}`);
-    } else {
-      history.push('/');
-    }
-  };
+    const submitHandler = (event) => {
+      event.preventDefault();
+      const searchTerm = keyword.trim();
+      history.push(searchTerm ? `/search/${encodeURIComponent(searchTerm)}` : '/');
+      onNavigate?.();
+    };
 
-  return (
-    <Form onSubmit={submitHandler} inline>
-      <Form.Control
-        type='text'
-        name='q'
-        onChange={(e) => setKeyword(e.target.value)}
-        placeholder='Search Products...'
-        className='mr-sm-2 ml-sm-5'
-      ></Form.Control>
-      <Button type='submit' variant='warning' className='p-2'>
-        Search
-      </Button>
-    </Form>
-  );
-};
+    return (
+      <form
+        className={`burnsville-search ${className}`.trim()}
+        onSubmit={submitHandler}
+        role='search'
+      >
+        <label className='burnsville-header__sr-only' htmlFor={id}>
+          Search products
+        </label>
+        <SearchIcon className='burnsville-search__icon' size={19} />
+        <input
+          autoFocus={autoFocus}
+          autoComplete='off'
+          className='burnsville-search__input'
+          id={id}
+          name='q'
+          onChange={(event) => setKeyword(event.target.value)}
+          placeholder='Search sauces'
+          ref={inputRef}
+          type='search'
+          value={keyword}
+        />
+        <button className='burnsville-search__submit' type='submit'>
+          Search
+        </button>
+      </form>
+    );
+  }
+);
 
-// <---- EXPORT ---->
+SearchBox.displayName = 'SearchBox';
+
 export default SearchBox;

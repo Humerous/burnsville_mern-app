@@ -1,0 +1,515 @@
+.burnsville-checkout,
+.burnsville-checkout *,
+.burnsville-checkout-steps,
+.burnsville-checkout-steps * {
+  box-sizing: border-box;
+}
+
+.burnsville-checkout {
+  --checkout-cream: var(--burnsville-cream, #f3ede4);
+  --checkout-onyx: var(--burnsville-onyx, #111111);
+  --checkout-red: var(--burnsville-chilli, #d2282b);
+  --checkout-red-dark: var(--burnsville-chilli-text, #b8231b);
+  --checkout-green: var(--burnsville-pepper, #3e7f3a);
+  --checkout-orange: #d98b21;
+  background-color: var(--checkout-cream);
+  background-image:
+    radial-gradient(circle at 17% 31%, rgba(17, 17, 17, 0.08) 0 0.7px, transparent 1px),
+    radial-gradient(circle at 82% 68%, rgba(184, 35, 27, 0.07) 0 0.7px, transparent 1px);
+  background-size: 37px 41px, 43px 47px;
+  color: var(--checkout-onyx);
+  margin-bottom: -1rem;
+  margin-left: calc(50% - 50vw);
+  margin-top: -1rem;
+  min-height: 80vh;
+  width: 100vw;
+}
+
+.burnsville-checkout__inner {
+  margin: 0 auto;
+  max-width: 1440px;
+  padding: 42px 44px 72px;
+}
+
+.burnsville-checkout-steps {
+  border-bottom: 1px solid rgba(17, 17, 17, 0.28);
+  margin-bottom: 34px;
+  padding-bottom: 30px;
+  position: relative;
+}
+
+.burnsville-checkout-steps::before {
+  background: rgba(17, 17, 17, 0.24);
+  content: '';
+  height: 1px;
+  left: 12.5%;
+  position: absolute;
+  right: 12.5%;
+  top: 21px;
+}
+
+.burnsville-checkout-steps ol {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.burnsville-checkout-steps__item {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+  text-align: center;
+}
+
+.burnsville-checkout-steps__number {
+  align-items: center;
+  background: var(--checkout-cream, #f3ede4);
+  border: 1px solid rgba(17, 17, 17, 0.35);
+  border-radius: 50%;
+  color: rgba(17, 17, 17, 0.62);
+  display: inline-flex;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 0.68rem;
+  height: 42px;
+  justify-content: center;
+  letter-spacing: 0.05em;
+  position: relative;
+  width: 42px;
+  z-index: 1;
+}
+
+.burnsville-checkout-steps__item > a,
+.burnsville-checkout-steps__item > span:last-child {
+  color: rgba(17, 17, 17, 0.58);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  overflow: hidden;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.burnsville-checkout-steps__item.is-enabled .burnsville-checkout-steps__number {
+  border-color: var(--checkout-onyx, #111111);
+  color: var(--checkout-onyx, #111111);
+}
+
+.burnsville-checkout-steps__item.is-enabled > a {
+  color: var(--checkout-onyx, #111111);
+}
+
+.burnsville-checkout-steps__item.is-current .burnsville-checkout-steps__number {
+  background: var(--checkout-red, #d2282b);
+  border-color: var(--checkout-red, #d2282b);
+  color: #ffffff;
+}
+
+.burnsville-checkout-steps__item.is-current > a {
+  color: var(--checkout-red-dark, #b8231b);
+}
+
+.burnsville-checkout__layout {
+  display: grid;
+  grid-template-columns: minmax(300px, 0.72fr) minmax(0, 1.28fr);
+  min-height: 570px;
+}
+
+.burnsville-checkout__introduction {
+  background:
+    linear-gradient(145deg, rgba(210, 40, 43, 0.08), transparent 52%),
+    var(--checkout-onyx);
+  color: var(--checkout-cream);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  padding: clamp(38px, 5vw, 72px);
+  position: relative;
+}
+
+.burnsville-checkout__introduction::after {
+  border: 1px solid rgba(243, 237, 228, 0.18);
+  content: '';
+  inset: 20px;
+  pointer-events: none;
+  position: absolute;
+}
+
+.burnsville-checkout__eyebrow {
+  color: var(--checkout-red-dark);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 0.76rem;
+  letter-spacing: 0.13em;
+  margin: 0 0 12px;
+  text-transform: uppercase;
+}
+
+.burnsville-checkout__introduction .burnsville-checkout__eyebrow {
+  color: var(--checkout-orange);
+}
+
+.burnsville-checkout__eyebrow::after {
+  background: currentColor;
+  content: '';
+  display: inline-block;
+  height: 1px;
+  margin-left: 12px;
+  transform: translateY(-3px);
+  width: 48px;
+}
+
+.burnsville-checkout__introduction h1 {
+  color: var(--checkout-cream);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: clamp(3rem, 5vw, 5.4rem);
+  font-weight: 900;
+  letter-spacing: 0.015em;
+  line-height: 0.93;
+  margin: 0;
+  max-width: 620px;
+  padding: 0;
+  text-transform: uppercase;
+}
+
+.burnsville-checkout__introduction > p:last-of-type {
+  color: rgba(243, 237, 228, 0.72);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.94rem;
+  line-height: 1.55;
+  margin: 22px 0 0;
+  max-width: 34ch;
+}
+
+.burnsville-checkout__accent {
+  background: linear-gradient(
+    90deg,
+    var(--checkout-green) 0 28%,
+    transparent 28% 34%,
+    var(--checkout-orange) 34% 63%,
+    transparent 63% 69%,
+    var(--checkout-red) 69% 100%
+  );
+  bottom: 48px;
+  height: 4px;
+  left: clamp(38px, 5vw, 72px);
+  position: absolute;
+  width: 126px;
+  z-index: 1;
+}
+
+.burnsville-checkout__form {
+  border: 1px solid rgba(17, 17, 17, 0.3);
+  border-left: 0;
+  display: grid;
+  gap: 24px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  padding: clamp(38px, 5vw, 72px);
+}
+
+.burnsville-checkout__form-heading,
+.burnsville-checkout__field--wide,
+.burnsville-checkout__form > button,
+.burnsville-checkout__payment-options {
+  grid-column: 1 / -1;
+}
+
+.burnsville-checkout__form-heading {
+  border-bottom: 1px solid rgba(17, 17, 17, 0.24);
+  padding-bottom: 22px;
+}
+
+.burnsville-checkout__form-heading h2,
+.burnsville-checkout__payment-options legend {
+  color: var(--checkout-onyx);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: clamp(1.7rem, 3vw, 2.5rem);
+  letter-spacing: 0.035em;
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
+}
+
+.burnsville-checkout__field {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.burnsville-checkout__field label {
+  color: var(--checkout-onyx);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.burnsville-checkout__field input {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(17, 17, 17, 0.46);
+  border-radius: 0;
+  box-shadow: none;
+  color: var(--checkout-onyx);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.9rem;
+  min-height: 50px;
+  padding: 12px 14px;
+  width: 100%;
+}
+
+.burnsville-checkout__field input::placeholder {
+  color: rgba(17, 17, 17, 0.48);
+}
+
+.burnsville-checkout__form > button {
+  align-items: center;
+  background: var(--checkout-red);
+  border: 1px solid var(--checkout-red);
+  border-radius: 0;
+  color: #ffffff;
+  display: inline-flex;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 0.8rem;
+  justify-content: center;
+  justify-self: start;
+  letter-spacing: 0.09em;
+  margin-top: 8px;
+  min-height: 50px;
+  min-width: 220px;
+  padding: 12px 24px;
+  text-transform: uppercase;
+  transition:
+    background-color 150ms cubic-bezier(0.25, 0.7, 0.2, 1),
+    border-color 150ms cubic-bezier(0.25, 0.7, 0.2, 1),
+    transform 150ms cubic-bezier(0.25, 0.7, 0.2, 1);
+}
+
+.burnsville-checkout__form > button:hover {
+  background: var(--checkout-onyx);
+  border-color: var(--checkout-onyx);
+  transform: translateY(-1px);
+}
+
+.burnsville-checkout__payment-options {
+  border: 0;
+  margin: 0;
+  min-width: 0;
+  padding: 0;
+}
+
+.burnsville-checkout__payment-options legend {
+  border-bottom: 1px solid rgba(17, 17, 17, 0.24);
+  margin-bottom: 28px;
+  padding-bottom: 22px;
+  width: 100%;
+}
+
+.burnsville-checkout__payment-options legend .burnsville-checkout__eyebrow {
+  display: block;
+  font-size: 0.76rem;
+  margin-bottom: 12px;
+}
+
+.burnsville-checkout__payment-option {
+  align-items: center;
+  border: 1px solid rgba(17, 17, 17, 0.32);
+  cursor: pointer;
+  display: flex;
+  gap: 18px;
+  margin: 0 0 16px;
+  min-height: 92px;
+  padding: 20px;
+  position: relative;
+  transition:
+    border-color 150ms cubic-bezier(0.25, 0.7, 0.2, 1),
+    transform 150ms cubic-bezier(0.25, 0.7, 0.2, 1);
+}
+
+.burnsville-checkout__payment-option:hover {
+  border-color: var(--checkout-red-dark);
+  transform: translateY(-1px);
+}
+
+.burnsville-checkout__payment-option input {
+  height: 1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  width: 1px;
+}
+
+.burnsville-checkout__radio-mark {
+  align-items: center;
+  border: 2px solid rgba(17, 17, 17, 0.5);
+  border-radius: 50%;
+  display: inline-flex;
+  flex: 0 0 auto;
+  height: 24px;
+  justify-content: center;
+  width: 24px;
+}
+
+.burnsville-checkout__radio-mark::after {
+  background: var(--checkout-red);
+  border-radius: 50%;
+  content: '';
+  height: 12px;
+  opacity: 0;
+  transform: scale(0.6);
+  transition:
+    opacity 120ms ease,
+    transform 120ms ease;
+  width: 12px;
+}
+
+.burnsville-checkout__payment-option input:checked + .burnsville-checkout__radio-mark {
+  border-color: var(--checkout-red);
+}
+
+.burnsville-checkout__payment-option input:checked + .burnsville-checkout__radio-mark::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.burnsville-checkout__payment-option strong,
+.burnsville-checkout__payment-option small {
+  display: block;
+}
+
+.burnsville-checkout__payment-option strong {
+  color: var(--checkout-onyx);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 1.12rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.burnsville-checkout__payment-option small {
+  color: rgba(17, 17, 17, 0.62);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.72rem;
+  margin-top: 3px;
+}
+
+.burnsville-checkout a:focus-visible,
+.burnsville-checkout button:focus-visible,
+.burnsville-checkout input:focus-visible,
+.burnsville-checkout-steps a:focus-visible {
+  outline: 3px solid var(--checkout-red-dark, #b8231b);
+  outline-offset: 3px;
+}
+
+.burnsville-checkout__payment-option input:focus-visible + .burnsville-checkout__radio-mark {
+  outline: 3px solid var(--checkout-red-dark);
+  outline-offset: 3px;
+}
+
+@media (max-width: 840px) {
+  .burnsville-checkout__inner {
+    padding-inline: 26px;
+  }
+
+  .burnsville-checkout__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .burnsville-checkout__introduction {
+    min-height: 390px;
+  }
+
+  .burnsville-checkout__form {
+    border-left: 1px solid rgba(17, 17, 17, 0.3);
+    border-top: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .burnsville-checkout__inner {
+    padding: 28px 18px 50px;
+  }
+
+  .burnsville-checkout-steps {
+    margin-bottom: 24px;
+    padding-bottom: 22px;
+  }
+
+  .burnsville-checkout-steps::before {
+    top: 18px;
+  }
+
+  .burnsville-checkout-steps__number {
+    height: 36px;
+    width: 36px;
+  }
+
+  .burnsville-checkout-steps__item > a,
+  .burnsville-checkout-steps__item > span:last-child {
+    font-size: 0.59rem;
+    letter-spacing: 0.045em;
+  }
+
+  .burnsville-checkout__introduction {
+    min-height: 350px;
+    padding: 42px 30px;
+  }
+
+  .burnsville-checkout__introduction::after {
+    inset: 14px;
+  }
+
+  .burnsville-checkout__introduction h1 {
+    font-size: clamp(2.9rem, 16vw, 4.2rem);
+  }
+
+  .burnsville-checkout__accent {
+    bottom: 34px;
+    left: 30px;
+    width: 94px;
+  }
+
+  .burnsville-checkout__form {
+    gap: 20px;
+    grid-template-columns: 1fr;
+    padding: 34px 24px;
+  }
+
+  .burnsville-checkout__form-heading,
+  .burnsville-checkout__field,
+  .burnsville-checkout__field--wide,
+  .burnsville-checkout__form > button,
+  .burnsville-checkout__payment-options {
+    grid-column: 1;
+  }
+
+  .burnsville-checkout__form > button {
+    justify-self: stretch;
+    min-width: 0;
+    width: 100%;
+  }
+
+  .burnsville-checkout__payment-option {
+    min-height: 84px;
+    padding: 17px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .burnsville-checkout__form > button,
+  .burnsville-checkout__payment-option,
+  .burnsville-checkout__radio-mark::after {
+    transition: none;
+  }
+
+  .burnsville-checkout__form > button:hover,
+  .burnsville-checkout__payment-option:hover {
+    transform: none;
+  }
+}

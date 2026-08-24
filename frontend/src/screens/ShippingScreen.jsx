@@ -1,88 +1,113 @@
 import React, { useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import FormContainer from '../components/FormContainer';
 import CheckoutSteps from '../components/CheckoutSteps';
+import Meta from '../components/Meta';
 import { saveShippingAddress } from '../actions/cartActions';
 
-// <---- USER SHIPPING SCREEN FUNCTION -  history, dispatch, userList, userLogin, userDelete ---->
 const ShippingScreen = ({ history }) => {
-  // <---- SHIPPING CART - state ---->
   const cart = useSelector((state) => state.cart);
   const { shippingAddress } = cart;
 
-  // <---- SET STATE - setAddress, setCity , setPostalCode, setCountry ---->
   const [address, setAddress] = useState(shippingAddress.address);
   const [city, setCity] = useState(shippingAddress.city);
   const [postalCode, setPostalCode] = useState(shippingAddress.postalCode);
   const [country, setCountry] = useState(shippingAddress.country);
-
-  // <---- SHIPPING - dsipatch state ---->
   const dispatch = useDispatch();
 
-  // <---- SUBMIT SHIPPING HANDLER -  BY Ids FOR USER INFO - address , city, postalCode, countryss ---->
-  const submitHandler = (e) => {
-    e.preventDefault();
+  const submitHandler = (event) => {
+    event.preventDefault();
     dispatch(saveShippingAddress({ address, city, postalCode, country }));
     history.push('/payment');
   };
 
   return (
-    <FormContainer>
-      <CheckoutSteps step1 step2 />
-      <h1>Shipping</h1>
-      <Form onSubmit={submitHandler}>
-        <Form.Group controlId='address'>
-          <Form.Label>Address</Form.Label>
-          <Form.Control
-            type='text'
-            placeholder='Enter address'
-            value={address}
-            required
-            onChange={(e) => setAddress(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
+    <section
+      className='burnsville-checkout'
+      aria-labelledby='burnsville-shipping-title'
+    >
+      <Meta
+        title='Shipping | Burnsville'
+        description='Enter the shipping details for your Burnsville order.'
+      />
 
-        <Form.Group controlId='city'>
-          <Form.Label>City</Form.Label>
-          <Form.Control
-            type='text'
-            placeholder='Enter city'
-            value={city}
-            required
-            onChange={(e) => setCity(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
+      <div className='burnsville-checkout__inner'>
+        <CheckoutSteps step1 step2 />
 
-        <Form.Group controlId='postalCode'>
-          <Form.Label>Postal Code</Form.Label>
-          <Form.Control
-            type='text'
-            placeholder='Enter postal code'
-            value={postalCode}
-            required
-            onChange={(e) => setPostalCode(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
+        <div className='burnsville-checkout__layout'>
+          <header className='burnsville-checkout__introduction'>
+            <p className='burnsville-checkout__eyebrow'>Checkout step 2</p>
+            <h1 id='burnsville-shipping-title'>Shipping details</h1>
+            <p>Enter the address for this order.</p>
+            <div className='burnsville-checkout__accent' aria-hidden='true' />
+          </header>
 
-        <Form.Group controlId='country'>
-          <Form.Label>Country</Form.Label>
-          <Form.Control
-            type='text'
-            placeholder='Enter country'
-            value={country}
-            required
-            onChange={(e) => setCountry(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
+          <form className='burnsville-checkout__form' onSubmit={submitHandler}>
+            <div className='burnsville-checkout__form-heading'>
+              <p className='burnsville-checkout__eyebrow'>Delivery address</p>
+              <h2>Where should the order go?</h2>
+            </div>
 
-        <Button type='submit' variant='primary'>
-          Continue
-        </Button>
-      </Form>
-    </FormContainer>
+            <div className='burnsville-checkout__field burnsville-checkout__field--wide'>
+              <label htmlFor='address'>Address</label>
+              <input
+                id='address'
+                type='text'
+                placeholder='Enter address'
+                value={address}
+                required
+                onChange={(event) => setAddress(event.target.value)}
+              />
+            </div>
+
+            <div className='burnsville-checkout__field'>
+              <label htmlFor='city'>City</label>
+              <input
+                id='city'
+                type='text'
+                placeholder='Enter city'
+                value={city}
+                required
+                onChange={(event) => setCity(event.target.value)}
+              />
+            </div>
+
+            <div className='burnsville-checkout__field'>
+              <label htmlFor='postalCode'>Postal code</label>
+              <input
+                id='postalCode'
+                type='text'
+                placeholder='Enter postal code'
+                value={postalCode}
+                required
+                onChange={(event) => setPostalCode(event.target.value)}
+              />
+            </div>
+
+            <div className='burnsville-checkout__field burnsville-checkout__field--wide'>
+              <label htmlFor='country'>Country</label>
+              <input
+                id='country'
+                type='text'
+                placeholder='Enter country'
+                value={country}
+                required
+                onChange={(event) => setCountry(event.target.value)}
+              />
+            </div>
+
+            <button type='submit'>Continue to payment</button>
+          </form>
+        </div>
+      </div>
+    </section>
   );
 };
 
-// <---- EXPORT ---->
+ShippingScreen.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
 export default ShippingScreen;

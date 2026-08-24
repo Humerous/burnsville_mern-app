@@ -1,70 +1,99 @@
 import React, { useState } from 'react';
-import { Form, Button, Col } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import FormContainer from '../components/FormContainer';
 import CheckoutSteps from '../components/CheckoutSteps';
+import Meta from '../components/Meta';
 import { savePaymentMethod } from '../actions/cartActions';
 
-// <---- USER PAYMENT SCREEN FUNCTION - history, dispatch, setQty, setRating, setComment ---->
 const PaymentScreen = ({ history }) => {
-  // <---- PAYMENT - cart state ---->
   const cart = useSelector((state) => state.cart);
-
-  // <---- PAYMENT - shippingAddress cart state ---->
   const { shippingAddress } = cart;
 
   if (!shippingAddress) {
     history.push('/shipping');
   }
 
-  // <---- PAYMENT - setPaymentMethod state ---->
   const [paymentMethod, setPaymentMethod] = useState('PayPal');
-
-  // <---- PAYMENT ORDER  - dsipatch state ---->
   const dispatch = useDispatch();
 
-  // <---- PAYMENT HANDLER - placeOrderHandler ---->
-  const submitHandler = (e) => {
-    e.preventDefault();
+  const submitHandler = (event) => {
+    event.preventDefault();
     dispatch(savePaymentMethod(paymentMethod));
     history.push('/placeorder');
   };
 
   return (
-    <FormContainer>
-      <CheckoutSteps step1 step2 step3 />
-      <h1>Payment Method</h1>
-      <Form onSubmit={submitHandler}>
-        <Form.Group>
-          <Form.Label as='legend'>Select Method</Form.Label>
-          <Col>
-            <Form.Check
-              type='radio'
-              label='PayPal or Credit Card'
-              id='PayPal'
-              name='paymentMethod'
-              value='PayPal'
-              checked
-              onChange={(e) => setPaymentMethod(e.target.value)}
-            ></Form.Check>
-            <Form.Check
-              type='radio'
-              label='PayFast'
-              id='PayFast'
-              name='paymentMethod'
-              value='PayFast'
-              onChange={(e) => setPaymentMethod(e.target.value)}
-            ></Form.Check>
-          </Col>
-        </Form.Group>
+    <section
+      className='burnsville-checkout'
+      aria-labelledby='burnsville-payment-title'
+    >
+      <Meta
+        title='Payment Method | Burnsville'
+        description='Select a payment method for your Burnsville order.'
+      />
 
-        <Button type='submit' variant='primary'>
-          Continue
-        </Button>
-      </Form>
-    </FormContainer>
+      <div className='burnsville-checkout__inner'>
+        <CheckoutSteps step1 step2 step3 />
+
+        <div className='burnsville-checkout__layout'>
+          <header className='burnsville-checkout__introduction'>
+            <p className='burnsville-checkout__eyebrow'>Checkout step 3</p>
+            <h1 id='burnsville-payment-title'>Payment method</h1>
+            <p>Select one of the available payment options.</p>
+            <div className='burnsville-checkout__accent' aria-hidden='true' />
+          </header>
+
+          <form className='burnsville-checkout__form' onSubmit={submitHandler}>
+            <fieldset className='burnsville-checkout__payment-options'>
+              <legend>
+                <span className='burnsville-checkout__eyebrow'>Payment option</span>
+                Select method
+              </legend>
+
+              <label className='burnsville-checkout__payment-option' htmlFor='PayPal'>
+                <input
+                  type='radio'
+                  id='PayPal'
+                  name='paymentMethod'
+                  value='PayPal'
+                  checked
+                  onChange={(event) => setPaymentMethod(event.target.value)}
+                />
+                <span className='burnsville-checkout__radio-mark' aria-hidden='true' />
+                <span>
+                  <strong>PayPal or Credit Card</strong>
+                  <small>PayPal</small>
+                </span>
+              </label>
+
+              <label className='burnsville-checkout__payment-option' htmlFor='PayFast'>
+                <input
+                  type='radio'
+                  id='PayFast'
+                  name='paymentMethod'
+                  value='PayFast'
+                  onChange={(event) => setPaymentMethod(event.target.value)}
+                />
+                <span className='burnsville-checkout__radio-mark' aria-hidden='true' />
+                <span>
+                  <strong>PayFast</strong>
+                  <small>PayFast</small>
+                </span>
+              </label>
+            </fieldset>
+
+            <button type='submit'>Continue to review</button>
+          </form>
+        </div>
+      </div>
+    </section>
   );
 };
 
-// <---- EXPORT ---->
+PaymentScreen.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
+
 export default PaymentScreen;

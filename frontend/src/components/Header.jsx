@@ -15,8 +15,8 @@ import { logout } from '../actions/userActions';
 import './header/header.css';
 
 const NAV_ITEMS = [
-  { label: 'Shop', href: '/' },
-  { label: 'Sauces', href: '/' },
+  { label: 'Shop', href: '/shop' },
+  { label: 'Sauces', href: '/shop' },
   { label: 'Packs', href: '/' },
   { label: 'About', href: '#' },
   { label: 'Heat Guide', href: '#' },

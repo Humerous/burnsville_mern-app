@@ -1,59 +1,50 @@
-import React, { useState, useEffect } from 'react';
-import { Table, Form, Button, Row, Col } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
+import Meta from '../components/Meta';
 import { getUserDetails, updateUserProfile } from '../actions/userActions';
 import { listMyOrders } from '../actions/orderActions';
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants';
+import './profile-screen.css';
 
-// <---- USER PROFILE SCREEN FUNCTION - location, history, dispatch, setName, setEmail, setPassword, setConfirmPassword, setMessage ---->
-const ProfileScreen = ({ location, history }) => {
+const ProfileScreen = ({ history }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState(null);
 
-  // <---- PROFILE - dsipatch state ---->
   const dispatch = useDispatch();
 
-  // <---- PROFILE - userDetails state ---->
   const userDetails = useSelector((state) => state.userDetails);
   const { loading, error, user } = userDetails;
 
-  // <---- PROFILE - userLogin state ---->
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  // <---- PROFILE - userUpdateProfile state ---->
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile);
   const { success } = userUpdateProfile;
 
-  // <---- PROFILE - orderListMy state ---->
   const orderListMy = useSelector((state) => state.orderListMy);
   const { loading: loadingOrders, error: errorOrders, orders } = orderListMy;
 
-  // <---- SET PROFILE INFO EFFECT FOR USER INFO - info , isAdmin  ---->
   useEffect(() => {
     if (!userInfo) {
       history.push('/login');
+    } else if (!user || !user.name || success) {
+      dispatch({ type: USER_UPDATE_PROFILE_RESET });
+      dispatch(getUserDetails('profile'));
+      dispatch(listMyOrders());
     } else {
-      if (!user || !user.name || success) {
-        dispatch({ type: USER_UPDATE_PROFILE_RESET });
-        dispatch(getUserDetails('profile'));
-        dispatch(listMyOrders());
-      } else {
-        setName(user.name);
-        setEmail(user.email);
-      }
+      setName(user.name);
+      setEmail(user.email);
     }
   }, [dispatch, history, userInfo, user, success]);
 
-  // <---- SUBMIT HANDLER - confirm password ---->
-  const submitHandler = (e) => {
-    e.preventDefault();
+  const submitHandler = (event) => {
+    event.preventDefault();
     if (password !== confirmPassword) {
       setMessage('Passwords do not match');
     } else {
@@ -62,117 +53,169 @@ const ProfileScreen = ({ location, history }) => {
   };
 
   return (
-    <Row>
-      <Col md={3}>
-        <h2>User Profile</h2>
-        {message && <Message variant='danger'>{message}</Message>}
-        {success && <Message variant='success'>Profile Updated</Message>}
-        {loading ? (
-          <Loader />
-        ) : error ? (
-          <Message variant='danger'>{error}</Message>
-        ) : (
-          <Form onSubmit={submitHandler}>
-            <Form.Group controlId='name'>
-              <Form.Label>Name</Form.Label>
-              <Form.Control
-                type='name'
-                placeholder='Enter name'
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
+    <section className='burnsville-profile' aria-labelledby='profile-page-title'>
+      <Meta
+        title='My Account | Burnsville'
+        description='Manage your Burnsville account and review your orders.'
+      />
 
-            <Form.Group controlId='email'>
-              <Form.Label>Email Address</Form.Label>
-              <Form.Control
-                type='email'
-                placeholder='Enter email'
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
+      <div className='burnsville-profile__inner'>
+        <header className='burnsville-profile__header'>
+          <p className='burnsville-profile__eyebrow'>Account</p>
+          <h1 id='profile-page-title'>My profile</h1>
+          <p>Update your account details and review your order history.</p>
+        </header>
 
-            <Form.Group controlId='password'>
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                type='password'
-                placeholder='Enter password'
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
+        <div className='burnsville-profile__layout'>
+          <section
+            className='burnsville-profile__panel burnsville-profile__details'
+            aria-labelledby='profile-details-title'
+          >
+            <div className='burnsville-profile__section-heading'>
+              <div>
+                <p className='burnsville-profile__section-number'>01</p>
+                <h2 id='profile-details-title'>Profile details</h2>
+              </div>
+              <span>Customer account</span>
+            </div>
 
-            <Form.Group controlId='confirmPassword'>
-              <Form.Label>Confirm Password</Form.Label>
-              <Form.Control
-                type='password'
-                placeholder='Confirm password'
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
+            <div className='burnsville-profile__panel-body'>
+              {message && <Message variant='danger'>{message}</Message>}
+              {success && <Message variant='success'>Profile Updated</Message>}
+              {loading ? (
+                <div className='burnsville-profile__state' aria-label='Loading profile'>
+                  <Loader />
+                </div>
+              ) : error ? (
+                <Message variant='danger'>{error}</Message>
+              ) : (
+                <form className='burnsville-profile__form' onSubmit={submitHandler}>
+                  <div className='burnsville-profile__field'>
+                    <label htmlFor='profile-name'>Name</label>
+                    <input
+                      id='profile-name'
+                      type='name'
+                      placeholder='Enter name'
+                      value={name}
+                      onChange={(event) => setName(event.target.value)}
+                    />
+                  </div>
 
-            <Button type='submit' variant='primary'>
-              Update
-            </Button>
-          </Form>
-        )}
-      </Col>
-      <Col md={9}>
-        <h2>My Orders</h2>
-        {loadingOrders ? (
-          <Loader />
-        ) : errorOrders ? (
-          <Message variant='danger'>{errorOrders}</Message>
-        ) : (
-          <Table striped bordered hover responsive className='table-sm'>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>DATE</th>
-                <th>TOTAL</th>
-                <th>PAID</th>
-                <th>DELIVERED</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {orders.map((order) => (
-                <tr key={order._id}>
-                  <td>{order._id}</td>
-                  <td>{order.createdAt.substring(0, 10)}</td>
-                  <td>{order.totalPrice}</td>
-                  <td>
-                    {order.isPaid ? (
-                      order.paidAt.substring(0, 10)
-                    ) : (
-                      <i className='fas fa-times' style={{ color: 'red' }}></i>
-                    )}
-                  </td>
-                  <td>
-                    {order.isDelivered ? (
-                      order.deliveredAt.substring(0, 10)
-                    ) : (
-                      <i className='fas fa-times' style={{ color: 'red' }}></i>
-                    )}
-                  </td>
-                  <td>
-                    <LinkContainer to={`/order/${order._id}`}>
-                      <Button className='btn-sm' variant='light'>
-                        Details
-                      </Button>
-                    </LinkContainer>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-        )}
-      </Col>
-    </Row>
+                  <div className='burnsville-profile__field'>
+                    <label htmlFor='profile-email'>Email address</label>
+                    <input
+                      id='profile-email'
+                      type='email'
+                      placeholder='Enter email'
+                      value={email}
+                      onChange={(event) => setEmail(event.target.value)}
+                    />
+                  </div>
+
+                  <div className='burnsville-profile__field'>
+                    <label htmlFor='profile-password'>Password</label>
+                    <input
+                      id='profile-password'
+                      type='password'
+                      placeholder='Enter password'
+                      value={password}
+                      onChange={(event) => setPassword(event.target.value)}
+                    />
+                  </div>
+
+                  <div className='burnsville-profile__field'>
+                    <label htmlFor='profile-confirm-password'>Confirm password</label>
+                    <input
+                      id='profile-confirm-password'
+                      type='password'
+                      placeholder='Confirm password'
+                      value={confirmPassword}
+                      onChange={(event) => setConfirmPassword(event.target.value)}
+                    />
+                  </div>
+
+                  <button type='submit'>Update profile</button>
+                </form>
+              )}
+            </div>
+          </section>
+
+          <section
+            className='burnsville-profile__panel burnsville-profile__orders'
+            aria-labelledby='profile-orders-title'
+          >
+            <div className='burnsville-profile__section-heading'>
+              <div>
+                <p className='burnsville-profile__section-number'>02</p>
+                <h2 id='profile-orders-title'>My orders</h2>
+              </div>
+              {!loadingOrders && !errorOrders && (
+                <span>{orders.length} {orders.length === 1 ? 'order' : 'orders'}</span>
+              )}
+            </div>
+
+            <div className='burnsville-profile__orders-body'>
+              {loadingOrders ? (
+                <div className='burnsville-profile__state' aria-label='Loading orders'>
+                  <Loader />
+                </div>
+              ) : errorOrders ? (
+                <Message variant='danger'>{errorOrders}</Message>
+              ) : orders.length === 0 ? (
+                <div className='burnsville-profile__empty'>
+                  <p className='burnsville-profile__eyebrow'>Order history</p>
+                  <h3>No orders yet</h3>
+                  <p>Your completed orders will appear here.</p>
+                  <Link to='/shop'>Browse sauces</Link>
+                </div>
+              ) : (
+                <div className='burnsville-profile__table-wrap'>
+                  <table className='burnsville-profile__table'>
+                    <thead>
+                      <tr>
+                        <th scope='col'>Order</th>
+                        <th scope='col'>Date</th>
+                        <th scope='col'>Total</th>
+                        <th scope='col'>Paid</th>
+                        <th scope='col'>Delivered</th>
+                        <th scope='col'><span className='sr-only'>Order details</span></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {orders.map((order) => (
+                        <tr key={order._id}>
+                          <td data-label='Order' className='burnsville-profile__order-id'>
+                            {order._id}
+                          </td>
+                          <td data-label='Date'>{order.createdAt.substring(0, 10)}</td>
+                          <td data-label='Total'>{order.totalPrice}</td>
+                          <td data-label='Paid'>
+                            <span className={order.isPaid ? 'is-complete' : 'is-pending'}>
+                              {order.isPaid ? order.paidAt.substring(0, 10) : 'Not paid'}
+                            </span>
+                          </td>
+                          <td data-label='Delivered'>
+                            <span className={order.isDelivered ? 'is-complete' : 'is-pending'}>
+                              {order.isDelivered
+                                ? order.deliveredAt.substring(0, 10)
+                                : 'Not delivered'}
+                            </span>
+                          </td>
+                          <td className='burnsville-profile__details-link'>
+                            <Link to={`/order/${order._id}`}>Details</Link>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
   );
 };
 
-// <---- EXPORT ---->
 export default ProfileScreen;

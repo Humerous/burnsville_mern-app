@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import { LinkContainer } from 'react-router-bootstrap';
-import { Table, Button, Row, Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
+import Meta from '../components/Meta';
 import Paginate from '../components/Paginate';
 import {
   listProducts,
@@ -11,19 +11,15 @@ import {
   createProduct,
 } from '../actions/productActions';
 import { PRODUCT_CREATE_RESET } from '../constants/productConstants';
+import './admin-product-list.css';
 
-// <---- USER PRODUCT LIST SCREEN FUNCTION - location, history, dispatch, setQty, setRating, setComment ---->
 const ProductListScreen = ({ history, match }) => {
   const pageNumber = match.params.pageNumber || 1;
-
-  // <---- PRODUCT LIST  - dsipatch state ---->
   const dispatch = useDispatch();
 
-  // <---- PRODUCT LIST  - dsipatch state ---->
   const productList = useSelector((state) => state.productList);
   const { loading, error, products, page, pages } = productList;
 
-  // <---- PRODUCT LIST  - productDelete state ---->
   const productDelete = useSelector((state) => state.productDelete);
   const {
     loading: loadingDelete,
@@ -31,7 +27,6 @@ const ProductListScreen = ({ history, match }) => {
     success: successDelete,
   } = productDelete;
 
-  // <---- PRODUCT LIST - productCreate state ---->
   const productCreate = useSelector((state) => state.productCreate);
   const {
     loading: loadingCreate,
@@ -40,11 +35,9 @@ const ProductListScreen = ({ history, match }) => {
     product: createdProduct,
   } = productCreate;
 
-  // <---- PRODUCT - userLogin state ---->
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  // <---- SET PRODUCT LIST INFO EFFECT FOR USER INFO - userInfo , isAdmin  ---->
   useEffect(() => {
     dispatch({ type: PRODUCT_CREATE_RESET });
 
@@ -67,83 +60,152 @@ const ProductListScreen = ({ history, match }) => {
     pageNumber,
   ]);
 
-  // <---- DELETE PRODUCT SUBMIT HANDLER - deleteHandler ---->
   const deleteHandler = (id) => {
     if (window.confirm('Are you sure')) {
       dispatch(deleteProduct(id));
     }
   };
 
-  // <---- PRODUCT LIST HANDLER - createProduct---->
   const createProductHandler = () => {
     dispatch(createProduct());
   };
 
   return (
-    <>
-      <Row className='align-items-center'>
-        <Col>
-          <h1>Products</h1>
-        </Col>
-        <Col className='text-right'>
-          <Button className='my-3' onClick={createProductHandler}>
-            <i className='fas fa-plus'></i> Create Product
-          </Button>
-        </Col>
-      </Row>
-      {loadingDelete && <Loader />}
-      {errorDelete && <Message variant='danger'>{errorDelete}</Message>}
-      {loadingCreate && <Loader />}
-      {errorCreate && <Message variant='danger'>{errorCreate}</Message>}
-      {loading ? (
-        <Loader />
-      ) : error ? (
-        <Message variant='danger'>{error}</Message>
-      ) : (
-        <>
-          <Table striped bordered hover responsive className='table-sm'>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>NAME</th>
-                <th>PRICE</th>
-                <th>CATEGORY</th>
-                <th>BRAND</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {products.map((product) => (
-                <tr key={product._id}>
-                  <td>{product._id}</td>
-                  <td>{product.name}</td>
-                  <td>${product.price}</td>
-                  <td>{product.category}</td>
-                  <td>{product.brand}</td>
-                  <td>
-                    <LinkContainer to={`/admin/product/${product._id}/edit`}>
-                      <Button variant='light' className='btn-sm'>
-                        <i className='fas fa-edit'></i>
-                      </Button>
-                    </LinkContainer>
-                    <Button
-                      variant='danger'
-                      className='btn-sm'
-                      onClick={() => deleteHandler(product._id)}
-                    >
-                      <i className='fas fa-trash'></i>
-                    </Button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-          <Paginate pages={pages} page={page} isAdmin={true} />
-        </>
-      )}
-    </>
+    <section
+      className='burnsville-admin-products'
+      aria-labelledby='admin-products-title'
+    >
+      <Meta
+        title='Admin Products | Burnsville'
+        description='Manage the Burnsville product catalogue.'
+      />
+
+      <div className='burnsville-admin-products__inner'>
+        <header className='burnsville-admin-products__header'>
+          <div>
+            <p className='burnsville-admin-products__eyebrow'>Admin workspace</p>
+            <h1 id='admin-products-title'>Products</h1>
+            <p>Review and maintain the current product catalogue.</p>
+          </div>
+
+          <button
+            className='burnsville-admin-products__create'
+            onClick={createProductHandler}
+            type='button'
+          >
+            Create product
+          </button>
+        </header>
+
+        <div className='burnsville-admin-products__notices' aria-live='polite'>
+          {loadingDelete && (
+            <div className='burnsville-admin-products__inline-loader' aria-label='Deleting product'>
+              <Loader />
+            </div>
+          )}
+          {errorDelete && <Message variant='danger'>{errorDelete}</Message>}
+          {loadingCreate && (
+            <div className='burnsville-admin-products__inline-loader' aria-label='Creating product'>
+              <Loader />
+            </div>
+          )}
+          {errorCreate && <Message variant='danger'>{errorCreate}</Message>}
+        </div>
+
+        <section
+          className='burnsville-admin-products__panel'
+          aria-labelledby='admin-product-directory-title'
+        >
+          <div className='burnsville-admin-products__panel-heading'>
+            <div>
+              <p className='burnsville-admin-products__section-number'>01</p>
+              <h2 id='admin-product-directory-title'>Product directory</h2>
+            </div>
+            {!loading && !error && (
+              <span>
+                {products.length} {products.length === 1 ? 'product' : 'products'}
+                {pages > 1 ? ` · page ${page} of ${pages}` : ''}
+              </span>
+            )}
+          </div>
+
+          <div className='burnsville-admin-products__panel-body'>
+            {loading ? (
+              <div className='burnsville-admin-products__state' aria-label='Loading products'>
+                <Loader />
+              </div>
+            ) : error ? (
+              <Message variant='danger'>{error}</Message>
+            ) : products.length === 0 ? (
+              <div className='burnsville-admin-products__empty'>
+                <p className='burnsville-admin-products__eyebrow'>Product directory</p>
+                <h3>No products found</h3>
+                <p>Products will appear here when available.</p>
+              </div>
+            ) : (
+              <div className='burnsville-admin-products__table-wrap'>
+                <table className='burnsville-admin-products__table'>
+                  <thead>
+                    <tr>
+                      <th scope='col'>ID</th>
+                      <th scope='col'>Name</th>
+                      <th scope='col'>Price</th>
+                      <th scope='col'>Category</th>
+                      <th scope='col'>Brand</th>
+                      <th scope='col'>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {products.map((product) => (
+                      <tr key={product._id}>
+                        <td
+                          className='burnsville-admin-products__id'
+                          data-label='ID'
+                          title={product._id}
+                        >
+                          {product._id}
+                        </td>
+                        <td data-label='Name'>{product.name}</td>
+                        <td data-label='Price'>${product.price}</td>
+                        <td data-label='Category'>{product.category}</td>
+                        <td data-label='Brand'>{product.brand}</td>
+                        <td
+                          className='burnsville-admin-products__actions'
+                          data-label='Actions'
+                        >
+                          <Link
+                            className='burnsville-admin-products__action burnsville-admin-products__action--edit'
+                            to={`/admin/product/${product._id}/edit`}
+                            aria-label={`Edit ${product.name}`}
+                          >
+                            Edit
+                          </Link>
+                          <button
+                            className='burnsville-admin-products__action burnsville-admin-products__action--delete'
+                            onClick={() => deleteHandler(product._id)}
+                            type='button'
+                            aria-label={`Delete ${product.name}`}
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+        </section>
+
+        {!loading && !error && (
+          <nav className='burnsville-admin-products__pagination' aria-label='Product list pages'>
+            <Paginate pages={pages} page={page} isAdmin={true} />
+          </nav>
+        )}
+      </div>
+    </section>
   );
 };
 
-// <---- EXPORT ---->
 export default ProductListScreen;

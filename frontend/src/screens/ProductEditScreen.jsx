@@ -1,20 +1,17 @@
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Form, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-import FormContainer from '../components/FormContainer';
+import Meta from '../components/Meta';
 import { listProductDetails, updateProduct } from '../actions/productActions';
 import { PRODUCT_UPDATE_RESET } from '../constants/productConstants';
+import './admin-product-edit.css';
 
-// <---- USER PRODUCT EDIT SCREEN FUNCTION - location, history, dispatch, setQty, setRating, setComment ---->
 const ProductEditScreen = ({ match, history }) => {
-  // <---- PRODUCT EDIT  - dsipatch state ---->
   const productId = match.params.id;
 
-  // <---- SET PRODUCT EDIT INFO EFFECT FOR USER INFO - setName, setPrice,  setImage, setBrand, setCategory, setCountInStock, setDescription  ---->
   const [name, setName] = useState('');
   const [price, setPrice] = useState(0);
   const [image, setImage] = useState('');
@@ -24,14 +21,11 @@ const ProductEditScreen = ({ match, history }) => {
   const [description, setDescription] = useState('');
   const [uploading, setUploading] = useState(false);
 
-  // <---- PRODUCT EDIT  - dsipatch state ---->
   const dispatch = useDispatch();
 
-  // <---- PRODUCT EDIT  - productDetails state ---->
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
 
-  // <---- PRODUCT EDIT  - productUpdate state ---->
   const productUpdate = useSelector((state) => state.productUpdate);
   const {
     loading: loadingUpdate,
@@ -39,7 +33,6 @@ const ProductEditScreen = ({ match, history }) => {
     success: successUpdate,
   } = productUpdate;
 
-  // <---- SET PRODUCT EDIT INFO EFFECT FOR USER INFO - setName, setPrice,  setImage, setBrand, setCategory, setCountInStock, setDescription  ---->
   useEffect(() => {
     if (successUpdate) {
       dispatch({ type: PRODUCT_UPDATE_RESET });
@@ -59,7 +52,6 @@ const ProductEditScreen = ({ match, history }) => {
     }
   }, [dispatch, history, productId, product, successUpdate]);
 
-  // <---- UPLOAD FILE HANDLER - uploadFileHandler ---->
   const uploadFileHandler = async (e) => {
     const file = e.target.files[0];
     const formData = new FormData();
@@ -83,7 +75,6 @@ const ProductEditScreen = ({ match, history }) => {
     }
   };
 
-  // <---- PRODUCT EDIT HANDLER - submitHandler ---->
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(
@@ -101,106 +92,196 @@ const ProductEditScreen = ({ match, history }) => {
   };
 
   return (
-    <>
-      <Link to='/admin/productlist' className='btn btn-light my-3'>
-        Go Back
-      </Link>
-      <FormContainer>
-        <h1>Edit Product</h1>
-        {loadingUpdate && <Loader />}
-        {errorUpdate && <Message variant='danger'>{errorUpdate}</Message>}
-        {loading ? (
-          <Loader />
-        ) : error ? (
-          <Message variant='danger'>{error}</Message>
-        ) : (
-          <Form onSubmit={submitHandler}>
-            <Form.Group controlId='name'>
-              <Form.Label>Name</Form.Label>
-              <Form.Control
-                type='name'
-                placeholder='Enter name'
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
+    <section
+      className='burnsville-admin-product-edit'
+      aria-labelledby='admin-product-edit-title'
+    >
+      <Meta
+        title='Edit Product | Burnsville'
+        description='Update a product in the Burnsville catalogue.'
+      />
 
-            <Form.Group controlId='price'>
-              <Form.Label>Price</Form.Label>
-              <Form.Control
-                type='number'
-                placeholder='Enter price'
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
+      <div className='burnsville-admin-product-edit__inner'>
+        <Link
+          className='burnsville-admin-product-edit__back-link'
+          to='/admin/productlist'
+        >
+          Back to products
+        </Link>
 
-            <Form.Group controlId='image'>
-              <Form.Label>Image</Form.Label>
-              <Form.Control
-                type='text'
-                placeholder='Enter image url'
-                value={image}
-                onChange={(e) => setImage(e.target.value)}
-              ></Form.Control>
-              <Form.File
-                id='image-file'
-                label='Choose File'
-                custom
-                onChange={uploadFileHandler}
-              ></Form.File>
-              {uploading && <Loader />}
-            </Form.Group>
+        <header className='burnsville-admin-product-edit__header'>
+          <div>
+            <p className='burnsville-admin-product-edit__eyebrow'>
+              Admin workspace
+            </p>
+            <h1 id='admin-product-edit-title'>Edit product</h1>
+            <p>Update catalogue information and product imagery.</p>
+          </div>
+          <span className='burnsville-admin-product-edit__reference'>
+            ID {productId}
+          </span>
+        </header>
 
-            <Form.Group controlId='brand'>
-              <Form.Label>Brand</Form.Label>
-              <Form.Control
-                type='text'
-                placeholder='Enter brand'
-                value={brand}
-                onChange={(e) => setBrand(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
+        <section
+          className='burnsville-admin-product-edit__panel'
+          aria-labelledby='admin-product-details-title'
+        >
+          <div className='burnsville-admin-product-edit__panel-heading'>
+            <div>
+              <p className='burnsville-admin-product-edit__section-number'>
+                01
+              </p>
+              <h2 id='admin-product-details-title'>Product details</h2>
+            </div>
+            <span>Catalogue administration</span>
+          </div>
 
-            <Form.Group controlId='countInStock'>
-              <Form.Label>Count In Stock</Form.Label>
-              <Form.Control
-                type='number'
-                placeholder='Enter countInStock'
-                value={countInStock}
-                onChange={(e) => setCountInStock(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
+          <div className='burnsville-admin-product-edit__panel-body'>
+            {loadingUpdate && (
+              <div
+                className='burnsville-admin-product-edit__inline-loader'
+                aria-label='Updating product'
+              >
+                <Loader />
+              </div>
+            )}
+            {errorUpdate && <Message variant='danger'>{errorUpdate}</Message>}
 
-            <Form.Group controlId='category'>
-              <Form.Label>Category</Form.Label>
-              <Form.Control
-                type='text'
-                placeholder='Enter category'
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
+            {loading ? (
+              <div
+                className='burnsville-admin-product-edit__state'
+                aria-label='Loading product'
+              >
+                <Loader />
+              </div>
+            ) : error ? (
+              <Message variant='danger'>{error}</Message>
+            ) : (
+              <form
+                className='burnsville-admin-product-edit__form'
+                onSubmit={submitHandler}
+              >
+                <fieldset className='burnsville-admin-product-edit__group'>
+                  <legend>
+                    <span>01</span>
+                    Product information
+                  </legend>
 
-            <Form.Group controlId='description'>
-              <Form.Label>Description</Form.Label>
-              <Form.Control
-                type='text'
-                placeholder='Enter description'
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-              ></Form.Control>
-            </Form.Group>
+                  <div className='burnsville-admin-product-edit__field burnsville-admin-product-edit__field--wide'>
+                    <label htmlFor='admin-product-name'>Name</label>
+                    <input
+                      id='admin-product-name'
+                      type='name'
+                      placeholder='Enter name'
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                    />
+                  </div>
 
-            <Button type='submit' variant='primary'>
-              Update
-            </Button>
-          </Form>
-        )}
-      </FormContainer>
-    </>
+                  <div className='burnsville-admin-product-edit__field'>
+                    <label htmlFor='admin-product-brand'>Brand</label>
+                    <input
+                      id='admin-product-brand'
+                      type='text'
+                      placeholder='Enter brand'
+                      value={brand}
+                      onChange={(e) => setBrand(e.target.value)}
+                    />
+                  </div>
+
+                  <div className='burnsville-admin-product-edit__field'>
+                    <label htmlFor='admin-product-category'>Category</label>
+                    <input
+                      id='admin-product-category'
+                      type='text'
+                      placeholder='Enter category'
+                      value={category}
+                      onChange={(e) => setCategory(e.target.value)}
+                    />
+                  </div>
+
+                  <div className='burnsville-admin-product-edit__field'>
+                    <label htmlFor='admin-product-price'>Price</label>
+                    <input
+                      id='admin-product-price'
+                      type='number'
+                      placeholder='Enter price'
+                      value={price}
+                      onChange={(e) => setPrice(e.target.value)}
+                    />
+                  </div>
+
+                  <div className='burnsville-admin-product-edit__field'>
+                    <label htmlFor='admin-product-stock'>Count in stock</label>
+                    <input
+                      id='admin-product-stock'
+                      type='number'
+                      placeholder='Enter countInStock'
+                      value={countInStock}
+                      onChange={(e) => setCountInStock(e.target.value)}
+                    />
+                  </div>
+
+                  <div className='burnsville-admin-product-edit__field burnsville-admin-product-edit__field--wide'>
+                    <label htmlFor='admin-product-description'>Description</label>
+                    <input
+                      id='admin-product-description'
+                      type='text'
+                      placeholder='Enter description'
+                      value={description}
+                      onChange={(e) => setDescription(e.target.value)}
+                    />
+                  </div>
+                </fieldset>
+
+                <fieldset className='burnsville-admin-product-edit__group'>
+                  <legend>
+                    <span>02</span>
+                    Product image
+                  </legend>
+
+                  <div className='burnsville-admin-product-edit__field burnsville-admin-product-edit__field--wide'>
+                    <label htmlFor='admin-product-image'>Image</label>
+                    <input
+                      id='admin-product-image'
+                      type='text'
+                      placeholder='Enter image url'
+                      value={image}
+                      onChange={(e) => setImage(e.target.value)}
+                    />
+                  </div>
+
+                  <div className='burnsville-admin-product-edit__upload burnsville-admin-product-edit__field--wide'>
+                    <label htmlFor='image-file'>Choose file</label>
+                    <input
+                      id='image-file'
+                      type='file'
+                      onChange={uploadFileHandler}
+                    />
+                    <span>Upload a product image using the existing uploader.</span>
+                  </div>
+
+                  {uploading && (
+                    <div
+                      className='burnsville-admin-product-edit__upload-loader burnsville-admin-product-edit__field--wide'
+                      aria-label='Uploading image'
+                    >
+                      <Loader />
+                    </div>
+                  )}
+                </fieldset>
+
+                <div className='burnsville-admin-product-edit__actions'>
+                  <button type='submit'>Update product</button>
+                  <Link to='/admin/productlist'>Cancel</Link>
+                </div>
+              </form>
+            )}
+          </div>
+        </section>
+      </div>
+    </section>
   );
 };
 
-// <---- EXPORT ---->
 export default ProductEditScreen;

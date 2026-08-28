@@ -1,0 +1,375 @@
+.burnsville-admin-orders,
+.burnsville-admin-orders * {
+  box-sizing: border-box;
+}
+
+.burnsville-admin-orders {
+  --orders-cream: var(--burnsville-cream, #f3ede4);
+  --orders-onyx: var(--burnsville-onyx, #111111);
+  --orders-red: var(--burnsville-chilli, #d2282b);
+  --orders-red-dark: var(--burnsville-chilli-text, #b8231b);
+  --orders-green: var(--burnsville-pepper, #3e7f3a);
+  --orders-orange: #d98b21;
+  background-color: var(--orders-cream);
+  background-image:
+    radial-gradient(circle at 17% 31%, rgba(17, 17, 17, 0.08) 0 0.7px, transparent 1px),
+    radial-gradient(circle at 82% 68%, rgba(184, 35, 27, 0.07) 0 0.7px, transparent 1px);
+  background-size: 37px 41px, 43px 47px;
+  color: var(--orders-onyx);
+  margin-bottom: -1rem;
+  margin-left: calc(50% - 50vw);
+  margin-top: -1rem;
+  min-height: 80vh;
+  width: 100vw;
+}
+
+.burnsville-admin-orders__inner {
+  margin: 0 auto;
+  max-width: 1440px;
+  padding: 48px 44px 76px;
+}
+
+.burnsville-admin-orders__header {
+  border-bottom: 1px solid rgba(17, 17, 17, 0.3);
+  margin-bottom: 34px;
+  padding-bottom: 30px;
+  position: relative;
+}
+
+.burnsville-admin-orders__header::after {
+  background: linear-gradient(90deg, var(--orders-green) 0 28%, transparent 28% 34%, var(--orders-orange) 34% 63%, transparent 63% 69%, var(--orders-red) 69% 100%);
+  bottom: -2px;
+  content: '';
+  height: 4px;
+  left: 0;
+  position: absolute;
+  width: 126px;
+}
+
+.burnsville-admin-orders__eyebrow,
+.burnsville-admin-orders__section-number {
+  color: var(--orders-red-dark);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 0.76rem;
+  letter-spacing: 0.13em;
+  margin: 0 0 10px;
+  text-transform: uppercase;
+}
+
+.burnsville-admin-orders__eyebrow::after {
+  background: currentColor;
+  content: '';
+  display: inline-block;
+  height: 1px;
+  margin-left: 12px;
+  transform: translateY(-3px);
+  width: 48px;
+}
+
+.burnsville-admin-orders__header h1 {
+  color: var(--orders-onyx);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: clamp(3.2rem, 6vw, 5.8rem);
+  font-weight: 900;
+  letter-spacing: 0.015em;
+  line-height: 0.92;
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
+}
+
+.burnsville-admin-orders__header > div > p:last-child {
+  color: rgba(17, 17, 17, 0.65);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  margin: 18px 0 0;
+}
+
+.burnsville-admin-orders__panel {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(17, 17, 17, 0.3);
+  min-width: 0;
+}
+
+.burnsville-admin-orders__panel-heading {
+  align-items: end;
+  border-bottom: 1px solid rgba(17, 17, 17, 0.3);
+  display: flex;
+  justify-content: space-between;
+  min-height: 104px;
+  padding: 24px 26px 20px;
+}
+
+.burnsville-admin-orders__panel-heading h2,
+.burnsville-admin-orders__empty h3 {
+  color: var(--orders-onyx);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  letter-spacing: 0.035em;
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
+}
+
+.burnsville-admin-orders__panel-heading h2 {
+  font-size: 1.75rem;
+}
+
+.burnsville-admin-orders__panel-heading > span {
+  color: rgba(17, 17, 17, 0.56);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.67rem;
+  letter-spacing: 0.08em;
+  padding-bottom: 4px;
+  text-transform: uppercase;
+}
+
+.burnsville-admin-orders__panel-body {
+  padding: 0;
+}
+
+.burnsville-admin-orders__panel-body > .alert {
+  border-radius: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.8rem;
+  margin: 24px;
+}
+
+.burnsville-admin-orders__state {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  min-height: 300px;
+}
+
+.burnsville-admin-orders__state .spinner-border {
+  color: var(--orders-red);
+}
+
+.burnsville-admin-orders__table-wrap {
+  overflow-x: auto;
+}
+
+.burnsville-admin-orders__table {
+  border-collapse: collapse;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  min-width: 1080px;
+  width: 100%;
+}
+
+.burnsville-admin-orders__table th,
+.burnsville-admin-orders__table td {
+  border-bottom: 1px solid rgba(17, 17, 17, 0.18);
+  padding: 17px 18px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.burnsville-admin-orders__table th {
+  background: var(--orders-onyx);
+  color: var(--orders-cream);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.burnsville-admin-orders__table th:last-child {
+  text-align: right;
+}
+
+.burnsville-admin-orders__table td {
+  color: rgba(17, 17, 17, 0.74);
+  font-size: 0.78rem;
+}
+
+.burnsville-admin-orders__table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.burnsville-admin-orders__id {
+  max-width: 190px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.burnsville-admin-orders__status {
+  border: 1px solid currentColor;
+  display: inline-block;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 0.64rem;
+  letter-spacing: 0.06em;
+  min-width: 92px;
+  padding: 7px 9px;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.burnsville-admin-orders__status--complete {
+  color: var(--orders-green);
+}
+
+.burnsville-admin-orders__status--pending {
+  color: var(--orders-red-dark);
+}
+
+.burnsville-admin-orders__actions {
+  text-align: right !important;
+}
+
+.burnsville-admin-orders__action {
+  align-items: center;
+  border: 1px solid rgba(17, 17, 17, 0.5);
+  border-radius: 0;
+  color: var(--orders-onyx);
+  display: inline-flex;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 0.66rem;
+  justify-content: center;
+  letter-spacing: 0.07em;
+  min-height: 38px;
+  min-width: 76px;
+  padding: 8px 12px;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background-color 150ms cubic-bezier(0.25, 0.7, 0.2, 1), color 150ms cubic-bezier(0.25, 0.7, 0.2, 1);
+}
+
+.burnsville-admin-orders__action:hover {
+  background: var(--orders-onyx);
+  border-color: var(--orders-onyx);
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.burnsville-admin-orders__empty {
+  min-height: 340px;
+  padding: 48px;
+}
+
+.burnsville-admin-orders__empty h3 {
+  font-size: clamp(2.2rem, 4vw, 3.5rem);
+  margin-top: 48px;
+}
+
+.burnsville-admin-orders__empty > p:last-child {
+  color: rgba(17, 17, 17, 0.62);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  margin: 12px 0 0;
+}
+
+.burnsville-admin-orders a:focus-visible {
+  outline: 3px solid var(--orders-orange);
+  outline-offset: 3px;
+}
+
+@media (max-width: 767px) {
+  .burnsville-admin-orders__inner {
+    padding: 34px 16px 58px;
+  }
+
+  .burnsville-admin-orders__header {
+    margin-bottom: 24px;
+    padding-bottom: 26px;
+  }
+
+  .burnsville-admin-orders__header h1 {
+    font-size: clamp(3rem, 18vw, 4.7rem);
+  }
+
+  .burnsville-admin-orders__panel-heading {
+    align-items: start;
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px 18px;
+  }
+
+  .burnsville-admin-orders__table-wrap {
+    overflow: visible;
+  }
+
+  .burnsville-admin-orders__table,
+  .burnsville-admin-orders__table tbody,
+  .burnsville-admin-orders__table tr,
+  .burnsville-admin-orders__table td {
+    display: block;
+    min-width: 0;
+    width: 100%;
+  }
+
+  .burnsville-admin-orders__table thead {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
+
+  .burnsville-admin-orders__table tr {
+    border-bottom: 1px solid rgba(17, 17, 17, 0.3);
+    padding: 12px 0;
+  }
+
+  .burnsville-admin-orders__table tr:last-child {
+    border-bottom: 0;
+  }
+
+  .burnsville-admin-orders__table td {
+    align-items: center;
+    border: 0;
+    display: grid;
+    gap: 14px;
+    grid-template-columns: 82px minmax(0, 1fr);
+    overflow-wrap: anywhere;
+    padding: 8px 18px;
+    white-space: normal;
+  }
+
+  .burnsville-admin-orders__table td::before {
+    color: rgba(17, 17, 17, 0.55);
+    content: attr(data-label);
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+    font-size: 0.67rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .burnsville-admin-orders__id {
+    max-width: none;
+    text-overflow: clip;
+  }
+
+  .burnsville-admin-orders__table td.burnsville-admin-orders__actions {
+    text-align: left !important;
+  }
+
+  .burnsville-admin-orders__action {
+    min-height: 44px;
+    width: 100%;
+  }
+
+  .burnsville-admin-orders__empty {
+    min-height: 300px;
+    padding: 32px 22px;
+  }
+
+  .burnsville-admin-orders__empty h3 {
+    margin-top: 38px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .burnsville-admin-orders__action {
+    transition: none;
+  }
+}

@@ -20,6 +20,7 @@ const ProductEditScreen = ({ match, history }) => {
   const [countInStock, setCountInStock] = useState(0);
   const [description, setDescription] = useState('');
   const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState('');
 
   const dispatch = useDispatch();
 
@@ -32,6 +33,9 @@ const ProductEditScreen = ({ match, history }) => {
     error: errorUpdate,
     success: successUpdate,
   } = productUpdate;
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
   useEffect(() => {
     if (successUpdate) {
@@ -54,23 +58,38 @@ const ProductEditScreen = ({ match, history }) => {
 
   const uploadFileHandler = async (e) => {
     const file = e.target.files[0];
+
+    if (!file) {
+      return;
+    }
+
+    if (!userInfo || !userInfo.token) {
+      setUploadError('Admin authentication is required to upload images');
+      return;
+    }
+
     const formData = new FormData();
     formData.append('image', file);
+    setUploadError('');
     setUploading(true);
 
     try {
       const config = {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${userInfo.token}`,
         },
       };
 
       const { data } = await axios.post('/api/upload', formData, config);
 
       setImage(data);
-      setUploading(false);
     } catch (error) {
-      console.error(error);
+      const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
+      setUploadError(message || 'Image upload failed');
+    } finally {
       setUploading(false);
     }
   };
@@ -256,9 +275,10 @@ const ProductEditScreen = ({ match, history }) => {
                     <input
                       id='image-file'
                       type='file'
+                      accept='image/jpeg,image/png'
                       onChange={uploadFileHandler}
                     />
-                    <span>Upload a product image using the existing uploader.</span>
+                    <span>Upload a JPEG or PNG image up to 5 MB.</span>
                   </div>
 
                   {uploading && (
@@ -267,6 +287,11 @@ const ProductEditScreen = ({ match, history }) => {
                       aria-label='Uploading image'
                     >
                       <Loader />
+                    </div>
+                  )}
+                  {uploadError && (
+                    <div className='burnsville-admin-product-edit__field--wide'>
+                      <Message variant='danger'>{uploadError}</Message>
                     </div>
                   )}
                 </fieldset>

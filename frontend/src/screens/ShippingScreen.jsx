@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import CheckoutSteps from '../components/CheckoutSteps';
@@ -7,19 +7,36 @@ import { saveShippingAddress } from '../actions/cartActions';
 
 const ShippingScreen = ({ history }) => {
   const cart = useSelector((state) => state.cart);
-  const { shippingAddress } = cart;
+  const { cartItems, shippingAddress } = cart;
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
-  const [address, setAddress] = useState(shippingAddress.address);
-  const [city, setCity] = useState(shippingAddress.city);
-  const [postalCode, setPostalCode] = useState(shippingAddress.postalCode);
-  const [country, setCountry] = useState(shippingAddress.country);
+  const [address, setAddress] = useState(shippingAddress.address || '');
+  const [city, setCity] = useState(shippingAddress.city || '');
+  const [postalCode, setPostalCode] = useState(shippingAddress.postalCode || '');
+  const [country, setCountry] = useState(shippingAddress.country || '');
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (cartItems.length === 0) {
+      history.replace('/cart');
+      return;
+    }
+
+    if (!userInfo) {
+      history.replace('/login?redirect=shipping');
+    }
+  }, [cartItems.length, history, userInfo]);
 
   const submitHandler = (event) => {
     event.preventDefault();
     dispatch(saveShippingAddress({ address, city, postalCode, country }));
     history.push('/payment');
   };
+
+  if (cartItems.length === 0 || !userInfo) {
+    return null;
+  }
 
   return (
     <section
@@ -107,6 +124,7 @@ const ShippingScreen = ({ history }) => {
 ShippingScreen.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
+    replace: PropTypes.func.isRequired,
   }).isRequired,
 };
 

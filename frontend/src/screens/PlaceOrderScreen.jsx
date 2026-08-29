@@ -6,36 +6,89 @@ import Message from '../components/Message';
 import Meta from '../components/Meta';
 import CheckoutSteps from '../components/CheckoutSteps';
 import { createOrder } from '../actions/orderActions';
+import { CART_RESET } from '../constants/cartConstants';
+import { ORDER_CREATE_RESET } from '../constants/orderConstants';
 import './place-order-screen.css';
 
 const PlaceOrderScreen = ({ history }) => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
   const addDecimals = (num) => {
     return (Math.round(num * 100) / 100).toFixed(2);
   };
 
-  cart.itemsPrice = addDecimals(
-    cart.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0)
+  const itemsPrice = Number(
+    addDecimals(
+      cart.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0)
+    )
   );
-  cart.shippingPrice = addDecimals(cart.itemsPrice > 100 ? 0 : 100);
-  cart.vatPrice = addDecimals(Number((0.15 * cart.itemsPrice).toFixed(2)));
-  cart.totalPrice = (
-    Number(cart.itemsPrice) +
-    Number(cart.shippingPrice) +
-    Number(cart.vatPrice)
-  ).toFixed(2);
+  const shippingPrice = itemsPrice > 100 ? 0 : 100;
+  const vatPrice = Number(addDecimals(0.15 * itemsPrice));
+  const totalPrice = Number(
+    addDecimals(itemsPrice + shippingPrice + vatPrice)
+  );
 
   const orderCreate = useSelector((state) => state.orderCreate);
-  const { order, success, error } = orderCreate;
+  const { order, success, error, loading } = orderCreate;
+
+  const hasShippingAddress = Boolean(
+    cart.shippingAddress.address &&
+      cart.shippingAddress.city &&
+      cart.shippingAddress.postalCode &&
+      cart.shippingAddress.country
+  );
+  const hasSupportedPaymentMethod = cart.paymentMethod === 'PayPal';
+  const checkoutReady = Boolean(
+    userInfo &&
+      cart.cartItems.length > 0 &&
+      hasShippingAddress &&
+      hasSupportedPaymentMethod
+  );
 
   useEffect(() => {
-    if (success) {
-      history.push(`/order/${order._id}`);
+    if (success && order) {
+      const orderId = order._id;
+
+      history.replace(`/order/${orderId}`);
+      dispatch({ type: CART_RESET });
+      dispatch({ type: ORDER_CREATE_RESET });
+      localStorage.removeItem('cartItems');
+      localStorage.removeItem('shippingAddress');
+      localStorage.removeItem('paymentMethod');
+      return;
     }
-    // eslint-disable-next-line
-  }, [history, success]);
+
+    if (cart.cartItems.length === 0) {
+      history.replace('/cart');
+      return;
+    }
+
+    if (!userInfo) {
+      history.replace('/login?redirect=placeorder');
+      return;
+    }
+
+    if (!hasShippingAddress) {
+      history.replace('/shipping');
+      return;
+    }
+
+    if (!hasSupportedPaymentMethod) {
+      history.replace('/payment');
+    }
+  }, [
+    cart.cartItems.length,
+    dispatch,
+    hasShippingAddress,
+    hasSupportedPaymentMethod,
+    history,
+    order,
+    success,
+    userInfo,
+  ]);
 
   const placeOrderHandler = () => {
     dispatch(
@@ -49,6 +102,10 @@ const PlaceOrderScreen = ({ history }) => {
       })
     );
   };
+
+  if (!checkoutReady || (success && order)) {
+    return null;
+  }
 
   return (
     <section
@@ -142,19 +199,19 @@ const PlaceOrderScreen = ({ history }) => {
             <dl>
               <div>
                 <dt>Items</dt>
-                <dd>R{cart.itemsPrice}</dd>
+                <dd>R{addDecimals(itemsPrice)}</dd>
               </div>
               <div>
                 <dt>Shipping</dt>
-                <dd>R{cart.shippingPrice}</dd>
+                <dd>R{addDecimals(shippingPrice)}</dd>
               </div>
               <div>
                 <dt>VAT</dt>
-                <dd>R{cart.vatPrice}</dd>
+                <dd>R{addDecimals(vatPrice)}</dd>
               </div>
               <div className='burnsville-place-order__total'>
                 <dt>Total</dt>
-                <dd>R{cart.totalPrice}</dd>
+                <dd>R{addDecimals(totalPrice)}</dd>
               </div>
             </dl>
 
@@ -166,10 +223,10 @@ const PlaceOrderScreen = ({ history }) => {
 
             <button
               type='button'
-              disabled={cart.cartItems === 0}
+              disabled={loading || cart.cartItems.length === 0}
               onClick={placeOrderHandler}
             >
-              Place order
+              {loading ? 'Placing order...' : 'Place order'}
             </button>
           </aside>
         </div>
@@ -180,7 +237,7 @@ const PlaceOrderScreen = ({ history }) => {
 
 PlaceOrderScreen.propTypes = {
   history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
+    replace: PropTypes.func.isRequired,
   }).isRequired,
 };
 

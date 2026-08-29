@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import CheckoutSteps from '../components/CheckoutSteps';
@@ -7,20 +7,44 @@ import { savePaymentMethod } from '../actions/cartActions';
 
 const PaymentScreen = ({ history }) => {
   const cart = useSelector((state) => state.cart);
-  const { shippingAddress } = cart;
-
-  if (!shippingAddress) {
-    history.push('/shipping');
-  }
-
+  const { cartItems, shippingAddress } = cart;
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
   const [paymentMethod, setPaymentMethod] = useState('PayPal');
   const dispatch = useDispatch();
+
+  const hasShippingAddress = Boolean(
+    shippingAddress.address &&
+      shippingAddress.city &&
+      shippingAddress.postalCode &&
+      shippingAddress.country
+  );
+
+  useEffect(() => {
+    if (cartItems.length === 0) {
+      history.replace('/cart');
+      return;
+    }
+
+    if (!userInfo) {
+      history.replace('/login?redirect=payment');
+      return;
+    }
+
+    if (!hasShippingAddress) {
+      history.replace('/shipping');
+    }
+  }, [cartItems.length, hasShippingAddress, history, userInfo]);
 
   const submitHandler = (event) => {
     event.preventDefault();
     dispatch(savePaymentMethod(paymentMethod));
     history.push('/placeorder');
   };
+
+  if (cartItems.length === 0 || !userInfo || !hasShippingAddress) {
+    return null;
+  }
 
   return (
     <section
@@ -39,7 +63,7 @@ const PaymentScreen = ({ history }) => {
           <header className='burnsville-checkout__introduction'>
             <p className='burnsville-checkout__eyebrow'>Checkout step 3</p>
             <h1 id='burnsville-payment-title'>Payment method</h1>
-            <p>Select one of the available payment options.</p>
+            <p>Select the available payment option.</p>
             <div className='burnsville-checkout__accent' aria-hidden='true' />
           </header>
 
@@ -56,28 +80,13 @@ const PaymentScreen = ({ history }) => {
                   id='PayPal'
                   name='paymentMethod'
                   value='PayPal'
-                  checked
+                  checked={paymentMethod === 'PayPal'}
                   onChange={(event) => setPaymentMethod(event.target.value)}
                 />
                 <span className='burnsville-checkout__radio-mark' aria-hidden='true' />
                 <span>
                   <strong>PayPal or Credit Card</strong>
                   <small>PayPal</small>
-                </span>
-              </label>
-
-              <label className='burnsville-checkout__payment-option' htmlFor='PayFast'>
-                <input
-                  type='radio'
-                  id='PayFast'
-                  name='paymentMethod'
-                  value='PayFast'
-                  onChange={(event) => setPaymentMethod(event.target.value)}
-                />
-                <span className='burnsville-checkout__radio-mark' aria-hidden='true' />
-                <span>
-                  <strong>PayFast</strong>
-                  <small>PayFast</small>
                 </span>
               </label>
             </fieldset>
@@ -93,6 +102,7 @@ const PaymentScreen = ({ history }) => {
 PaymentScreen.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
+    replace: PropTypes.func.isRequired,
   }).isRequired,
 };
 

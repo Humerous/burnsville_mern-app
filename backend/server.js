@@ -34,15 +34,17 @@ app.get('/api/config/paypal', (req, res) =>
   res.send(process.env.PAYPAL_CLIENT_ID)
 );
 
-// <----HEROKU RUN/BUILD PRODUCTION MODE ---->
+// <---- PRODUCTION STATIC ASSETS ---->
 const __dirname = path.resolve();
-app.use('/uploads', express.static(path.join(__dirname, '/uploads')));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '/frontend/build')));
+  const frontendDistPath = path.join(__dirname, 'frontend', 'dist');
+
+  app.use(express.static(frontendDistPath));
 
   app.get('*', (req, res) =>
-    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
+    res.sendFile(path.join(frontendDistPath, 'index.html'))
   );
 } else {
   // <---- GET (WORKING ROUTE) ---->

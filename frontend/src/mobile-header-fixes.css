@@ -1,0 +1,36 @@
+/* Mobile/tablet header QA fixes: keep the drawer aligned with the left-side
+   hamburger trigger and prevent the Burnsville wordmark changing size when
+   the drawer opens. */
+
+@media (max-width: 1180px) {
+  .burnsville-drawer__panel {
+    box-shadow: 20px 0 45px rgba(0, 0, 0, 0.3) !important;
+    left: 0 !important;
+    right: auto !important;
+    transform: translateX(-100%) !important;
+  }
+
+  .burnsville-drawer--open .burnsville-drawer__panel {
+    transform: translateX(0) !important;
+  }
+
+  .burnsville-logo--compact {
+    min-height: 44px;
+    min-width: 184px;
+  }
+
+  .burnsville-logo--compact .burnsville-logo__art {
+    transform: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .burnsville-logo--compact {
+    min-width: 164px;
+  }
+
+  .burnsville-logo--compact .burnsville-logo__art {
+    transform: scale(0.9);
+    transform-origin: center center;
+  }
+}

@@ -38,6 +38,14 @@ jobs:
       - name: Install backend dependencies
         run: npm ci
 
+      - name: Recover current frontend lockfile
+        run: |
+          npm install --prefix frontend --package-lock-only --include=dev
+          echo 'BURNSVILLE_LOCKFILE_GZIP_BASE64_BEGIN'
+          gzip -c frontend/package-lock.json | base64 -w0
+          echo
+          echo 'BURNSVILLE_LOCKFILE_GZIP_BASE64_END'
+
       - name: Build Vite frontend
         run: npm run build
 

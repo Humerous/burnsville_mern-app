@@ -8,6 +8,13 @@ import connectDB from './config/db.js';
 
 dotenv.config();
 
+if (process.env.NODE_ENV === 'production' || process.env.VERCEL_ENV) {
+  console.error(
+    'The legacy destructive seeder is disabled in production and Vercel environments. Use npm run data:bootstrap instead.'
+  );
+  process.exit(1);
+}
+
 connectDB();
 
 // <---- IMPORT DATA - DUMMY DATA FOR DB ---->

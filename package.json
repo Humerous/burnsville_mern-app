@@ -15,6 +15,7 @@
     "build": "npm ci --prefix frontend --include=dev && npm run build --prefix frontend",
     "data:import": "node backend/seeder",
     "data:destroy": "node backend/seeder -d",
+    "data:bootstrap": "node backend/bootstrap",
     "heroku-postbuild": "npm run build"
   },
   "author": "David Miller",

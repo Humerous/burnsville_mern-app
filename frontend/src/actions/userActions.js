@@ -25,7 +25,18 @@ import {
   USER_UPDATE_REQUEST,
   USER_UPDATE_SUCCESS,
 } from '../constants/userConstants';
-import { ORDER_LIST_MY_RESET } from '../constants/orderConstants';
+import { CART_CLEAR_CHECKOUT } from '../constants/cartConstants';
+import {
+  ORDER_CREATE_RESET,
+  ORDER_DETAILS_RESET,
+  ORDER_PAY_RESET,
+  ORDER_LIST_MY_RESET,
+  ORDER_LIST_RESET,
+  ORDER_DELIVER_RESET,
+} from '../constants/orderConstants';
+
+const isUnauthorized = (error) =>
+  Boolean(error.response && error.response.status === 401);
 
 // <---- USER LOGIN ACTIONS BELOW ---->
 export const login = (email, password) => async (dispatch) => {
@@ -66,9 +77,18 @@ export const login = (email, password) => async (dispatch) => {
 // <---- USER LOGOUT ACTIONS BELOW ---->
 export const logout = () => (dispatch) => {
   localStorage.removeItem('userInfo');
+  localStorage.removeItem('shippingAddress');
+  localStorage.removeItem('paymentMethod');
+
   dispatch({ type: USER_LOGOUT });
+  dispatch({ type: CART_CLEAR_CHECKOUT });
   dispatch({ type: USER_DETAILS_RESET });
+  dispatch({ type: ORDER_CREATE_RESET });
+  dispatch({ type: ORDER_DETAILS_RESET });
+  dispatch({ type: ORDER_PAY_RESET });
+  dispatch({ type: ORDER_DELIVER_RESET });
   dispatch({ type: ORDER_LIST_MY_RESET });
+  dispatch({ type: ORDER_LIST_RESET });
   dispatch({ type: USER_LIST_RESET });
 };
 
@@ -141,7 +161,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
-    if (message === 'Not authorized, token failed') {
+    if (isUnauthorized(error)) {
       dispatch(logout());
     }
     dispatch({
@@ -185,7 +205,7 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
-    if (message === 'Not authorized, token failed') {
+    if (isUnauthorized(error)) {
       dispatch(logout());
     }
     dispatch({
@@ -223,7 +243,7 @@ export const listUsers = () => async (dispatch, getState) => {
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
-    if (message === 'Not authorized, token failed') {
+    if (isUnauthorized(error)) {
       dispatch(logout());
     }
     dispatch({
@@ -258,7 +278,7 @@ export const deleteUser = (id) => async (dispatch, getState) => {
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
-    if (message === 'Not authorized, token failed') {
+    if (isUnauthorized(error)) {
       dispatch(logout());
     }
     dispatch({
@@ -296,7 +316,7 @@ export const updateUser = (user) => async (dispatch, getState) => {
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
-    if (message === 'Not authorized, token failed') {
+    if (isUnauthorized(error)) {
       dispatch(logout());
     }
     dispatch({

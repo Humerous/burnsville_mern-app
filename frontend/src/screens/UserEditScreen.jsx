@@ -27,7 +27,15 @@ const UserEditScreen = ({ match, history }) => {
     success: successUpdate,
   } = userUpdate;
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
   useEffect(() => {
+    if (!userInfo || !userInfo.isAdmin) {
+      history.replace('/login');
+      return;
+    }
+
     if (successUpdate) {
       dispatch({ type: USER_UPDATE_RESET });
       history.push('/admin/userlist');
@@ -38,12 +46,16 @@ const UserEditScreen = ({ match, history }) => {
       setEmail(user.email);
       setIsAdmin(user.isAdmin);
     }
-  }, [dispatch, history, userId, user, successUpdate]);
+  }, [dispatch, history, userId, user, successUpdate, userInfo]);
 
   const submitHandler = (event) => {
     event.preventDefault();
     dispatch(updateUser({ _id: userId, name, email, isAdmin }));
   };
+
+  if (!userInfo || !userInfo.isAdmin) {
+    return null;
+  }
 
   return (
     <section

@@ -7,15 +7,19 @@ const userSchema = mongoose.Schema(
     name: {
       type: String,
       required: true,
+      trim: true,
     },
     email: {
       type: String,
       required: true,
       unique: true,
+      trim: true,
+      lowercase: true,
     },
     password: {
       type: String,
       required: true,
+      minlength: 8,
     },
     isAdmin: {
       type: Boolean,
@@ -30,16 +34,22 @@ const userSchema = mongoose.Schema(
 
 // <---- NEW USER SCHEMA- match password - entered correct password ---->
 userSchema.methods.matchPassword = async function (enteredPassword) {
-  return await bcrypt.compare(enteredPassword, this.password);
+  return bcrypt.compare(enteredPassword, this.password);
 };
-// <---- NEW USER SCHEMA- match password - entered correct password ---->
+
+// <---- NEW USER SCHEMA- hash changed passwords exactly once ---->
 userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) {
-    next();
+    return next();
   }
-  // <---- NEW USER SCHEMA- salt and hash password ---->
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
+
+  try {
+    const salt = await bcrypt.genSalt(10);
+    this.password = await bcrypt.hash(this.password, salt);
+    return next();
+  } catch (error) {
+    return next(error);
+  }
 });
 
 // <---- NEW USER SCHEMA- model ---->

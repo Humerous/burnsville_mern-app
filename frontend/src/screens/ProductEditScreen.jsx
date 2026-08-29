@@ -38,23 +38,26 @@ const ProductEditScreen = ({ match, history }) => {
   const { userInfo } = userLogin;
 
   useEffect(() => {
+    if (!userInfo || !userInfo.isAdmin) {
+      history.replace('/login');
+      return;
+    }
+
     if (successUpdate) {
       dispatch({ type: PRODUCT_UPDATE_RESET });
       history.push('/admin/productlist');
+    } else if (!product.name || product._id !== productId) {
+      dispatch(listProductDetails(productId));
     } else {
-      if (!product.name || product._id !== productId) {
-        dispatch(listProductDetails(productId));
-      } else {
-        setName(product.name);
-        setPrice(product.price);
-        setImage(product.image);
-        setBrand(product.brand);
-        setCategory(product.category);
-        setCountInStock(product.countInStock);
-        setDescription(product.description);
-      }
+      setName(product.name);
+      setPrice(product.price);
+      setImage(product.image);
+      setBrand(product.brand);
+      setCategory(product.category);
+      setCountInStock(product.countInStock);
+      setDescription(product.description);
     }
-  }, [dispatch, history, productId, product, successUpdate]);
+  }, [dispatch, history, productId, product, successUpdate, userInfo]);
 
   const uploadFileHandler = async (e) => {
     const file = e.target.files[0];
@@ -109,6 +112,10 @@ const ProductEditScreen = ({ match, history }) => {
       })
     );
   };
+
+  if (!userInfo || !userInfo.isAdmin) {
+    return null;
+  }
 
   return (
     <section

@@ -25,13 +25,6 @@ if (process.env.NODE_ENV === 'development') {
 }
 app.use(express.json());
 
-// Temporary preview-only client boot diagnostics. Remove after the blank-page
-// failure is identified and fixed.
-app.post('/api/client-diagnostic', (req, res) => {
-  console.error('CLIENT_DIAGNOSTIC', JSON.stringify(req.body || {}));
-  res.status(204).end();
-});
-
 // <---- ROUTES USE BELOW ---->
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);

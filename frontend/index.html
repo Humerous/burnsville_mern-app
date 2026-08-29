@@ -22,6 +22,42 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <script>
+      (() => {
+        const reportClientDiagnostic = (kind, message, detail = {}) => {
+          const payload = {
+            kind,
+            message: String(message || 'Unknown client error').slice(0, 1200),
+            ...detail,
+          };
+
+          fetch('/api/client-diagnostic', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+            keepalive: true,
+          }).catch(() => {});
+        };
+
+        window.addEventListener('error', (event) => {
+          reportClientDiagnostic('error', event.message, {
+            source: event.filename,
+            line: event.lineno,
+            column: event.colno,
+            stack: event.error && event.error.stack,
+          });
+        });
+
+        window.addEventListener('unhandledrejection', (event) => {
+          const reason = event.reason;
+          reportClientDiagnostic(
+            'unhandledrejection',
+            reason && reason.message ? reason.message : reason,
+            { stack: reason && reason.stack }
+          );
+        });
+      })();
+    </script>
     <script type="module" src="/src/index.jsx"></script>
   </body>
 </html>

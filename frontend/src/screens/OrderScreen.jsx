@@ -35,15 +35,19 @@ const OrderScreen = ({ match, history }) => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  if (!loading && order) {
-    const addDecimals = (num) => {
-      return (Math.round(num * 100) / 100).toFixed(2);
-    };
+  const addDecimals = (num) => {
+    return (Math.round(num * 100) / 100).toFixed(2);
+  };
 
-    order.itemsPrice = addDecimals(
-      order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)
-    );
-  }
+  const displayItemsPrice =
+    order && order.itemsPrice !== undefined && order.itemsPrice !== null
+      ? order.itemsPrice
+      : order
+      ? order.orderItems.reduce(
+          (acc, item) => acc + item.price * item.qty,
+          0
+        )
+      : 0;
 
   useEffect(() => {
     if (!userInfo) {
@@ -205,7 +209,7 @@ const OrderScreen = ({ match, history }) => {
                         <span>
                           {item.qty} x R{item.price}
                         </span>
-                        <strong>R{parseInt(item.qty * item.price)}</strong>
+                        <strong>R{addDecimals(item.qty * item.price)}</strong>
                       </p>
                     </li>
                   ))}
@@ -224,7 +228,7 @@ const OrderScreen = ({ match, history }) => {
             <dl className='burnsville-order__totals'>
               <div>
                 <dt>Items</dt>
-                <dd>R{order.itemsPrice}</dd>
+                <dd>R{addDecimals(displayItemsPrice)}</dd>
               </div>
               <div>
                 <dt>Shipping</dt>

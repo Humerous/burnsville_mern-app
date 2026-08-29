@@ -1,38 +1,122 @@
 import asyncHandler from 'express-async-handler';
+import mongoose from 'mongoose';
 import Order from '../models/orderModel.js';
+import Product from '../models/productModel.js';
+
+const roundCurrency = (value) =>
+  Math.round((Number(value) + Number.EPSILON) * 100) / 100;
 
 // <---- ADD ORDERS ITEMS ---->
 const addOrderItems = asyncHandler(async (req, res) => {
-  const {
-    orderItems,
-    shippingAddress,
-    paymentMethod,
-    itemsPrice,
-    vatPrice,
-    shippingPrice,
-    totalPrice,
-  } = req.body;
+  const { orderItems, shippingAddress, paymentMethod } = req.body;
 
-  if (orderItems && orderItems.length === 0) {
+  if (!Array.isArray(orderItems) || orderItems.length === 0) {
     res.status(400);
     throw new Error('No order items');
-    return;
-  } else {
-    const order = new Order({
-      orderItems,
-      user: req.user._id,
-      shippingAddress,
-      paymentMethod,
-      itemsPrice,
-      vatPrice,
-      shippingPrice,
-      totalPrice,
-    });
-    // <---- CREATE NEW ORDER ITEM AND SAVE ---->
-    const createdOrder = await order.save();
-
-    res.status(201).json(createdOrder);
   }
+
+  const session = await mongoose.startSession();
+  let createdOrder;
+
+  try {
+    await session.withTransaction(async () => {
+      const authoritativeItems = [];
+
+      for (const item of orderItems) {
+        const qty = Number(item.qty);
+
+        if (!Number.isInteger(qty) || qty <= 0) {
+          res.status(400);
+          throw new Error('Order item quantity must be a positive integer');
+        }
+
+        if (!mongoose.Types.ObjectId.isValid(item.product)) {
+          res.status(404);
+          throw new Error('Product not found');
+        }
+
+        const product = await Product.findById(item.product).session(session);
+
+        if (!product) {
+          res.status(404);
+          throw new Error('Product not found');
+        }
+
+        const updatedProduct = await Product.findOneAndUpdate(
+          {
+            _id: product._id,
+            countInStock: { $gte: qty },
+          },
+          {
+            $inc: { countInStock: -qty },
+          },
+          {
+            new: true,
+            session,
+          }
+        );
+
+        if (!updatedProduct) {
+          res.status(400);
+          throw new Error(`Insufficient stock for ${product.name}`);
+        }
+
+        authoritativeItems.push({
+          name: product.name,
+          qty,
+          image: product.image,
+          price: product.price,
+          product: product._id,
+        });
+      }
+
+      const itemsPrice = roundCurrency(
+        authoritativeItems.reduce(
+          (total, item) => total + item.price * item.qty,
+          0
+        )
+      );
+      const shippingPrice = itemsPrice > 100 ? 0 : 100;
+      const vatPrice = roundCurrency(itemsPrice * 0.15);
+      const totalPrice = roundCurrency(
+        itemsPrice + shippingPrice + vatPrice
+      );
+
+      const order = new Order({
+        orderItems: authoritativeItems,
+        user: req.user._id,
+        shippingAddress,
+        paymentMethod,
+        itemsPrice,
+        vatPrice,
+        shippingPrice,
+        totalPrice,
+      });
+
+      createdOrder = await order.save({ session });
+    });
+  } catch (error) {
+    if (
+      error &&
+      /transaction numbers are only allowed|replica set member or mongos/i.test(
+        error.message
+      )
+    ) {
+      res.status(503);
+      throw new Error('Order processing is temporarily unavailable');
+    }
+
+    throw error;
+  } finally {
+    await session.endSession();
+  }
+
+  if (!createdOrder) {
+    res.status(500);
+    throw new Error('Order could not be created');
+  }
+
+  res.status(201).json(createdOrder);
 });
 
 // <---- GET ALL ORDER ITEMS ---->

@@ -40,13 +40,12 @@ const PlaceOrderScreen = ({ history }) => {
   const placeOrderHandler = () => {
     dispatch(
       createOrder({
-        orderItems: cart.cartItems,
+        orderItems: cart.cartItems.map((item) => ({
+          product: item.product,
+          qty: item.qty,
+        })),
         shippingAddress: cart.shippingAddress,
         paymentMethod: cart.paymentMethod,
-        itemsPrice: cart.itemsPrice,
-        shippingPrice: cart.shippingPrice,
-        vatPrice: cart.vatPrice,
-        totalPrice: cart.totalPrice,
       })
     );
   };
@@ -124,7 +123,7 @@ const PlaceOrderScreen = ({ history }) => {
                         <span>
                           {item.qty} x R{item.price}
                         </span>
-                        <strong>R{parseInt(item.qty * item.price)}</strong>
+                        <strong>R{addDecimals(item.qty * item.price)}</strong>
                       </p>
                     </li>
                   ))}

@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   integrated-qa:
@@ -36,23 +36,13 @@ jobs:
           npm --version
 
       - name: Recover current root lockfile
-        run: |
-          npm install --package-lock-only --include=dev
-          echo 'BURNSVILLE_ROOT_LOCKFILE_GZIP_BASE64_BEGIN'
-          gzip -c package-lock.json | base64 -w0
-          echo
-          echo 'BURNSVILLE_ROOT_LOCKFILE_GZIP_BASE64_END'
+        run: npm install --package-lock-only --include=dev
 
       - name: Install backend dependencies
         run: npm ci
 
       - name: Recover current frontend lockfile
-        run: |
-          npm install --prefix frontend --package-lock-only --include=dev
-          echo 'BURNSVILLE_FRONTEND_LOCKFILE_GZIP_BASE64_BEGIN'
-          gzip -c frontend/package-lock.json | base64 -w0
-          echo
-          echo 'BURNSVILLE_FRONTEND_LOCKFILE_GZIP_BASE64_END'
+        run: npm install --prefix frontend --package-lock-only --include=dev
 
       - name: Build Vite frontend
         run: npm run build
@@ -157,6 +147,36 @@ jobs:
           if [ "$backend_status" -ne 0 ] || [ "$frontend_status" -ne 0 ]; then
             exit 1
           fi
+
+      - name: Verify generated lockfile scope
+        if: github.event_name == 'push'
+        run: |
+          git diff --check
+          changed="$(git diff --name-only)"
+          unexpected="$(printf '%s\n' "$changed" | grep -vE '^(package-lock\.json|frontend/package-lock\.json)$' || true)"
+
+          if [ -n "$unexpected" ]; then
+            echo "Unexpected generated changes:"
+            printf '%s\n' "$unexpected"
+            exit 1
+          fi
+
+          git status --short
+
+      - name: Persist generated lockfiles
+        if: github.event_name == 'push'
+        run: |
+          git add package-lock.json frontend/package-lock.json
+
+          if git diff --cached --quiet; then
+            echo 'Lockfiles already current.'
+            exit 0
+          fi
+
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'chore(deps): refresh dependency lockfiles'
+          git push origin HEAD:modernise/burnsville-v2
 
       - name: Cleanup
         if: always()

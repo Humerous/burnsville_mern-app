@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import Rating from './Rating';
+import { addToCart } from '../actions/cartActions';
 
 const priceFormatter = new Intl.NumberFormat('en-ZA', {
   style: 'currency',
@@ -23,6 +25,8 @@ const formatPrice = (price) => {
 };
 
 const Product = ({ product }) => {
+  const dispatch = useDispatch();
+  const [quickAddStatus, setQuickAddStatus] = useState('idle');
   const productPath = `/product/${product._id}`;
   const titleId = `product-${product._id}-title`;
   const numericRating = Number(product.rating);
@@ -34,6 +38,20 @@ const Product = ({ product }) => {
   const reviewLabel = `${reviewCount} ${
     reviewCount === 1 ? 'review' : 'reviews'
   }`;
+  const stockCount = Number(product.countInStock);
+  const isInStock = !Number.isFinite(stockCount) || stockCount > 0;
+
+  const quickAddHandler = async () => {
+    setQuickAddStatus('adding');
+
+    try {
+      await dispatch(addToCart(product._id, 1));
+      setQuickAddStatus('added');
+      window.setTimeout(() => setQuickAddStatus('idle'), 2400);
+    } catch (quickAddError) {
+      setQuickAddStatus('error');
+    }
+  };
 
   return (
     <article className='shop-product-card' aria-labelledby={titleId}>
@@ -71,13 +89,43 @@ const Product = ({ product }) => {
 
         <div className='shop-product-card__footer'>
           <p className='shop-product-card__price'>{formatPrice(product.price)}</p>
-          <Link
-            className='shop-product-card__link'
-            to={productPath}
-            aria-label={`View ${product.name}`}
+          <div className='shop-product-card__actions'>
+            <Link
+              className='shop-product-card__link'
+              to={productPath}
+              aria-label={`View ${product.name}`}
+            >
+              View sauce
+            </Link>
+            <button
+              className='shop-product-card__quick-add'
+              type='button'
+              onClick={quickAddHandler}
+              disabled={!isInStock || quickAddStatus === 'adding'}
+              aria-label={`Quick add ${product.name} to cart`}
+            >
+              {!isInStock
+                ? 'Sold out'
+                : quickAddStatus === 'adding'
+                ? 'Adding…'
+                : 'Quick add'}
+            </button>
+          </div>
+          <p
+            className={`shop-product-card__quick-status${
+              quickAddStatus === 'error'
+                ? ' shop-product-card__quick-status--error'
+                : ''
+            }`}
+            role='status'
+            aria-live='polite'
           >
-            View sauce
-          </Link>
+            {quickAddStatus === 'added'
+              ? 'Added to cart'
+              : quickAddStatus === 'error'
+              ? 'Could not add. Try again.'
+              : ''}
+          </p>
         </div>
       </div>
     </article>
@@ -93,6 +141,7 @@ Product.propTypes = {
     numReviews: PropTypes.number,
     price: PropTypes.number.isRequired,
     rating: PropTypes.number,
+    countInStock: PropTypes.number,
   }).isRequired,
 };
 

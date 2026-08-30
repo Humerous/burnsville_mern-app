@@ -1,0 +1,196 @@
+/* Preview QA interaction refinements: quick add, cart confirmation, and select spacing. */
+
+.home-product-card__footer,
+.shop-product-card__footer {
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.home-product-card__actions,
+.shop-product-card__actions {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.home-product-card__quick-add,
+.shop-product-card__quick-add {
+  align-items: center;
+  background: transparent;
+  border: 1px solid var(--burnsville-onyx, #111111);
+  border-radius: 0;
+  color: var(--burnsville-onyx, #111111);
+  cursor: pointer;
+  display: inline-flex;
+  font-family: var(--burnsville-display-font, 'Anton', Impact, sans-serif);
+  font-size: 0.7rem;
+  justify-content: center;
+  letter-spacing: 0.07em;
+  min-height: 42px;
+  padding: 9px 12px;
+  text-transform: uppercase;
+}
+
+.home-product-card__quick-add:hover:not(:disabled),
+.shop-product-card__quick-add:hover:not(:disabled) {
+  background: var(--burnsville-onyx, #111111);
+  color: var(--burnsville-cream, #f3ede4);
+}
+
+.home-product-card--featured .home-product-card__quick-add {
+  border-color: var(--burnsville-cream, #f3ede4);
+  color: var(--burnsville-cream, #f3ede4);
+}
+
+.home-product-card--featured .home-product-card__quick-add:hover:not(:disabled) {
+  background: var(--burnsville-cream, #f3ede4);
+  color: var(--burnsville-onyx, #111111);
+}
+
+.home-product-card__quick-add:disabled,
+.shop-product-card__quick-add:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.home-product-card__quick-status,
+.shop-product-card__quick-status {
+  color: var(--burnsville-pepper, #3e7f3a);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  min-height: 1.1em;
+  margin: 0;
+}
+
+.home-product-card__quick-status--error,
+.shop-product-card__quick-status--error {
+  color: var(--burnsville-chilli-text, #b8231b);
+}
+
+.burnsville-product-detail__quantity select {
+  -webkit-appearance: none;
+  appearance: none;
+  background-image:
+    linear-gradient(45deg, transparent 50%, #5a5a5a 50%),
+    linear-gradient(135deg, #5a5a5a 50%, transparent 50%);
+  background-position:
+    calc(100% - 20px) 50%,
+    calc(100% - 14px) 50%;
+  background-repeat: no-repeat;
+  background-size: 6px 6px, 6px 6px;
+  min-width: 92px;
+  padding-right: 44px;
+}
+
+.burnsville-product-detail__cart-error {
+  color: var(--burnsville-chilli-text, #b8231b);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.82rem;
+  grid-column: 1 / -1;
+  margin: -8px 0 0;
+}
+
+.burnsville-cart-notice {
+  align-items: center;
+  background: rgba(0, 0, 0, 0.72);
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  padding: 22px;
+  position: fixed;
+  z-index: 5000;
+}
+
+.burnsville-cart-notice__panel {
+  background: var(--burnsville-cream, #f3ede4);
+  border: 3px solid var(--burnsville-onyx, #111111);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
+  color: var(--burnsville-onyx, #111111);
+  max-width: 440px;
+  padding: 30px;
+  position: relative;
+  width: 100%;
+}
+
+.burnsville-cart-notice__close {
+  background: transparent;
+  border: 0;
+  color: var(--burnsville-onyx, #111111);
+  cursor: pointer;
+  font-size: 2rem;
+  line-height: 1;
+  padding: 6px;
+  position: absolute;
+  right: 12px;
+  top: 8px;
+}
+
+.burnsville-cart-notice__eyebrow {
+  color: var(--burnsville-chilli-text, #b8231b);
+  font-family: var(--burnsville-display-font, 'Anton', Impact, sans-serif);
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  margin: 0 36px 12px 0;
+  text-transform: uppercase;
+}
+
+.burnsville-cart-notice h2 {
+  font-family: var(--burnsville-display-font, 'Anton', Impact, sans-serif);
+  font-size: clamp(2rem, 7vw, 3.2rem);
+  line-height: 0.98;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.burnsville-cart-notice__message {
+  color: rgba(17, 17, 17, 0.72);
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.5;
+  margin: 18px 0 24px;
+}
+
+.burnsville-cart-notice__actions {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr 1fr;
+}
+
+.burnsville-cart-notice__actions button {
+  background: var(--burnsville-chilli, #d2282b);
+  border: 1px solid var(--burnsville-chilli, #d2282b);
+  border-radius: 0;
+  color: #ffffff;
+  cursor: pointer;
+  font-family: var(--burnsville-display-font, 'Anton', Impact, sans-serif);
+  font-size: 0.78rem;
+  letter-spacing: 0.07em;
+  min-height: 48px;
+  padding: 12px 14px;
+  text-transform: uppercase;
+}
+
+.burnsville-cart-notice__actions .burnsville-cart-notice__continue {
+  background: transparent;
+  border-color: var(--burnsville-onyx, #111111);
+  color: var(--burnsville-onyx, #111111);
+}
+
+@media (max-width: 560px) {
+  .home-product-card__actions,
+  .shop-product-card__actions,
+  .burnsville-cart-notice__actions {
+    grid-template-columns: 1fr;
+  }
+
+  .burnsville-product-detail__quantity select {
+    min-width: 104px;
+    padding-right: 48px;
+  }
+
+  .burnsville-cart-notice__panel {
+    padding: 26px 20px 22px;
+  }
+}

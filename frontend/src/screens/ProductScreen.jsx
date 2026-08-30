@@ -8,6 +8,7 @@ import {
   listProductDetails,
   createProductReview,
 } from '../actions/productActions';
+import { addToCart } from '../actions/cartActions';
 import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/productConstants';
 import './product-screen.css';
 
@@ -30,6 +31,9 @@ const ProductScreen = ({ history, match }) => {
   const [qty, setQty] = useState(1);
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
+  const [addingToCart, setAddingToCart] = useState(false);
+  const [cartNotice, setCartNotice] = useState(false);
+  const [cartError, setCartError] = useState('');
   const dispatch = useDispatch();
 
   const productDetails = useSelector((state) => state.productDetails);
@@ -56,8 +60,24 @@ const ProductScreen = ({ history, match }) => {
     dispatch(listProductDetails(match.params.id));
   }, [dispatch, match, successProductReview]);
 
-  const addToCartHandler = () => {
-    history.push(`/cart/${match.params.id}?qty=${qty}`);
+  const addToCartHandler = async () => {
+    setAddingToCart(true);
+    setCartError('');
+
+    try {
+      await dispatch(addToCart(match.params.id, Number(qty)));
+      setCartNotice(true);
+    } catch (addError) {
+      setCartError(
+        addError && addError.response && addError.response.data
+          ? addError.response.data.message || 'Unable to add this sauce to your cart.'
+          : addError && addError.message
+          ? addError.message
+          : 'Unable to add this sauce to your cart.'
+      );
+    } finally {
+      setAddingToCart(false);
+    }
   };
 
   const submitHandler = (event) => {
@@ -216,10 +236,19 @@ const ProductScreen = ({ history, match }) => {
                       className='burnsville-product-detail__cart-button'
                       onClick={addToCartHandler}
                       type='button'
-                      disabled={stockCount === 0}
+                      disabled={stockCount === 0 || addingToCart}
                     >
-                      Add to cart
+                      {addingToCart ? 'Adding…' : 'Add to cart'}
                     </button>
+
+                    {cartError && (
+                      <p
+                        className='burnsville-product-detail__cart-error'
+                        role='alert'
+                      >
+                        {cartError}
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>
@@ -329,6 +358,46 @@ const ProductScreen = ({ history, match }) => {
               </div>
             </div>
           </section>
+
+          {cartNotice && (
+            <div
+              className='burnsville-cart-notice'
+              role='dialog'
+              aria-modal='true'
+              aria-labelledby='burnsville-cart-notice-title'
+            >
+              <div className='burnsville-cart-notice__panel'>
+                <button
+                  className='burnsville-cart-notice__close'
+                  type='button'
+                  onClick={() => setCartNotice(false)}
+                  aria-label='Close added-to-cart confirmation'
+                >
+                  ×
+                </button>
+                <p className='burnsville-cart-notice__eyebrow'>Added to cart</p>
+                <h2 id='burnsville-cart-notice-title'>{product.name}</h2>
+                <p className='burnsville-cart-notice__message'>
+                  {Number(qty)} {Number(qty) === 1 ? 'item has' : 'items have'} been added to your cart.
+                </p>
+                <div className='burnsville-cart-notice__actions'>
+                  <button
+                    type='button'
+                    onClick={() => history.push('/cart')}
+                  >
+                    View cart
+                  </button>
+                  <button
+                    type='button'
+                    className='burnsville-cart-notice__continue'
+                    onClick={() => setCartNotice(false)}
+                  >
+                    Continue shopping
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
         </>
       )}
     </section>

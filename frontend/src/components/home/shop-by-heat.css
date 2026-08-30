@@ -7,11 +7,11 @@
   --heat-strip-cream: var(--burnsville-cream, #f3ede4);
   --heat-strip-onyx: var(--burnsville-onyx, #111111);
   --heat-strip-red: var(--burnsville-chilli, #d2282b);
-  --heat-strip-rule: rgba(17, 17, 17, 0.22);
+  --heat-strip-rule: rgba(17, 17, 17, 0.2);
   background-color: var(--heat-strip-cream);
   background-image:
-    radial-gradient(circle at 22% 34%, rgba(17, 17, 17, 0.09) 0 0.7px, transparent 1px),
-    radial-gradient(circle at 75% 68%, rgba(184, 35, 27, 0.07) 0 0.7px, transparent 1px);
+    radial-gradient(circle at 22% 34%, rgba(17, 17, 17, 0.08) 0 0.7px, transparent 1px),
+    radial-gradient(circle at 75% 68%, rgba(184, 35, 27, 0.06) 0 0.7px, transparent 1px);
   background-size: 31px 37px, 43px 47px;
   border-bottom: 1px solid var(--heat-strip-rule);
   color: var(--heat-strip-onyx);
@@ -23,11 +23,11 @@
 .burnsville-heat-strip__inner {
   align-items: stretch;
   display: grid;
-  grid-template-columns: 150px minmax(0, 1fr) 148px;
+  grid-template-columns: 150px minmax(0, 1fr) 142px;
   margin: 0 auto;
   max-width: 1440px;
-  min-height: 108px;
-  padding: 0 44px;
+  min-height: 112px;
+  padding: 0 40px;
 }
 
 .burnsville-heat-strip__heading {
@@ -35,19 +35,16 @@
   border-right: 1px solid var(--heat-strip-rule);
   display: flex;
   min-width: 0;
-  padding-right: 26px;
+  padding-right: 24px;
 }
 
 .burnsville-heat-strip__heading h2 {
   color: var(--heat-strip-onyx);
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
-  font-size: 1.6rem;
-  font-stretch: condensed;
-  font-weight: 900;
+  font-family: var(--burnsville-display-font, 'Anton', Impact, sans-serif);
+  font-size: 1.55rem;
   letter-spacing: 0.035em;
   line-height: 0.92;
   margin: 0;
-  padding: 0;
   text-transform: uppercase;
 }
 
@@ -76,6 +73,7 @@
 
 .burnsville-heat-strip__item {
   display: flex;
+  min-width: 0;
 }
 
 .burnsville-heat-strip__level {
@@ -88,11 +86,11 @@
   color: var(--heat-strip-onyx);
   display: grid;
   flex: 1;
-  gap: 11px;
-  grid-template-columns: 44px minmax(0, 1fr);
-  min-height: 84px;
+  gap: 10px;
+  grid-template-columns: 42px minmax(0, 1fr);
+  min-height: 90px;
   min-width: 0;
-  padding: 12px 16px;
+  padding: 10px 13px;
   text-decoration: none;
   transition:
     background-color 150ms cubic-bezier(0.25, 0.7, 0.2, 1),
@@ -101,7 +99,7 @@
 }
 
 .burnsville-heat-strip__level:hover {
-  background: rgba(17, 17, 17, 0.045);
+  background: rgba(17, 17, 17, 0.04);
   box-shadow: inset 0 -3px 0 var(--heat-color);
   color: var(--heat-strip-onyx);
   text-decoration: none;
@@ -109,7 +107,7 @@
 }
 
 .burnsville-heat-strip__level:active {
-  background: rgba(17, 17, 17, 0.075);
+  background: rgba(17, 17, 17, 0.07);
   transform: scale(0.985);
 }
 
@@ -129,7 +127,7 @@
 
 .burnsville-heat-strip__level--medium {
   --heat-color: #d98b21;
-  --heat-label-color: #9a5800;
+  --heat-label-color: #a36000;
   --pepper-scale: 0.9;
 }
 
@@ -143,7 +141,7 @@
   --heat-color: #c72025;
   --heat-label-color: #a7191e;
   --pepper-scale: 1.05;
-  --flare-opacity: 0.66;
+  --flare-opacity: 0.68;
 }
 
 .burnsville-heat-strip__level--extreme {
@@ -233,23 +231,40 @@
 
 .burnsville-heat-strip__level-copy strong {
   color: var(--heat-label-color);
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
-  font-size: 1rem;
-  font-weight: 900;
+  font-family: var(--burnsville-display-font, 'Anton', Impact, sans-serif);
+  font-size: 0.96rem;
   letter-spacing: 0.035em;
-  line-height: 1.05;
+  line-height: 1;
   text-transform: uppercase;
 }
 
-.burnsville-heat-strip__level-copy > span {
+.burnsville-heat-strip__range {
   color: var(--heat-strip-onyx);
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 0.78rem;
+  font-size: 0.74rem;
   font-weight: 700;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.015em;
   line-height: 1.2;
-  margin-top: 7px;
+  margin-top: 5px;
   white-space: nowrap;
+}
+
+.burnsville-heat-strip__intensity {
+  display: flex;
+  gap: 3px;
+  margin-top: 7px;
+}
+
+.burnsville-heat-strip__dot {
+  background: rgba(17, 17, 17, 0.18);
+  border-radius: 999px;
+  display: block;
+  height: 6px;
+  width: 6px;
+}
+
+.burnsville-heat-strip__dot--active {
+  background: var(--heat-color);
 }
 
 .burnsville-heat-strip__guide-link {
@@ -257,40 +272,21 @@
   align-self: center;
   color: var(--heat-strip-onyx);
   display: inline-flex;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
-  font-size: 0.7rem;
-  gap: 9px;
+  font-family: var(--burnsville-display-font, 'Anton', Impact, sans-serif);
+  font-size: 0.68rem;
+  gap: 8px;
   justify-self: end;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.07em;
   min-height: 44px;
-  padding: 10px 2px 8px;
-  position: relative;
+  padding: 9px 2px;
   text-decoration: none;
   text-transform: uppercase;
-}
-
-.burnsville-heat-strip__guide-link::after {
-  background: var(--heat-strip-red);
-  bottom: 7px;
-  content: '';
-  height: 1px;
-  left: 2px;
-  position: absolute;
-  right: 2px;
-  transform: scaleX(0.34);
-  transform-origin: left;
-  transition: transform 150ms cubic-bezier(0.25, 0.7, 0.2, 1);
 }
 
 .burnsville-heat-strip__guide-link:hover,
 .burnsville-heat-strip__guide-link:focus-visible {
   color: var(--heat-strip-red);
   text-decoration: none;
-}
-
-.burnsville-heat-strip__guide-link:hover::after,
-.burnsville-heat-strip__guide-link:focus-visible::after {
-  transform: scaleX(1);
 }
 
 .burnsville-heat-strip__guide-link > span {
@@ -302,30 +298,35 @@
 
 @media (max-width: 1120px) {
   .burnsville-heat-strip__inner {
-    grid-template-columns: 126px minmax(0, 1fr) 128px;
-    padding-inline: 22px;
+    grid-template-columns: 122px minmax(0, 1fr) 118px;
+    padding-inline: 20px;
   }
 
   .burnsville-heat-strip__heading {
-    padding-right: 18px;
+    padding-right: 16px;
   }
 
   .burnsville-heat-strip__heading h2 {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
   }
 
   .burnsville-heat-strip__level {
-    gap: 6px;
-    grid-template-columns: 38px minmax(0, 1fr);
-    padding-inline: 8px;
+    gap: 5px;
+    grid-template-columns: 34px minmax(0, 1fr);
+    padding-inline: 7px;
   }
 
   .burnsville-heat-strip__level-copy strong {
-    font-size: 0.84rem;
+    font-size: 0.78rem;
   }
 
-  .burnsville-heat-strip__level-copy > span {
-    font-size: 0.7rem;
+  .burnsville-heat-strip__range {
+    font-size: 0.66rem;
+  }
+
+  .burnsville-heat-strip__dot {
+    height: 5px;
+    width: 5px;
   }
 }
 
@@ -333,19 +334,19 @@
   .burnsville-heat-strip__inner {
     grid-template-columns: minmax(0, 1fr) auto;
     min-height: 0;
-    padding: 16px 20px 14px;
+    padding: 14px 16px 12px;
   }
 
   .burnsville-heat-strip__heading {
     border-right: 0;
-    min-height: 44px;
-    padding-right: 12px;
+    min-height: 38px;
+    padding-right: 10px;
   }
 
   .burnsville-heat-strip__heading h2 {
     display: flex;
-    font-size: 1.3rem;
-    gap: 7px;
+    font-size: 1.12rem;
+    gap: 6px;
     line-height: 1;
   }
 
@@ -362,22 +363,31 @@
     border-top: 1px solid var(--heat-strip-rule);
     grid-column: 1 / -1;
     grid-row: 2;
-    margin-top: 7px;
+    margin-top: 6px;
+  }
+
+  .burnsville-heat-strip__levels {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .burnsville-heat-strip__item {
+    grid-column: auto;
   }
 
   .burnsville-heat-strip__level {
+    align-items: center;
     display: flex;
     flex-direction: column;
-    gap: 3px;
+    gap: 2px;
     justify-content: center;
-    min-height: 100px;
-    padding: 9px 3px 10px;
+    min-height: 104px;
+    padding: 8px 2px 9px;
     text-align: center;
   }
 
   .burnsville-heat-strip__pepper {
-    height: 47px;
-    width: 34px;
+    height: 45px;
+    width: 32px;
   }
 
   .burnsville-heat-strip__level-copy {
@@ -385,76 +395,109 @@
   }
 
   .burnsville-heat-strip__level-copy strong {
-    font-size: 0.7rem;
-    line-height: 1;
+    font-size: 0.66rem;
     white-space: normal;
   }
 
-  .burnsville-heat-strip__level-copy > span {
-    font-size: 0.66rem;
-    margin-top: 4px;
+  .burnsville-heat-strip__range {
+    font-size: 0.59rem;
+    margin-top: 3px;
+  }
+
+  .burnsville-heat-strip__intensity {
+    gap: 2px;
+    margin-top: 5px;
+  }
+
+  .burnsville-heat-strip__dot {
+    height: 4px;
+    width: 4px;
   }
 }
 
 @media (max-width: 560px) {
   .burnsville-heat-strip__inner {
-    padding: 13px 16px 12px;
+    padding: 12px 10px 10px;
   }
 
   .burnsville-heat-strip__heading h2 {
-    font-size: 1.15rem;
+    font-size: 1rem;
   }
 
   .burnsville-heat-strip__guide-link {
-    font-size: 0.64rem;
-    gap: 6px;
-    letter-spacing: 0.06em;
+    font-size: 0.58rem;
+    gap: 5px;
+    letter-spacing: 0.05em;
+  }
+
+  .burnsville-heat-strip__levels {
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+    height: auto !important;
+  }
+
+  .burnsville-heat-strip__item,
+  .burnsville-heat-strip__item:nth-child(4),
+  .burnsville-heat-strip__item:nth-child(5) {
+    grid-column: auto !important;
   }
 
   .burnsville-heat-strip__level {
-    min-height: 98px;
-    padding-inline: 2px;
+    min-height: 98px !important;
+    padding: 7px 1px 8px !important;
   }
 
   .burnsville-heat-strip__pepper {
-    transform: scale(calc(var(--pepper-scale) * 0.9));
+    transform: scale(calc(var(--pepper-scale) * 0.82)) !important;
   }
 
   .burnsville-heat-strip__level-copy strong {
-    font-size: 0.64rem;
-    letter-spacing: 0.025em;
+    font-size: 0.61rem !important;
+    letter-spacing: 0.015em;
   }
 
-  .burnsville-heat-strip__level-copy > span {
-    font-size: 0.61rem;
+  .burnsville-heat-strip__range {
+    font-size: 0.55rem !important;
+  }
+
+  .burnsville-heat-strip__dot {
+    height: 4px;
+    width: 4px;
   }
 }
 
 @media (max-width: 360px) {
   .burnsville-heat-strip__inner {
-    padding-inline: 10px;
+    padding-inline: 7px;
   }
 
   .burnsville-heat-strip__heading h2 {
-    font-size: 1.02rem;
+    font-size: 0.92rem;
   }
 
   .burnsville-heat-strip__guide-link {
-    font-size: 0.58rem;
+    font-size: 0.53rem;
   }
 
   .burnsville-heat-strip__level-copy strong {
-    font-size: 0.58rem;
+    font-size: 0.56rem !important;
   }
 
-  .burnsville-heat-strip__level-copy > span {
-    font-size: 0.56rem;
+  .burnsville-heat-strip__range {
+    font-size: 0.5rem !important;
+  }
+
+  .burnsville-heat-strip__intensity {
+    gap: 1.5px;
+  }
+
+  .burnsville-heat-strip__dot {
+    height: 3.5px;
+    width: 3.5px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .burnsville-heat-strip__level,
-  .burnsville-heat-strip__guide-link::after {
+  .burnsville-heat-strip__level {
     transition-duration: 0.01ms !important;
   }
 

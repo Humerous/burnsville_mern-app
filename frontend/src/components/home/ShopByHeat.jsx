@@ -7,30 +7,35 @@ const HEAT_LEVELS = [
     range: '1–3/10',
     accessibleRange: '1 to 3 out of 10',
     tone: 'mild',
+    intensity: 1,
   },
   {
     label: 'Medium',
     range: '4–6/10',
     accessibleRange: '4 to 6 out of 10',
     tone: 'medium',
+    intensity: 2,
   },
   {
     label: 'Hot',
     range: '7–8/10',
     accessibleRange: '7 to 8 out of 10',
     tone: 'hot',
+    intensity: 3,
   },
   {
     label: 'Very Hot',
     range: '9–10/10',
     accessibleRange: '9 to 10 out of 10',
     tone: 'very-hot',
+    intensity: 4,
   },
   {
     label: 'Extreme',
     range: '11+/10',
     accessibleRange: '11 plus out of 10',
     tone: 'extreme',
+    intensity: 6,
   },
 ];
 
@@ -39,6 +44,19 @@ const PepperMark = () => (
     <span className='burnsville-heat-strip__pepper-body' />
     <span className='burnsville-heat-strip__pepper-stem' />
     <span className='burnsville-heat-strip__pepper-flare' />
+  </span>
+);
+
+const IntensityDots = ({ intensity }) => (
+  <span aria-hidden='true' className='burnsville-heat-strip__intensity'>
+    {Array.from({ length: 6 }, (_, index) => (
+      <span
+        className={`burnsville-heat-strip__dot${
+          index < intensity ? ' burnsville-heat-strip__dot--active' : ''
+        }`}
+        key={index}
+      />
+    ))}
   </span>
 );
 
@@ -71,7 +89,8 @@ const ShopByHeat = () => (
                 <PepperMark />
                 <span className='burnsville-heat-strip__level-copy'>
                   <strong>{level.label}</strong>
-                  <span>{level.range}</span>
+                  <span className='burnsville-heat-strip__range'>{level.range}</span>
+                  <IntensityDots intensity={level.intensity} />
                 </span>
               </a>
             </li>

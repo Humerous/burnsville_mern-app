@@ -2,20 +2,20 @@ import mongoose from 'mongoose';
 
 // <---- MONGODB CONNECTION STRING ---->
 const connectDB = async () => {
-  try {
-    const mongoUri = process.env.MONGO_URI || process.env.MONGODB_URI;
+  const mongoUri = process.env.MONGO_URI || process.env.MONGODB_URI;
 
-    if (!mongoUri) {
-      throw new Error('MongoDB connection string is not configured');
-    }
-
-    const conn = await mongoose.connect(mongoUri);
-
-    console.log(`MongoDB Connected: ${conn.connection.host}`);
-  } catch (error) {
-    console.error(`Error: ${error.message}`);
-    process.exit(1);
+  if (!mongoUri) {
+    throw new Error('MongoDB connection string is not configured');
   }
+
+  if (mongoose.connection.readyState === 1) {
+    return mongoose.connection;
+  }
+
+  const conn = await mongoose.connect(mongoUri);
+
+  console.log(`MongoDB Connected: ${conn.connection.host}`);
+  return conn.connection;
 };
 
 // <---- EXPORT  ---->

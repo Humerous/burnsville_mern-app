@@ -41,9 +41,28 @@ const HEAT_LEVELS = [
 
 const PepperMark = () => (
   <span aria-hidden='true' className='burnsville-heat-strip__pepper'>
-    <span className='burnsville-heat-strip__pepper-body' />
-    <span className='burnsville-heat-strip__pepper-stem' />
-    <span className='burnsville-heat-strip__pepper-flare' />
+    <svg viewBox='0 0 72 82' role='presentation'>
+      <path
+        className='burnsville-heat-strip__pepper-stem'
+        d='M39 18c2-9 7-13 14-13 2 0 4 1 5 3-7 1-10 5-11 12z'
+      />
+      <path
+        className='burnsville-heat-strip__pepper-body'
+        d='M44 18c12 3 18 12 17 24-1 17-16 31-43 38 14-10 20-19 20-29 0-7-3-12-3-18 0-8 3-13 9-15z'
+      />
+      <path
+        className='burnsville-heat-strip__pepper-highlight'
+        d='M47 26c5 4 7 10 6 16-1 9-7 17-17 24 7-9 10-17 9-25 0-5-1-10 2-15z'
+      />
+      <path
+        className='burnsville-heat-strip__pepper-flame burnsville-heat-strip__pepper-flame--one'
+        d='M20 60c-7 5-10 10-9 17 2-3 5-5 9-6-2 4-2 7 0 10 2-5 6-8 11-10z'
+      />
+      <path
+        className='burnsville-heat-strip__pepper-flame burnsville-heat-strip__pepper-flame--two'
+        d='M28 55c-3 6-3 11 0 16 1-4 4-7 8-9z'
+      />
+    </svg>
   </span>
 );
 
@@ -99,8 +118,8 @@ const ShopByHeat = () => (
       </nav>
 
       <a className='burnsville-heat-strip__guide-link' href='#'>
-        View heat guide
-        <span aria-hidden='true'>→</span>
+        <span className='burnsville-heat-strip__guide-copy'>View heat guide</span>
+        <span aria-hidden='true' className='burnsville-heat-strip__guide-arrow'>→</span>
       </a>
     </div>
   </section>

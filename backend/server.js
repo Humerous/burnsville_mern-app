@@ -16,7 +16,6 @@ import uploadRoutes, {
 
 // <---- .env / CONNECT  ---->
 dotenv.config();
-connectDB();
 const app = express();
 
 // <---- MIDDLEWARE  ---->
@@ -25,11 +24,20 @@ if (process.env.NODE_ENV === 'development') {
 }
 app.use(express.json());
 
+const requireDB = async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (error) {
+    next(error);
+  }
+};
+
 // <---- ROUTES USE BELOW ---->
-app.use('/api/products', productRoutes);
-app.use('/api/users', userRoutes);
-app.use('/api/orders', orderRoutes);
-app.use('/api/upload', uploadRoutes);
+app.use('/api/products', requireDB, productRoutes);
+app.use('/api/users', requireDB, userRoutes);
+app.use('/api/orders', requireDB, orderRoutes);
+app.use('/api/upload', requireDB, uploadRoutes);
 
 // <----PAYPAL API ---->
 app.get('/api/config/paypal', (req, res) =>
@@ -38,7 +46,7 @@ app.get('/api/config/paypal', (req, res) =>
 
 // <---- PRODUCTION STATIC ASSETS ---->
 const __dirname = path.resolve();
-app.get('/uploads/:filename', serveUploadedImage);
+app.get('/uploads/:filename', requireDB, serveUploadedImage);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 if (process.env.NODE_ENV === 'production') {

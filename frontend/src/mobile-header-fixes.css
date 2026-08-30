@@ -1,6 +1,21 @@
 /* Mobile/tablet header QA fixes: keep the drawer aligned with the left-side
-   hamburger trigger and prevent the Burnsville wordmark changing size when
-   the drawer opens. */
+   hamburger trigger, prevent the Burnsville wordmark changing size when the
+   drawer opens, and use one controlled display typeface across devices. */
+
+:root {
+  --burnsville-display-font: 'Anton', Impact, Haettenschweiler, 'Arial Narrow Bold',
+    'Arial Narrow', sans-serif;
+}
+
+.burnsville-logo__wordmark,
+.burnsville-logo__descriptor,
+.burnsville-header__nav a,
+.burnsville-header__dropdown-label,
+.burnsville-search__submit,
+.burnsville-drawer__nav-link,
+.burnsville-drawer__admin-links > span {
+  font-family: var(--burnsville-display-font) !important;
+}
 
 @media (max-width: 1180px) {
   .burnsville-drawer__panel {

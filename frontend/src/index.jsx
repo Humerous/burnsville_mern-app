@@ -7,6 +7,7 @@ import './index.css';
 import App from './App';
 import './mobile-header-fixes.css';
 import './preview-qa-fixes.css';
+import './heat-strip-reference-fix.css';
 import * as serviceWorker from './serviceWorker';
 
 // <---- REDUX STORE ---->

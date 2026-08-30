@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,6 +12,7 @@ const CartScreen = ({ match, location, history }) => {
   const productId = match.params.id;
   const qty = location.search ? Number(location.search.split('=')[1]) : 1;
   const dispatch = useDispatch();
+  const [pendingRemoval, setPendingRemoval] = useState(null);
 
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
@@ -22,8 +23,13 @@ const CartScreen = ({ match, location, history }) => {
     }
   }, [dispatch, productId, qty]);
 
-  const removeFromCartHandler = (id) => {
-    dispatch(removeFromCart(id));
+  const confirmRemoveFromCart = () => {
+    if (!pendingRemoval) {
+      return;
+    }
+
+    dispatch(removeFromCart(pendingRemoval.product));
+    setPendingRemoval(null);
   };
 
   const checkoutHandler = () => {
@@ -127,7 +133,7 @@ const CartScreen = ({ match, location, history }) => {
                     <button
                       className='burnsville-cart__remove'
                       type='button'
-                      onClick={() => removeFromCartHandler(item.product)}
+                      onClick={() => setPendingRemoval(item)}
                       aria-label={`Remove ${item.name} from cart`}
                     >
                       Remove
@@ -163,6 +169,43 @@ const CartScreen = ({ match, location, history }) => {
           </aside>
         </div>
       </div>
+
+      {pendingRemoval && (
+        <div
+          className='burnsville-cart-notice burnsville-cart-notice--remove'
+          role='dialog'
+          aria-modal='true'
+          aria-labelledby='burnsville-remove-title'
+        >
+          <div className='burnsville-cart-notice__panel'>
+            <button
+              className='burnsville-cart-notice__close'
+              type='button'
+              onClick={() => setPendingRemoval(null)}
+              aria-label='Close remove-item confirmation'
+            >
+              ×
+            </button>
+            <p className='burnsville-cart-notice__eyebrow'>Remove from cart</p>
+            <h2 id='burnsville-remove-title'>Remove this sauce?</h2>
+            <p className='burnsville-cart-notice__message'>
+              {pendingRemoval.name} will be removed from your cart.
+            </p>
+            <div className='burnsville-cart-notice__actions'>
+              <button type='button' onClick={confirmRemoveFromCart}>
+                Remove item
+              </button>
+              <button
+                type='button'
+                className='burnsville-cart-notice__continue'
+                onClick={() => setPendingRemoval(null)}
+              >
+                Keep item
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };

@@ -43,7 +43,6 @@ const HomeProductCard = ({ product, featured, quickAddStatus, onQuickAdd }) => {
   const stockCount = Number(product.countInStock);
   const isInStock = !Number.isFinite(stockCount) || stockCount > 0;
   const isAdding = quickAddStatus === 'adding';
-  const isAdded = quickAddStatus === 'added';
   const hasError = quickAddStatus === 'error';
 
   return (
@@ -90,15 +89,14 @@ const HomeProductCard = ({ product, featured, quickAddStatus, onQuickAdd }) => {
               {!isInStock ? 'Sold out' : isAdding ? 'Adding…' : 'Quick add'}
             </button>
           </div>
-          <p
-            className={`home-product-card__quick-status${
-              hasError ? ' home-product-card__quick-status--error' : ''
-            }`}
-            role='status'
-            aria-live='polite'
-          >
-            {isAdded ? 'Added to cart' : hasError ? 'Could not add. Try again.' : ''}
-          </p>
+          {hasError && (
+            <p
+              className='home-product-card__quick-status home-product-card__quick-status--error'
+              role='alert'
+            >
+              Could not add. Try again.
+            </p>
+          )}
         </div>
       </div>
     </article>
@@ -127,7 +125,11 @@ HomeProductCard.defaultProps = {
 
 const HomeProductShowcase = ({ loading, error, products }) => {
   const dispatch = useDispatch();
-  const [quickAdd, setQuickAdd] = useState({ productId: '', status: 'idle' });
+  const [quickAdd, setQuickAdd] = useState({
+    productId: '',
+    productName: '',
+    status: 'idle',
+  });
   const showcaseProducts = products.slice(0, 4);
 
   useEffect(() => {
@@ -136,21 +138,37 @@ const HomeProductShowcase = ({ loading, error, products }) => {
     }
 
     const timeoutId = window.setTimeout(() => {
-      setQuickAdd({ productId: '', status: 'idle' });
-    }, 2400);
+      setQuickAdd({ productId: '', productName: '', status: 'idle' });
+    }, 5000);
 
     return () => window.clearTimeout(timeoutId);
   }, [quickAdd.status]);
 
   const quickAddHandler = async (product) => {
-    setQuickAdd({ productId: product._id, status: 'adding' });
+    setQuickAdd({
+      productId: product._id,
+      productName: product.name,
+      status: 'adding',
+    });
 
     try {
       await dispatch(addToCart(product._id, 1));
-      setQuickAdd({ productId: product._id, status: 'added' });
+      setQuickAdd({
+        productId: product._id,
+        productName: product.name,
+        status: 'added',
+      });
     } catch (quickAddError) {
-      setQuickAdd({ productId: product._id, status: 'error' });
+      setQuickAdd({
+        productId: product._id,
+        productName: product.name,
+        status: 'error',
+      });
     }
+  };
+
+  const closeQuickAdd = () => {
+    setQuickAdd({ productId: '', productName: '', status: 'idle' });
   };
 
   return (
@@ -200,6 +218,32 @@ const HomeProductShowcase = ({ loading, error, products }) => {
           )}
         </div>
       </div>
+
+      {quickAdd.status === 'added' && (
+        <aside
+          className='burnsville-cart-toast'
+          role='status'
+          aria-live='polite'
+          aria-label='Added to cart'
+        >
+          <button
+            className='burnsville-cart-toast__close'
+            type='button'
+            onClick={closeQuickAdd}
+            aria-label='Close added-to-cart message'
+          >
+            ×
+          </button>
+          <p className='burnsville-cart-toast__eyebrow'>Added to cart</p>
+          <strong>{quickAdd.productName}</strong>
+          <div className='burnsville-cart-toast__actions'>
+            <Link to='/cart'>View cart</Link>
+            <button type='button' onClick={closeQuickAdd}>
+              Continue shopping
+            </button>
+          </div>
+        </aside>
+      )}
     </section>
   );
 };

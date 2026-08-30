@@ -47,88 +47,108 @@ const Product = ({ product }) => {
     try {
       await dispatch(addToCart(product._id, 1));
       setQuickAddStatus('added');
-      window.setTimeout(() => setQuickAddStatus('idle'), 2400);
     } catch (quickAddError) {
       setQuickAddStatus('error');
     }
   };
 
   return (
-    <article className='shop-product-card' aria-labelledby={titleId}>
-      <Link className='shop-product-card__media' to={productPath}>
-        <img
-          className='shop-product-card__image'
-          src={product.image}
-          alt={product.name}
-          loading='lazy'
-        />
-      </Link>
-
-      <div className='shop-product-card__body'>
-        {product.brand && (
-          <p className='shop-product-card__brand'>{product.brand}</p>
-        )}
-
-        <h2 className='shop-product-card__title' id={titleId}>
-          <Link className='shop-product-card__title-link' to={productPath}>
-            {product.name}
-          </Link>
-        </h2>
-
-        <div
-          className='shop-product-card__rating'
-          role='img'
-          aria-label={`${rating} out of 5 stars, ${reviewLabel}`}
-        >
-          <Rating
-            value={rating}
-            text={reviewLabel}
-            color='#b8231b'
+    <>
+      <article className='shop-product-card' aria-labelledby={titleId}>
+        <Link className='shop-product-card__media' to={productPath}>
+          <img
+            className='shop-product-card__image'
+            src={product.image}
+            alt={product.name}
+            loading='lazy'
           />
-        </div>
+        </Link>
 
-        <div className='shop-product-card__footer'>
-          <p className='shop-product-card__price'>{formatPrice(product.price)}</p>
-          <div className='shop-product-card__actions'>
-            <Link
-              className='shop-product-card__link'
-              to={productPath}
-              aria-label={`View ${product.name}`}
-            >
-              View sauce
+        <div className='shop-product-card__body'>
+          {product.brand && (
+            <p className='shop-product-card__brand'>{product.brand}</p>
+          )}
+
+          <h2 className='shop-product-card__title' id={titleId}>
+            <Link className='shop-product-card__title-link' to={productPath}>
+              {product.name}
             </Link>
-            <button
-              className='shop-product-card__quick-add'
-              type='button'
-              onClick={quickAddHandler}
-              disabled={!isInStock || quickAddStatus === 'adding'}
-              aria-label={`Quick add ${product.name} to cart`}
-            >
-              {!isInStock
-                ? 'Sold out'
-                : quickAddStatus === 'adding'
-                ? 'Adding…'
-                : 'Quick add'}
+          </h2>
+
+          <div
+            className='shop-product-card__rating'
+            role='img'
+            aria-label={`${rating} out of 5 stars, ${reviewLabel}`}
+          >
+            <Rating
+              value={rating}
+              text={reviewLabel}
+              color='#b8231b'
+            />
+          </div>
+
+          <div className='shop-product-card__footer'>
+            <p className='shop-product-card__price'>{formatPrice(product.price)}</p>
+            <div className='shop-product-card__actions'>
+              <Link
+                className='shop-product-card__link'
+                to={productPath}
+                aria-label={`View ${product.name}`}
+              >
+                View sauce
+              </Link>
+              <button
+                className='shop-product-card__quick-add'
+                type='button'
+                onClick={quickAddHandler}
+                disabled={!isInStock || quickAddStatus === 'adding'}
+                aria-label={`Quick add ${product.name} to cart`}
+              >
+                {!isInStock
+                  ? 'Sold out'
+                  : quickAddStatus === 'adding'
+                  ? 'Adding…'
+                  : 'Quick add'}
+              </button>
+            </div>
+            {quickAddStatus === 'error' && (
+              <p
+                className='shop-product-card__quick-status shop-product-card__quick-status--error'
+                role='alert'
+              >
+                Could not add. Try again.
+              </p>
+            )}
+          </div>
+        </div>
+      </article>
+
+      {quickAddStatus === 'added' && (
+        <aside
+          className='burnsville-cart-toast'
+          role='status'
+          aria-live='polite'
+          aria-label='Added to cart'
+        >
+          <button
+            className='burnsville-cart-toast__close'
+            type='button'
+            onClick={() => setQuickAddStatus('idle')}
+            aria-label='Close added-to-cart message'
+          >
+            ×
+          </button>
+          <p className='burnsville-cart-toast__eyebrow'>Added to cart</p>
+          <strong>{product.name}</strong>
+          <div className='burnsville-cart-toast__actions'>
+            <Link to='/cart'>View cart</Link>
+            <button type='button' onClick={() => setQuickAddStatus('idle')}>
+              Continue shopping
             </button>
           </div>
-          <p
-            className={`shop-product-card__quick-status${
-              quickAddStatus === 'error'
-                ? ' shop-product-card__quick-status--error'
-                : ''
-            }`}
-            role='status'
-            aria-live='polite'
-          >
-            {quickAddStatus === 'added'
-              ? 'Added to cart'
-              : quickAddStatus === 'error'
-              ? 'Could not add. Try again.'
-              : ''}
-          </p>
-        </div>
-      </div>
-    </article>
+        </aside>
+      )}
+    </>
   );
 };
 

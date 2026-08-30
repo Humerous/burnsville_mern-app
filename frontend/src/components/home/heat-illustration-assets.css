@@ -1,0 +1,99 @@
+/* Approved illustrated chilli artwork for the Option 01 heat rail. */
+
+.burnsville-heat-strip__pepper {
+  align-items: center;
+  display: flex;
+  height: 76px;
+  justify-content: center;
+  transform: none;
+  width: 64px;
+}
+
+.burnsville-heat-strip__pepper-image {
+  display: block;
+  height: 100%;
+  max-width: none;
+  object-fit: contain;
+  width: 100%;
+}
+
+.burnsville-heat-strip__level--mild .burnsville-heat-strip__pepper-image {
+  transform: rotate(-2deg) scale(0.92);
+}
+
+.burnsville-heat-strip__level--medium .burnsville-heat-strip__pepper-image {
+  transform: rotate(1deg) scale(0.95);
+}
+
+.burnsville-heat-strip__level--hot .burnsville-heat-strip__pepper-image {
+  transform: rotate(2deg) scale(0.98);
+}
+
+.burnsville-heat-strip__level--very-hot .burnsville-heat-strip__pepper-image {
+  transform: scale(1.04);
+}
+
+.burnsville-heat-strip__level--extreme .burnsville-heat-strip__pepper-image {
+  transform: scale(1.08);
+}
+
+@media (max-width: 1120px) {
+  .burnsville-heat-strip__pepper {
+    height: 68px;
+    width: 56px;
+  }
+}
+
+@media (max-width: 900px) {
+  .burnsville-heat-strip__item,
+  .burnsville-heat-strip__item:nth-child(4),
+  .burnsville-heat-strip__item:nth-child(5) {
+    flex-basis: 150px !important;
+  }
+
+  .burnsville-heat-strip__level {
+    align-items: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 2px !important;
+    justify-content: center !important;
+    padding: 8px 8px 10px !important;
+    text-align: center !important;
+  }
+
+  .burnsville-heat-strip__pepper {
+    height: 72px !important;
+    transform: none !important;
+    width: 68px !important;
+  }
+
+  .burnsville-heat-strip__level-copy {
+    align-items: center !important;
+  }
+
+  .burnsville-heat-strip__level-copy strong {
+    font-size: 0.82rem !important;
+  }
+
+  .burnsville-heat-strip__range {
+    font-size: 0.66rem !important;
+    margin-top: 3px !important;
+  }
+
+  .burnsville-heat-strip__intensity {
+    margin-top: 6px !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .burnsville-heat-strip__item,
+  .burnsville-heat-strip__item:nth-child(4),
+  .burnsville-heat-strip__item:nth-child(5) {
+    flex-basis: 142px !important;
+  }
+
+  .burnsville-heat-strip__pepper {
+    height: 68px !important;
+    width: 64px !important;
+  }
+}

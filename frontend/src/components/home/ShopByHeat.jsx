@@ -1,5 +1,11 @@
 import React from 'react';
+import mildPepper from '../../assets/heat/mild.webp';
+import mediumPepper from '../../assets/heat/medium.webp';
+import hotPepper from '../../assets/heat/hot.webp';
+import veryHotPepper from '../../assets/heat/very-hot.webp';
+import extremePepper from '../../assets/heat/extreme.webp';
 import './shop-by-heat.css';
+import './heat-illustration-assets.css';
 
 const HEAT_LEVELS = [
   {
@@ -8,6 +14,7 @@ const HEAT_LEVELS = [
     accessibleRange: '1 to 3 out of 10',
     tone: 'mild',
     intensity: 1,
+    image: mildPepper,
   },
   {
     label: 'Medium',
@@ -15,6 +22,7 @@ const HEAT_LEVELS = [
     accessibleRange: '4 to 6 out of 10',
     tone: 'medium',
     intensity: 2,
+    image: mediumPepper,
   },
   {
     label: 'Hot',
@@ -22,6 +30,7 @@ const HEAT_LEVELS = [
     accessibleRange: '7 to 8 out of 10',
     tone: 'hot',
     intensity: 3,
+    image: hotPepper,
   },
   {
     label: 'Very Hot',
@@ -29,6 +38,7 @@ const HEAT_LEVELS = [
     accessibleRange: '9 to 10 out of 10',
     tone: 'very-hot',
     intensity: 4,
+    image: veryHotPepper,
   },
   {
     label: 'Extreme',
@@ -36,33 +46,19 @@ const HEAT_LEVELS = [
     accessibleRange: '11 plus out of 10',
     tone: 'extreme',
     intensity: 6,
+    image: extremePepper,
   },
 ];
 
-const PepperMark = () => (
+const PepperMark = ({ image }) => (
   <span aria-hidden='true' className='burnsville-heat-strip__pepper'>
-    <svg viewBox='0 0 72 82' role='presentation'>
-      <path
-        className='burnsville-heat-strip__pepper-stem'
-        d='M39 18c2-9 7-13 14-13 2 0 4 1 5 3-7 1-10 5-11 12z'
-      />
-      <path
-        className='burnsville-heat-strip__pepper-body'
-        d='M44 18c12 3 18 12 17 24-1 17-16 31-43 38 14-10 20-19 20-29 0-7-3-12-3-18 0-8 3-13 9-15z'
-      />
-      <path
-        className='burnsville-heat-strip__pepper-highlight'
-        d='M47 26c5 4 7 10 6 16-1 9-7 17-17 24 7-9 10-17 9-25 0-5-1-10 2-15z'
-      />
-      <path
-        className='burnsville-heat-strip__pepper-flame burnsville-heat-strip__pepper-flame--one'
-        d='M20 60c-7 5-10 10-9 17 2-3 5-5 9-6-2 4-2 7 0 10 2-5 6-8 11-10z'
-      />
-      <path
-        className='burnsville-heat-strip__pepper-flame burnsville-heat-strip__pepper-flame--two'
-        d='M28 55c-3 6-3 11 0 16 1-4 4-7 8-9z'
-      />
-    </svg>
+    <img
+      alt=''
+      className='burnsville-heat-strip__pepper-image'
+      decoding='async'
+      loading='lazy'
+      src={image}
+    />
   </span>
 );
 
@@ -105,7 +101,7 @@ const ShopByHeat = () => (
                 className={`burnsville-heat-strip__level burnsville-heat-strip__level--${level.tone}`}
                 href='#'
               >
-                <PepperMark />
+                <PepperMark image={level.image} />
                 <span className='burnsville-heat-strip__level-copy'>
                   <strong>{level.label}</strong>
                   <span className='burnsville-heat-strip__range'>{level.range}</span>

@@ -1,33 +1,49 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-labelledby="title desc">
   <title id="title">Extreme heat chilli</title>
-  <desc id="desc">A glossy red chilli with layered orange and red flames.</desc>
+  <desc id="desc">A curved glossy red chilli with restrained orange and yellow flames.</desc>
   <defs>
-    <linearGradient id="pepper" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#ff4b35"/>
-      <stop offset="0.42" stop-color="#e11f24"/>
-      <stop offset="1" stop-color="#8f0911"/>
+    <linearGradient id="pepperBody" x1="78" y1="56" x2="168" y2="198" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ff4936"/>
+      <stop offset="0.45" stop-color="#d71e24"/>
+      <stop offset="1" stop-color="#8e0b13"/>
     </linearGradient>
-    <linearGradient id="stem" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#82963c"/>
-      <stop offset="1" stop-color="#294914"/>
+    <linearGradient id="pepperShade" x1="102" y1="70" x2="150" y2="182" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#f46a59"/>
+      <stop offset="1" stop-color="#9e0f18"/>
     </linearGradient>
-    <linearGradient id="flame" x1="0" y1="1" x2="0" y2="0">
-      <stop offset="0" stop-color="#d71920"/>
-      <stop offset="0.48" stop-color="#ff5b1c"/>
-      <stop offset="1" stop-color="#ffb21b"/>
+    <linearGradient id="stem" x1="117" y1="45" x2="150" y2="75" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7f8d30"/>
+      <stop offset="1" stop-color="#3c4116"/>
     </linearGradient>
-    <filter id="shadow" x="-30%" y="-30%" width="160%" height="180%">
-      <feDropShadow dx="0" dy="5" stdDeviation="4" flood-color="#4a0b0b" flood-opacity=".3"/>
+    <linearGradient id="flameOrange" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#ef4a17"/>
+      <stop offset="0.58" stop-color="#ff7c18"/>
+      <stop offset="1" stop-color="#ffb221"/>
+    </linearGradient>
+    <filter id="softShadow" x="-30%" y="-30%" width="170%" height="180%">
+      <feDropShadow dx="0" dy="3" stdDeviation="2.5" flood-color="#551015" flood-opacity=".28"/>
     </filter>
   </defs>
 
-  <g filter="url(#shadow)">
-    <path fill="url(#flame)" d="M44 180c-8-27 10-42 16-60 7 10 7 20 4 29 16-17 14-38 26-58 11 18 7 32 8 44 11-14 14-31 27-45 7 20 2 35 3 48 15-12 20-29 32-43 5 22-3 39-4 53 14-8 22-20 34-34 4 25-9 42-12 56 11-3 19-10 29-20-1 23-17 40-34 51H70c-12-5-21-12-26-21Z"/>
-    <path fill="#ffd23f" opacity=".9" d="M76 178c2-19 16-29 21-45 5 10 3 19 3 26 12-10 13-24 22-36 6 14 2 26 4 35 10-8 14-20 24-29 3 15-3 27-4 38 10-5 16-13 25-22 1 18-8 29-17 38H92c-7-1-12-3-16-5Z"/>
+  <!-- restrained flame accents matching the approved reference -->
+  <g fill="url(#flameOrange)">
+    <path d="M71 171c-9-18-4-32 7-44 1 10 4 16 9 21-1-18 6-31 18-42-2 17 2 27 10 34-4 17-15 27-28 36Z"/>
+    <path d="M157 135c10-8 16-18 19-31 7 15 5 27-2 38 9-3 16-8 22-16-1 17-9 30-23 39l-21 4c8-10 10-21 5-34Z"/>
+    <path d="M151 178c11-5 19-13 25-25 3 13 0 24-8 33 8-1 15-5 22-10-5 14-14 23-29 28l-17-3c6-7 8-15 7-23Z"/>
+  </g>
+  <g fill="#ffc334">
+    <path d="M80 160c-3-12 0-21 7-29 0 8 2 13 6 17-2 10-6 17-13 22Z"/>
+    <path d="M164 145c5-6 8-13 9-21 4 9 3 16-1 23-3 5-7 9-12 13 4-6 5-11 4-15Z"/>
   </g>
 
-  <path fill="url(#stem)" stroke="#203711" stroke-width="4" stroke-linecap="round" d="M121 63c4-18 1-30-9-42 18 4 27 15 25 29 10-5 19-3 27 5-16 0-24 8-27 20Z"/>
-  <path fill="url(#pepper)" stroke="#821018" stroke-width="4" stroke-linejoin="round" d="M128 61c24 4 39 25 34 49-9 43-45 80-95 94-10 3-15-5-7-11 31-23 41-49 48-80 7-32 7-54 20-52Z"/>
-  <path fill="none" stroke="#ff9a8c" stroke-width="7" stroke-linecap="round" opacity=".7" d="M128 78c10 3 15 12 12 25-8 31-30 58-58 76"/>
-  <path fill="none" stroke="#750912" stroke-width="3" stroke-linecap="round" opacity=".7" d="M153 103c-8 42-40 74-82 92"/>
+  <!-- stem -->
+  <path fill="url(#stem)" stroke="#343814" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" d="M127 70c3-11 2-20-4-28 8 1 14 5 18 12 6-4 12-4 18 0-8 2-13 7-15 15Z"/>
+
+  <!-- chilli body -->
+  <g filter="url(#softShadow)">
+    <path fill="url(#pepperBody)" stroke="#7c1017" stroke-width="4" stroke-linejoin="round" d="M132 65c20 3 33 18 31 38-4 38-30 75-75 101-12 7-25 12-38 15-5 1-9-4-5-8 31-28 43-57 49-91 5-29 10-58 38-55Z"/>
+    <path fill="url(#pepperShade)" opacity=".72" d="M139 77c11 5 15 16 12 31-6 31-28 63-59 83 18-24 27-48 32-76 3-17 5-31 15-38Z"/>
+    <path fill="none" stroke="#ff9b8e" stroke-width="6" stroke-linecap="round" opacity=".8" d="M127 78c9 3 13 11 11 22-5 26-23 55-49 76"/>
+    <path fill="none" stroke="#751018" stroke-width="3" stroke-linecap="round" opacity=".65" d="M153 105c-7 42-35 76-76 98"/>
+  </g>
 </svg>

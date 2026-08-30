@@ -56,10 +56,10 @@ const PepperMark = ({ image }) => (
       alt=''
       className='burnsville-heat-strip__pepper-image'
       decoding='async'
-      height='240'
       loading='eager'
-      src={image}
       width='240'
+      height='240'
+      src={image}
     />
   </span>
 );

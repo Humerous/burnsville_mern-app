@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Meta from '../components/Meta';
-import { addToCart, removeFromCart } from '../actions/cartActions';
+import { removeFromCart, setCartQuantity } from '../actions/cartActions';
 import './cart-screen.css';
 
 const formatPrice = (price) => `R${Number(price).toFixed(2)}`;
@@ -19,7 +19,7 @@ const CartScreen = ({ match, location, history }) => {
 
   useEffect(() => {
     if (productId) {
-      dispatch(addToCart(productId, qty));
+      dispatch(setCartQuantity(productId, qty));
     }
   }, [dispatch, productId, qty]);
 
@@ -113,7 +113,10 @@ const CartScreen = ({ match, location, history }) => {
                         value={item.qty}
                         onChange={(event) =>
                           dispatch(
-                            addToCart(item.product, Number(event.target.value))
+                            setCartQuantity(
+                              item.product,
+                              Number(event.target.value)
+                            )
                           )
                         }
                       >

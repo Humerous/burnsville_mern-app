@@ -390,7 +390,10 @@ const ProductScreen = ({ history, match }) => {
                   <button
                     type='button'
                     className='burnsville-cart-notice__continue'
-                    onClick={() => setCartNotice(false)}
+                    onClick={() => {
+                      setCartNotice(false);
+                      history.push('/shop');
+                    }}
                   >
                     Continue shopping
                   </button>

@@ -11,7 +11,19 @@ const PAYMENT_METHODS = [
     id: 'Credit / Cheque Card',
     title: 'Credit / Cheque Card',
     detail: 'Visa / Mastercard',
-    note: 'Processed through Peach Payments',
+    note: 'Card checkout through Peach Payments',
+  },
+  {
+    id: 'Peach Payments',
+    title: 'Peach Payments',
+    detail: 'Bank / wallet checkout',
+    note: 'Direct Peach payment option',
+  },
+  {
+    id: 'PayFast',
+    title: 'PayFast',
+    detail: 'Online payment gateway',
+    note: 'South African payment provider',
   },
   {
     id: 'SnapScan',
@@ -24,12 +36,6 @@ const PAYMENT_METHODS = [
     title: 'Zapper',
     detail: 'QR / mobile payment',
     note: 'South African mobile payment option',
-  },
-  {
-    id: 'PayPal',
-    title: 'PayPal',
-    detail: 'International / legacy',
-    note: 'Existing Burnsville payment option',
   },
 ];
 

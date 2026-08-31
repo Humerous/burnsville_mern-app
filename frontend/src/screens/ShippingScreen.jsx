@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import CheckoutSteps from '../components/CheckoutSteps';
 import Meta from '../components/Meta';
 import { saveShippingAddress } from '../actions/cartActions';
+import './shipping-location.css';
 
 const ShippingScreen = ({ history }) => {
   const cart = useSelector((state) => state.cart);
@@ -15,6 +16,8 @@ const ShippingScreen = ({ history }) => {
   const [city, setCity] = useState(shippingAddress.city || '');
   const [postalCode, setPostalCode] = useState(shippingAddress.postalCode || '');
   const [country, setCountry] = useState(shippingAddress.country || '');
+  const [locationState, setLocationState] = useState('idle');
+  const [locationMessage, setLocationMessage] = useState('');
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -27,6 +30,95 @@ const ShippingScreen = ({ history }) => {
       history.replace('/login?redirect=shipping');
     }
   }, [cartItems.length, history, userInfo]);
+
+  const resolveLocation = async (latitude, longitude) => {
+    try {
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?format=jsonv2&addressdetails=1&zoom=18&lat=${encodeURIComponent(
+          latitude
+        )}&lon=${encodeURIComponent(longitude)}`,
+        {
+          headers: {
+            Accept: 'application/json',
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('Reverse geocoding failed');
+      }
+
+      const result = await response.json();
+      const details = result.address || {};
+      const road = details.road || details.pedestrian || details.footway || details.path || '';
+      const streetAddress = [details.house_number, road].filter(Boolean).join(' ');
+      const resolvedCity =
+        details.city ||
+        details.town ||
+        details.village ||
+        details.municipality ||
+        details.suburb ||
+        '';
+
+      if (streetAddress) {
+        setAddress(streetAddress);
+      }
+      if (resolvedCity) {
+        setCity(resolvedCity);
+      }
+      if (details.postcode) {
+        setPostalCode(details.postcode);
+      }
+      if (details.country) {
+        setCountry(details.country);
+      }
+
+      if (!streetAddress && !resolvedCity && !details.postcode && !details.country) {
+        throw new Error('No address details returned');
+      }
+
+      setLocationState('success');
+      setLocationMessage('Location found. Check the address before continuing.');
+    } catch (error) {
+      setLocationState('warning');
+      setLocationMessage(
+        'Location found, but the address could not be filled in. Enter it manually.'
+      );
+    }
+  };
+
+  const useCurrentLocation = () => {
+    if (!navigator.geolocation) {
+      setLocationState('error');
+      setLocationMessage('Location services are not supported by this browser.');
+      return;
+    }
+
+    setLocationState('locating');
+    setLocationMessage('Finding your location…');
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        resolveLocation(latitude, longitude);
+      },
+      (error) => {
+        setLocationState('error');
+        if (error.code === error.PERMISSION_DENIED) {
+          setLocationMessage('Location permission was denied. Enter the address manually.');
+        } else if (error.code === error.TIMEOUT) {
+          setLocationMessage('Location request timed out. Try again or enter the address manually.');
+        } else {
+          setLocationMessage('We could not detect your location. Enter the address manually.');
+        }
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 12000,
+        maximumAge: 300000,
+      }
+    );
+  };
 
   const submitHandler = (event) => {
     event.preventDefault();
@@ -70,11 +162,39 @@ const ShippingScreen = ({ history }) => {
               <input
                 id='address'
                 type='text'
+                autoComplete='shipping street-address'
                 placeholder='Enter address'
                 value={address}
                 required
                 onChange={(event) => setAddress(event.target.value)}
               />
+              <div className='burnsville-checkout__location-tools'>
+                <button
+                  className='burnsville-checkout__location-button'
+                  type='button'
+                  onClick={useCurrentLocation}
+                  disabled={locationState === 'locating'}
+                >
+                  <svg
+                    aria-hidden='true'
+                    viewBox='0 0 24 24'
+                    focusable='false'
+                  >
+                    <path d='M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5Z' />
+                  </svg>
+                  {locationState === 'locating' ? 'Locating…' : 'Use current location'}
+                </button>
+
+                {locationMessage && (
+                  <p
+                    className={`burnsville-checkout__location-status burnsville-checkout__location-status--${locationState}`}
+                    role='status'
+                    aria-live='polite'
+                  >
+                    {locationMessage}
+                  </p>
+                )}
+              </div>
             </div>
 
             <div className='burnsville-checkout__field'>
@@ -82,6 +202,7 @@ const ShippingScreen = ({ history }) => {
               <input
                 id='city'
                 type='text'
+                autoComplete='shipping address-level2'
                 placeholder='Enter city'
                 value={city}
                 required
@@ -94,6 +215,7 @@ const ShippingScreen = ({ history }) => {
               <input
                 id='postalCode'
                 type='text'
+                autoComplete='shipping postal-code'
                 placeholder='Enter postal code'
                 value={postalCode}
                 required
@@ -106,6 +228,7 @@ const ShippingScreen = ({ history }) => {
               <input
                 id='country'
                 type='text'
+                autoComplete='shipping country-name'
                 placeholder='Enter country'
                 value={country}
                 required

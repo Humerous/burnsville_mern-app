@@ -10,6 +10,8 @@ import { CART_RESET } from '../constants/cartConstants';
 import { ORDER_CREATE_RESET } from '../constants/orderConstants';
 import './place-order-screen.css';
 
+const SUPPORTED_PAYMENT_METHODS = ['Peach Payments', 'SnapScan', 'PayPal'];
+
 const PlaceOrderScreen = ({ history }) => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
@@ -40,7 +42,9 @@ const PlaceOrderScreen = ({ history }) => {
       cart.shippingAddress.postalCode &&
       cart.shippingAddress.country
   );
-  const hasSupportedPaymentMethod = cart.paymentMethod === 'PayPal';
+  const hasSupportedPaymentMethod = SUPPORTED_PAYMENT_METHODS.includes(
+    cart.paymentMethod
+  );
   const checkoutReady = Boolean(
     userInfo &&
       cart.cartItems.length > 0 &&

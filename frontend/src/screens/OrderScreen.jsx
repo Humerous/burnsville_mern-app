@@ -1,35 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
-import { PayPalButton } from 'react-paypal-button-v2';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import Meta from '../components/Meta';
-import {
-  getOrderDetails,
-  payOrder,
-  deliverOrder,
-} from '../actions/orderActions';
-import {
-  ORDER_PAY_RESET,
-  ORDER_DELIVER_RESET,
-} from '../constants/orderConstants';
+import { getOrderDetails, deliverOrder } from '../actions/orderActions';
+import { ORDER_DELIVER_RESET } from '../constants/orderConstants';
 import './order-screen.css';
 import './payment-provider-options.css';
 
 const OrderScreen = ({ match, history }) => {
   const orderId = match.params.id;
-  const [sdkReady, setSdkReady] = useState(false);
-  const [paypalConfigured, setPaypalConfigured] = useState(null);
   const dispatch = useDispatch();
 
   const orderDetails = useSelector((state) => state.orderDetails);
   const { order, loading, error } = orderDetails;
-
-  const orderPay = useSelector((state) => state.orderPay);
-  const { loading: loadingPay, success: successPay } = orderPay;
 
   const orderDeliver = useSelector((state) => state.orderDeliver);
   const { loading: loadingDeliver, success: successDeliver } = orderDeliver;
@@ -54,103 +40,57 @@ const OrderScreen = ({ match, history }) => {
   useEffect(() => {
     if (!userInfo) {
       history.push('/login');
+      return;
     }
 
-    const addPayPalScript = async () => {
-      try {
-        const { data: clientId } = await axios.get('/api/config/paypal');
-
-        if (!clientId || typeof clientId !== 'string' || !clientId.trim()) {
-          setPaypalConfigured(false);
-          return;
-        }
-
-        setPaypalConfigured(true);
-        const script = document.createElement('script');
-        script.type = 'text/javascript';
-        script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
-        script.async = true;
-        script.onload = () => {
-          setSdkReady(true);
-        };
-        script.onerror = () => {
-          setPaypalConfigured(false);
-        };
-        document.body.appendChild(script);
-      } catch (paypalError) {
-        setPaypalConfigured(false);
-      }
-    };
-
-    if (!order || successPay || successDeliver || order._id !== orderId) {
-      dispatch({ type: ORDER_PAY_RESET });
+    if (!order || successDeliver || order._id !== orderId) {
       dispatch({ type: ORDER_DELIVER_RESET });
       dispatch(getOrderDetails(orderId));
-    } else if (!order.isPaid && order.paymentMethod === 'PayPal') {
-      if (!window.paypal && paypalConfigured !== false) {
-        addPayPalScript();
-      } else if (window.paypal) {
-        setPaypalConfigured(true);
-        setSdkReady(true);
-      }
     }
-  }, [
-    history,
-    dispatch,
-    orderId,
-    successPay,
-    successDeliver,
-    order,
-    userInfo,
-    paypalConfigured,
-  ]);
-
-  const successPaymentHandler = (paymentResult) => {
-    dispatch(payOrder(orderId, paymentResult));
-  };
+  }, [history, dispatch, orderId, successDeliver, order, userInfo]);
 
   const deliverHandler = () => {
     dispatch(deliverOrder(order));
   };
 
   const renderPaymentControl = () => {
-    if (order.paymentMethod === 'PayPal') {
-      if (paypalConfigured === false) {
-        return (
-          <div className='burnsville-order__provider-notice'>
-            <strong>PayPal</strong>
-            <p>
-              PayPal is selected, but this Preview does not currently have a
-              usable PayPal client configuration. The order remains unpaid.
-            </p>
-          </div>
-        );
-      }
-
-      if (loadingPay || !sdkReady) {
-        return <Loader />;
-      }
-
-      return (
-        <PayPalButton
-          amount={order.totalPrice}
-          onSuccess={successPaymentHandler}
-        />
-      );
-    }
-
-    if (
-      order.paymentMethod === 'Credit / Cheque Card' ||
-      order.paymentMethod === 'Peach Payments'
-    ) {
+    if (order.paymentMethod === 'Credit / Cheque Card') {
       return (
         <div className='burnsville-order__provider-notice'>
           <strong>Credit / Cheque Card</strong>
           <p>
-            Card payment is routed through Peach Payments. Merchant sandbox
+            Card checkout is routed through Peach Payments. Merchant sandbox
             credentials and provider-side transaction verification are required
             before money can be processed. This Preview keeps the order unpaid
             until that activation is complete.
+          </p>
+        </div>
+      );
+    }
+
+    if (order.paymentMethod === 'Peach Payments') {
+      return (
+        <div className='burnsville-order__provider-notice'>
+          <strong>Peach Payments</strong>
+          <p>
+            Peach Payments is selected. Merchant sandbox credentials,
+            provider-side transaction verification and webhook handling are
+            required before payment can be confirmed. This Preview keeps the
+            order unpaid until activation is complete.
+          </p>
+        </div>
+      );
+    }
+
+    if (order.paymentMethod === 'PayFast') {
+      return (
+        <div className='burnsville-order__provider-notice'>
+          <strong>PayFast</strong>
+          <p>
+            PayFast is selected. Merchant credentials, return and cancel
+            handling, provider verification and ITN/webhook validation are
+            required before payment can be confirmed. This Preview keeps the
+            order unpaid until activation is complete.
           </p>
         </div>
       );
@@ -184,8 +124,11 @@ const OrderScreen = ({ match, history }) => {
 
     return (
       <div className='burnsville-order__provider-notice'>
-        <strong>Payment setup required</strong>
-        <p>The selected payment method is not supported by this checkout.</p>
+        <strong>Legacy payment method</strong>
+        <p>
+          This order uses a payment method that is no longer offered by the
+          current Burnsville checkout. The order remains unpaid.
+        </p>
       </div>
     );
   };

@@ -1,0 +1,75 @@
+.burnsville-checkout__location-tools {
+  align-items: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  margin-top: 10px;
+}
+
+.burnsville-checkout__location-button {
+  align-items: center;
+  background: transparent;
+  border: 1px solid #d92929;
+  color: #161616;
+  display: inline-flex;
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 700;
+  gap: 7px;
+  letter-spacing: 0.055em;
+  min-height: 38px;
+  padding: 8px 12px;
+  text-transform: uppercase;
+}
+
+.burnsville-checkout__location-button:hover,
+.burnsville-checkout__location-button:focus-visible {
+  background: #d92929;
+  color: #fff;
+}
+
+.burnsville-checkout__location-button:disabled {
+  cursor: wait;
+  opacity: 0.62;
+}
+
+.burnsville-checkout__location-button svg {
+  fill: currentColor;
+  flex: 0 0 auto;
+  height: 16px;
+  width: 16px;
+}
+
+.burnsville-checkout__location-status {
+  color: #5b5b5b;
+  flex: 1 1 220px;
+  font-size: 0.78rem;
+  line-height: 1.35;
+  margin: 7px 0 0;
+}
+
+.burnsville-checkout__location-status--success {
+  color: #2e6b35;
+}
+
+.burnsville-checkout__location-status--error,
+.burnsville-checkout__location-status--warning {
+  color: #a81f1f;
+}
+
+@media (max-width: 640px) {
+  .burnsville-checkout__location-tools {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .burnsville-checkout__location-button {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .burnsville-checkout__location-status {
+    flex-basis: auto;
+    margin-top: 0;
+  }
+}

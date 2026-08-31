@@ -87,7 +87,12 @@ const ShippingScreen = ({ history }) => {
     }
   };
 
-  const useCurrentLocation = () => {
+  const requestPosition = (options) =>
+    new Promise((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(resolve, reject, options);
+    });
+
+  const useCurrentLocation = async () => {
     if (!navigator.geolocation) {
       setLocationState('error');
       setLocationMessage('Location services are not supported by this browser.');
@@ -97,27 +102,43 @@ const ShippingScreen = ({ history }) => {
     setLocationState('locating');
     setLocationMessage('Finding your location…');
 
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const { latitude, longitude } = position.coords;
-        resolveLocation(latitude, longitude);
-      },
-      (error) => {
-        setLocationState('error');
-        if (error.code === error.PERMISSION_DENIED) {
-          setLocationMessage('Location permission was denied. Enter the address manually.');
-        } else if (error.code === error.TIMEOUT) {
-          setLocationMessage('Location request timed out. Try again or enter the address manually.');
-        } else {
-          setLocationMessage('We could not detect your location. Enter the address manually.');
+    try {
+      let position;
+
+      try {
+        position = await requestPosition({
+          enableHighAccuracy: true,
+          timeout: 12000,
+          maximumAge: 300000,
+        });
+      } catch (firstError) {
+        if (firstError.code === 1) {
+          throw firstError;
         }
-      },
-      {
-        enableHighAccuracy: true,
-        timeout: 12000,
-        maximumAge: 300000,
+
+        setLocationMessage('Trying an approximate location…');
+        position = await requestPosition({
+          enableHighAccuracy: false,
+          timeout: 15000,
+          maximumAge: 900000,
+        });
       }
-    );
+
+      const { latitude, longitude } = position.coords;
+      await resolveLocation(latitude, longitude);
+    } catch (error) {
+      setLocationState('error');
+
+      if (error.code === 1) {
+        setLocationMessage('Location permission was denied. Enable it in the browser or enter the address manually.');
+      } else if (error.code === 3) {
+        setLocationMessage('Location request timed out. Try again or enter the address manually.');
+      } else if (error.code === 2) {
+        setLocationMessage('Your device could not provide a location. Check browser or system Location Services, then try again.');
+      } else {
+        setLocationMessage('We could not detect your location. Enter the address manually.');
+      }
+    }
   };
 
   const submitHandler = (event) => {

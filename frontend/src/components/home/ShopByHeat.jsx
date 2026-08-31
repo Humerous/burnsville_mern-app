@@ -3,7 +3,7 @@ import mildPepper from '../../assets/heat/mild.webp';
 import mediumPepper from '../../assets/heat/medium.webp';
 import hotPepper from '../../assets/heat/hot.webp';
 import veryHotPepper from '../../assets/heat/very-hot.webp';
-import extremePepper from '../../assets/heat/extreme.svg';
+import extremePepper from '../../assets/heat/extreme-approved.webp';
 import './shop-by-heat.css';
 import './heat-illustration-assets.css';
 

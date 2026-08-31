@@ -17,10 +17,12 @@ import {
   ORDER_DELIVER_RESET,
 } from '../constants/orderConstants';
 import './order-screen.css';
+import './payment-provider-options.css';
 
 const OrderScreen = ({ match, history }) => {
   const orderId = match.params.id;
   const [sdkReady, setSdkReady] = useState(false);
+  const [paypalConfigured, setPaypalConfigured] = useState(null);
   const dispatch = useDispatch();
 
   const orderDetails = useSelector((state) => state.orderDetails);
@@ -55,37 +57,121 @@ const OrderScreen = ({ match, history }) => {
     }
 
     const addPayPalScript = async () => {
-      const { data: clientId } = await axios.get('/api/config/paypal');
-      const script = document.createElement('script');
-      script.type = 'text/javascript';
-      script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
-      script.async = true;
-      script.onload = () => {
-        setSdkReady(true);
-      };
-      document.body.appendChild(script);
+      try {
+        const { data: clientId } = await axios.get('/api/config/paypal');
+
+        if (!clientId || typeof clientId !== 'string' || !clientId.trim()) {
+          setPaypalConfigured(false);
+          return;
+        }
+
+        setPaypalConfigured(true);
+        const script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = `https://www.paypal.com/sdk/js?client-id=${clientId}`;
+        script.async = true;
+        script.onload = () => {
+          setSdkReady(true);
+        };
+        script.onerror = () => {
+          setPaypalConfigured(false);
+        };
+        document.body.appendChild(script);
+      } catch (paypalError) {
+        setPaypalConfigured(false);
+      }
     };
 
     if (!order || successPay || successDeliver || order._id !== orderId) {
       dispatch({ type: ORDER_PAY_RESET });
       dispatch({ type: ORDER_DELIVER_RESET });
       dispatch(getOrderDetails(orderId));
-    } else if (!order.isPaid) {
-      if (!window.paypal) {
+    } else if (!order.isPaid && order.paymentMethod === 'PayPal') {
+      if (!window.paypal && paypalConfigured !== false) {
         addPayPalScript();
-      } else {
+      } else if (window.paypal) {
+        setPaypalConfigured(true);
         setSdkReady(true);
       }
     }
-  }, [history, dispatch, orderId, successPay, successDeliver, order, userInfo]);
+  }, [
+    history,
+    dispatch,
+    orderId,
+    successPay,
+    successDeliver,
+    order,
+    userInfo,
+    paypalConfigured,
+  ]);
 
   const successPaymentHandler = (paymentResult) => {
-    console.log(paymentResult);
     dispatch(payOrder(orderId, paymentResult));
   };
 
   const deliverHandler = () => {
     dispatch(deliverOrder(order));
+  };
+
+  const renderPaymentControl = () => {
+    if (order.paymentMethod === 'PayPal') {
+      if (paypalConfigured === false) {
+        return (
+          <div className='burnsville-order__provider-notice'>
+            <strong>PayPal</strong>
+            <p>
+              PayPal is selected, but this Preview does not currently have a
+              usable PayPal client configuration. The order remains unpaid.
+            </p>
+          </div>
+        );
+      }
+
+      if (loadingPay || !sdkReady) {
+        return <Loader />;
+      }
+
+      return (
+        <PayPalButton
+          amount={order.totalPrice}
+          onSuccess={successPaymentHandler}
+        />
+      );
+    }
+
+    if (order.paymentMethod === 'Peach Payments') {
+      return (
+        <div className='burnsville-order__provider-notice'>
+          <strong>Peach Payments</strong>
+          <p>
+            Peach Payments is selected as the primary South African gateway.
+            Merchant sandbox credentials and provider-side transaction
+            verification are required before money can be processed. This
+            Preview keeps the order unpaid until that activation is complete.
+          </p>
+        </div>
+      );
+    }
+
+    if (order.paymentMethod === 'SnapScan') {
+      return (
+        <div className='burnsville-order__provider-notice'>
+          <strong>SnapScan</strong>
+          <p>
+            SnapScan is selected for QR/mobile payment. A merchant SnapCode,
+            API verification and webhook configuration are required before a
+            payment can be confirmed. This Preview keeps the order unpaid.
+          </p>
+        </div>
+      );
+    }
+
+    return (
+      <div className='burnsville-order__provider-notice'>
+        <strong>Payment setup required</strong>
+        <p>The selected payment method is not supported by this checkout.</p>
+      </div>
+    );
   };
 
   return loading ? (
@@ -246,15 +332,7 @@ const OrderScreen = ({ match, history }) => {
 
             {!order.isPaid && (
               <div className='burnsville-order__payment-control'>
-                {loadingPay && <Loader />}
-                {!sdkReady ? (
-                  <Loader />
-                ) : (
-                  <PayPalButton
-                    amount={order.totalPrice}
-                    onSuccess={successPaymentHandler}
-                  />
-                )}
+                {renderPaymentControl()}
               </div>
             )}
 

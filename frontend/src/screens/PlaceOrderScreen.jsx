@@ -13,9 +13,9 @@ import './place-order-screen.css';
 const SUPPORTED_PAYMENT_METHODS = [
   'Credit / Cheque Card',
   'Peach Payments',
+  'PayFast',
   'SnapScan',
   'Zapper',
-  'PayPal',
 ];
 
 const PlaceOrderScreen = ({ history }) => {

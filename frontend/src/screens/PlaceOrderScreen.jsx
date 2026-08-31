@@ -10,7 +10,13 @@ import { CART_RESET } from '../constants/cartConstants';
 import { ORDER_CREATE_RESET } from '../constants/orderConstants';
 import './place-order-screen.css';
 
-const SUPPORTED_PAYMENT_METHODS = ['Peach Payments', 'SnapScan', 'PayPal'];
+const SUPPORTED_PAYMENT_METHODS = [
+  'Credit / Cheque Card',
+  'Peach Payments',
+  'SnapScan',
+  'Zapper',
+  'PayPal',
+];
 
 const PlaceOrderScreen = ({ history }) => {
   const dispatch = useDispatch();

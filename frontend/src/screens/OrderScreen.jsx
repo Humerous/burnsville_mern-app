@@ -139,15 +139,18 @@ const OrderScreen = ({ match, history }) => {
       );
     }
 
-    if (order.paymentMethod === 'Peach Payments') {
+    if (
+      order.paymentMethod === 'Credit / Cheque Card' ||
+      order.paymentMethod === 'Peach Payments'
+    ) {
       return (
         <div className='burnsville-order__provider-notice'>
-          <strong>Peach Payments</strong>
+          <strong>Credit / Cheque Card</strong>
           <p>
-            Peach Payments is selected as the primary South African gateway.
-            Merchant sandbox credentials and provider-side transaction
-            verification are required before money can be processed. This
-            Preview keeps the order unpaid until that activation is complete.
+            Card payment is routed through Peach Payments. Merchant sandbox
+            credentials and provider-side transaction verification are required
+            before money can be processed. This Preview keeps the order unpaid
+            until that activation is complete.
           </p>
         </div>
       );
@@ -160,6 +163,19 @@ const OrderScreen = ({ match, history }) => {
           <p>
             SnapScan is selected for QR/mobile payment. A merchant SnapCode,
             API verification and webhook configuration are required before a
+            payment can be confirmed. This Preview keeps the order unpaid.
+          </p>
+        </div>
+      );
+    }
+
+    if (order.paymentMethod === 'Zapper') {
+      return (
+        <div className='burnsville-order__provider-notice'>
+          <strong>Zapper</strong>
+          <p>
+            Zapper is selected for QR/mobile payment. Merchant credentials,
+            provider verification and webhook handling are required before a
             payment can be confirmed. This Preview keeps the order unpaid.
           </p>
         </div>

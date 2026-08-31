@@ -8,16 +8,22 @@ import './payment-provider-options.css';
 
 const PAYMENT_METHODS = [
   {
-    id: 'Peach Payments',
-    title: 'Peach Payments',
-    detail: 'Card, bank or wallet',
-    note: 'Primary South African checkout provider',
+    id: 'Credit / Cheque Card',
+    title: 'Credit / Cheque Card',
+    detail: 'Visa / Mastercard',
+    note: 'Processed through Peach Payments',
   },
   {
     id: 'SnapScan',
     title: 'SnapScan',
     detail: 'Scan to pay',
     note: 'South African QR and mobile payment option',
+  },
+  {
+    id: 'Zapper',
+    title: 'Zapper',
+    detail: 'QR / mobile payment',
+    note: 'South African mobile payment option',
   },
   {
     id: 'PayPal',
@@ -36,7 +42,7 @@ const PaymentScreen = ({ history }) => {
     (method) => method.id === cart.paymentMethod
   )
     ? cart.paymentMethod
-    : 'Peach Payments';
+    : 'Credit / Cheque Card';
   const [paymentMethod, setPaymentMethod] = useState(savedPaymentMethod);
   const dispatch = useDispatch();
 

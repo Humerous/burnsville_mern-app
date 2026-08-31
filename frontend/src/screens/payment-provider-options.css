@@ -1,0 +1,41 @@
+.burnsville-checkout__payment-options {
+  display: grid;
+  gap: 14px;
+}
+
+.burnsville-checkout__payment-option-copy {
+  display: grid;
+  gap: 3px;
+}
+
+.burnsville-checkout__payment-option-copy small {
+  display: block;
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+
+.burnsville-checkout__payment-note {
+  margin: 4px 0 0;
+  max-width: 620px;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.burnsville-order__provider-notice {
+  border: 1px solid rgba(20, 20, 20, 0.24);
+  background: #f3ede4;
+  color: #111;
+  padding: 18px;
+}
+
+.burnsville-order__provider-notice strong {
+  display: block;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.burnsville-order__provider-notice p {
+  margin: 0;
+  font-size: 0.86rem;
+  line-height: 1.5;
+}

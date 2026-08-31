@@ -104,6 +104,11 @@ jobs:
           BASE_URL: http://127.0.0.1:5001
         run: node qa/integrated-api.mjs
 
+      - name: Run Block 10C controlled synthetic functional API QA
+        env:
+          BASE_URL: http://127.0.0.1:5001
+        run: node qa/block-10c-functional-api.mjs
+
       - name: Restart in production mode
         env:
           MONGO_URI: mongodb://127.0.0.1:27017/burnsville_qa?replicaSet=rs0

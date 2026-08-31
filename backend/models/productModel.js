@@ -45,6 +45,26 @@ const productSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    heatLevel: {
+      type: Number,
+      min: 1,
+      max: 11,
+      default: null,
+    },
+    flavourProfile: {
+      type: String,
+      trim: true,
+      default: '',
+    },
+    pairings: {
+      type: [String],
+      default: [],
+    },
+    ingredients: {
+      type: String,
+      trim: true,
+      default: '',
+    },
     reviews: [reviewSchema],
     rating: {
       type: Number,

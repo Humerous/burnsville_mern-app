@@ -11,6 +11,7 @@ import {
 import { addToCart } from '../actions/cartActions';
 import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/productConstants';
 import './product-screen.css';
+import './product-experience.css';
 
 const priceFormatter = new Intl.NumberFormat('en-ZA', {
   style: 'currency',
@@ -99,8 +100,12 @@ const ProductScreen = ({ history, match }) => {
   const reviews = product && Array.isArray(product.reviews)
     ? product.reviews
     : [];
+  const pairings = product && Array.isArray(product.pairings)
+    ? product.pairings.filter(Boolean)
+    : [];
   const stockCount = product ? Number(product.countInStock) || 0 : 0;
   const productRating = product ? Number(product.rating) || 0 : 0;
+  const heatLevel = product && product.heatLevel ? Number(product.heatLevel) : null;
   const reviewLabel = `${reviews.length} ${
     reviews.length === 1 ? 'review' : 'reviews'
   }`;
@@ -196,6 +201,69 @@ const ProductScreen = ({ history, match }) => {
                     <h2>Product details</h2>
                     <p>{product.description}</p>
                   </div>
+
+                  <section
+                    className='burnsville-product-profile'
+                    aria-labelledby='burnsville-product-profile-title'
+                  >
+                    <div className='burnsville-product-profile__heading'>
+                      <p>Burnsville profile</p>
+                      <h2 id='burnsville-product-profile-title'>Sauce profile</h2>
+                    </div>
+
+                    <dl className='burnsville-product-profile__facts'>
+                      {heatLevel && (
+                        <div className='burnsville-product-profile__fact burnsville-product-profile__fact--heat'>
+                          <dt>Heat</dt>
+                          <dd>{heatLevel >= 11 ? '11+' : heatLevel}/10</dd>
+                        </div>
+                      )}
+                      {product.flavourProfile && (
+                        <div className='burnsville-product-profile__fact'>
+                          <dt>Flavour</dt>
+                          <dd>{product.flavourProfile}</dd>
+                        </div>
+                      )}
+                      {product.brand && (
+                        <div className='burnsville-product-profile__fact'>
+                          <dt>Brand</dt>
+                          <dd>{product.brand}</dd>
+                        </div>
+                      )}
+                      {product.category && (
+                        <div className='burnsville-product-profile__fact'>
+                          <dt>Category</dt>
+                          <dd>{product.category}</dd>
+                        </div>
+                      )}
+                      <div className='burnsville-product-profile__fact'>
+                        <dt>Reviews</dt>
+                        <dd>{reviews.length}</dd>
+                      </div>
+                      <div className='burnsville-product-profile__fact'>
+                        <dt>Stock</dt>
+                        <dd>{stockCount > 0 ? `${stockCount} available` : 'Out of stock'}</dd>
+                      </div>
+                    </dl>
+
+                    {pairings.length > 0 && (
+                      <div className='burnsville-product-profile__pairings'>
+                        <strong>Best with</strong>
+                        <ul>
+                          {pairings.map((pairing) => (
+                            <li key={pairing}>{pairing}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {product.ingredients && (
+                      <details className='burnsville-product-profile__ingredients'>
+                        <summary>Ingredients</summary>
+                        <p>{product.ingredients}</p>
+                      </details>
+                    )}
+                  </section>
 
                   <div className='burnsville-product-detail__purchase'>
                     <div className='burnsville-product-detail__availability'>

@@ -76,6 +76,10 @@ const updateProduct = asyncHandler(async (req, res) => {
     brand,
     category,
     countInStock,
+    heatLevel,
+    flavourProfile,
+    pairings,
+    ingredients,
   } = req.body;
 
   const product = await Product.findById(req.params.id);
@@ -88,6 +92,15 @@ const updateProduct = asyncHandler(async (req, res) => {
     product.brand = brand;
     product.category = category;
     product.countInStock = countInStock;
+    product.heatLevel =
+      heatLevel === '' || heatLevel === null || heatLevel === undefined
+        ? null
+        : Number(heatLevel);
+    product.flavourProfile = flavourProfile || '';
+    product.pairings = Array.isArray(pairings)
+      ? pairings.map((item) => String(item).trim()).filter(Boolean)
+      : [];
+    product.ingredients = ingredients || '';
 
     const updatedProduct = await product.save();
     res.json(updatedProduct);

@@ -19,6 +19,10 @@ const ProductEditScreen = ({ match, history }) => {
   const [category, setCategory] = useState('');
   const [countInStock, setCountInStock] = useState(0);
   const [description, setDescription] = useState('');
+  const [heatLevel, setHeatLevel] = useState('');
+  const [flavourProfile, setFlavourProfile] = useState('');
+  const [pairings, setPairings] = useState('');
+  const [ingredients, setIngredients] = useState('');
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState('');
 
@@ -56,6 +60,16 @@ const ProductEditScreen = ({ match, history }) => {
       setCategory(product.category);
       setCountInStock(product.countInStock);
       setDescription(product.description);
+      setHeatLevel(
+        product.heatLevel === null || product.heatLevel === undefined
+          ? ''
+          : product.heatLevel
+      );
+      setFlavourProfile(product.flavourProfile || '');
+      setPairings(
+        Array.isArray(product.pairings) ? product.pairings.join(', ') : ''
+      );
+      setIngredients(product.ingredients || '');
     }
   }, [dispatch, history, productId, product, successUpdate, userInfo]);
 
@@ -109,6 +123,13 @@ const ProductEditScreen = ({ match, history }) => {
         category,
         description,
         countInStock,
+        heatLevel: heatLevel === '' ? null : Number(heatLevel),
+        flavourProfile,
+        pairings: pairings
+          .split(',')
+          .map((item) => item.trim())
+          .filter(Boolean),
+        ingredients,
       })
     );
   };
@@ -197,7 +218,7 @@ const ProductEditScreen = ({ match, history }) => {
                     <label htmlFor='admin-product-name'>Name</label>
                     <input
                       id='admin-product-name'
-                      type='name'
+                      type='text'
                       placeholder='Enter name'
                       value={name}
                       onChange={(e) => setName(e.target.value)}
@@ -263,6 +284,59 @@ const ProductEditScreen = ({ match, history }) => {
                 <fieldset className='burnsville-admin-product-edit__group'>
                   <legend>
                     <span>02</span>
+                    Taste & heat
+                  </legend>
+
+                  <div className='burnsville-admin-product-edit__field'>
+                    <label htmlFor='admin-product-heat'>Heat level</label>
+                    <input
+                      id='admin-product-heat'
+                      type='number'
+                      min='1'
+                      max='11'
+                      placeholder='1–11'
+                      value={heatLevel}
+                      onChange={(e) => setHeatLevel(e.target.value)}
+                    />
+                  </div>
+
+                  <div className='burnsville-admin-product-edit__field'>
+                    <label htmlFor='admin-product-flavour'>Flavour profile</label>
+                    <input
+                      id='admin-product-flavour'
+                      type='text'
+                      placeholder='e.g. smoky, citrus, garlic'
+                      value={flavourProfile}
+                      onChange={(e) => setFlavourProfile(e.target.value)}
+                    />
+                  </div>
+
+                  <div className='burnsville-admin-product-edit__field burnsville-admin-product-edit__field--wide'>
+                    <label htmlFor='admin-product-pairings'>Best with</label>
+                    <input
+                      id='admin-product-pairings'
+                      type='text'
+                      placeholder='Comma-separated pairings'
+                      value={pairings}
+                      onChange={(e) => setPairings(e.target.value)}
+                    />
+                  </div>
+
+                  <div className='burnsville-admin-product-edit__field burnsville-admin-product-edit__field--wide'>
+                    <label htmlFor='admin-product-ingredients'>Ingredients</label>
+                    <input
+                      id='admin-product-ingredients'
+                      type='text'
+                      placeholder='Enter ingredients'
+                      value={ingredients}
+                      onChange={(e) => setIngredients(e.target.value)}
+                    />
+                  </div>
+                </fieldset>
+
+                <fieldset className='burnsville-admin-product-edit__group'>
+                  <legend>
+                    <span>03</span>
                     Product image
                   </legend>
 

@@ -104,6 +104,11 @@ jobs:
           BASE_URL: http://127.0.0.1:5001
         run: node qa/integrated-api.mjs
 
+      - name: Run Block 11B review consistency QA
+        env:
+          BASE_URL: http://127.0.0.1:5001
+        run: node qa/block-11b-review-consistency.mjs
+
       - name: Run Block 10C controlled synthetic functional API QA
         env:
           BASE_URL: http://127.0.0.1:5001

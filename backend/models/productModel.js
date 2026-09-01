@@ -48,7 +48,7 @@ const productSchema = mongoose.Schema(
     heatLevel: {
       type: Number,
       min: 1,
-      max: 11,
+      max: 10,
       default: null,
     },
     flavourProfile: {

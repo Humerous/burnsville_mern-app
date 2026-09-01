@@ -122,14 +122,13 @@ const ProductScreen = ({ history, match }) => {
   const reviewLabel = `${reviews.length} ${
     reviews.length === 1 ? 'review' : 'reviews'
   }`;
-  const stockLabel = stockCount > 0
-    ? `${availableToAdd} available to add${qtyInCart > 0 ? ` · ${qtyInCart} in cart` : ''}`
-    : 'Out of stock';
-  const availabilityLabel = availableToAdd > 0
-    ? 'In stock'
-    : qtyInCart > 0
-    ? 'Maximum in cart'
-    : 'Out of stock';
+  const stockLabel = stockCount <= 0
+    ? 'Out of stock'
+    : availableToAdd <= 0
+    ? 'All in your cart'
+    : availableToAdd <= 3
+    ? `Only ${availableToAdd} left`
+    : `${availableToAdd} left`;
 
   return (
     <section className='burnsville-product-detail'>
@@ -261,10 +260,6 @@ const ProductScreen = ({ history, match }) => {
                         <dt>Reviews</dt>
                         <dd>{reviews.length}</dd>
                       </div>
-                      <div className='burnsville-product-profile__fact'>
-                        <dt>Stock</dt>
-                        <dd>{stockLabel}</dd>
-                      </div>
                     </dl>
 
                     {pairings.length > 0 && (
@@ -288,7 +283,7 @@ const ProductScreen = ({ history, match }) => {
 
                   <div className='burnsville-product-detail__purchase'>
                     <div className='burnsville-product-detail__availability'>
-                      <span>Availability</span>
+                      <span>Stock</span>
                       <strong
                         className={
                           availableToAdd > 0
@@ -297,8 +292,11 @@ const ProductScreen = ({ history, match }) => {
                         }
                         id='burnsville-product-stock'
                       >
-                        {availabilityLabel}
+                        {stockLabel}
                       </strong>
+                      {qtyInCart > 0 && (
+                        <span>{qtyInCart} in your cart</span>
+                      )}
                     </div>
 
                     {availableToAdd > 0 && (

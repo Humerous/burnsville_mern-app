@@ -88,6 +88,18 @@
     grid-template-columns: 44px minmax(0, 1fr) 88px !important;
   }
 
+  /* On phones the old 88vw drawer left a narrow strip of the underlying
+     header visible, including the cart control. That made the menu state look
+     unstable even though the trigger itself was anchored. */
+  .burnsville-drawer__panel {
+    max-width: none !important;
+    width: 100vw !important;
+  }
+
+  .burnsville-drawer__header {
+    padding-inline: 8px !important;
+  }
+
   .burnsville-logo--compact {
     min-width: 164px;
   }

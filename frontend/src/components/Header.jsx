@@ -14,17 +14,19 @@ import ShopDrawer from './header/ShopDrawer';
 import { logout } from '../actions/userActions';
 import './header/header.css';
 
+// Keep public navigation limited to destinations that actually exist.
+// Future Packs / About / Journal / Contact routes stay out of the live nav
+// until those screens are implemented rather than shipping dead `#` links.
 const NAV_ITEMS = [
-  { label: 'Shop', href: '/shop' },
-  { label: 'Sauces', href: '/shop' },
-  { label: 'Packs', href: '/' },
-  { label: 'About', href: '#' },
-  { label: 'Heat Guide', href: '#' },
-  { label: 'Journal', href: '#' },
-  { label: 'Contact', href: '#' },
+  { label: 'All Sauces', href: '/shop' },
+  { label: 'Shop by Heat', href: '/#shop-by-heat' },
+  { label: 'Cart', href: '/cart' },
 ];
 
-const DESKTOP_NAV_ITEMS = NAV_ITEMS.filter((item) => item.label !== 'About');
+const DESKTOP_NAV_ITEMS = [
+  { label: 'Shop', href: '/shop' },
+  { label: 'Heat Guide', href: '/#shop-by-heat' },
+];
 
 const Header = () => {
   const dispatch = useDispatch();

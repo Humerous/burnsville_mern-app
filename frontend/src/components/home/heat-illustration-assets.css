@@ -210,8 +210,9 @@
   }
 }
 
-/* Narrow phones: use an explicit 3 + 2 placement so the layout cannot be
-   collapsed back into five columns by the wider responsive rules. */
+/* Narrow phones: keep all five levels readable without making the second row
+   look like two oversized cards. The lower pair uses the same width as the
+   three upper items and is centred within the six-column grid. */
 @media (max-width: 380px) {
   .burnsville-heat-strip__levels {
     display: grid !important;
@@ -245,12 +246,12 @@
   }
 
   .burnsville-heat-strip__item:nth-child(4) {
-    grid-column: 1 / 4 !important;
+    grid-column: 2 / 4 !important;
     grid-row: 2 !important;
   }
 
   .burnsville-heat-strip__item:nth-child(5) {
-    grid-column: 4 / 7 !important;
+    grid-column: 4 / 6 !important;
     grid-row: 2 !important;
   }
 

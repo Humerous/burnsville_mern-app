@@ -125,8 +125,10 @@
   transform: scale(1.16);
 }
 
+/* The Extreme artwork fills more of its source canvas than the other assets.
+   A lower CSS scale keeps its perceived size only slightly above Very Hot. */
 .burnsville-heat-strip__level--extreme .burnsville-heat-strip__pepper-image {
-  transform: scale(1.28);
+  transform: scale(1.08);
 }
 
 @media (prefers-reduced-motion: reduce) {

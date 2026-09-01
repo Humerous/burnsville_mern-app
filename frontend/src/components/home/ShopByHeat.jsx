@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import mildPepper from '../../assets/heat/mild.webp';
 import mediumPepper from '../../assets/heat/medium.webp';
 import hotPepper from '../../assets/heat/hot.webp';
@@ -34,18 +35,18 @@ const HEAT_LEVELS = [
   },
   {
     label: 'Very Hot',
-    range: '9–10/10',
-    accessibleRange: '9 to 10 out of 10',
+    range: '9/10',
+    accessibleRange: '9 out of 10',
     tone: 'very-hot',
     intensity: 4,
     image: veryHotPepper,
   },
   {
     label: 'Extreme',
-    range: '11+/10',
-    accessibleRange: '11 plus out of 10',
+    range: '10/10',
+    accessibleRange: '10 out of 10',
     tone: 'extreme',
-    intensity: 6,
+    intensity: 5,
     image: extremePepper,
   },
 ];
@@ -66,7 +67,7 @@ const PepperMark = ({ image }) => (
 
 const IntensityDots = ({ intensity }) => (
   <span aria-hidden='true' className='burnsville-heat-strip__intensity'>
-    {Array.from({ length: 6 }, (_, index) => (
+    {Array.from({ length: 5 }, (_, index) => (
       <span
         className={`burnsville-heat-strip__dot${
           index < intensity ? ' burnsville-heat-strip__dot--active' : ''
@@ -91,17 +92,13 @@ const ShopByHeat = () => (
         </h2>
       </div>
 
-      <nav
-        aria-label='Shop by heat level'
-        className='burnsville-heat-strip__nav'
-      >
+      <div className='burnsville-heat-strip__nav' aria-label='Heat level guide'>
         <ul className='burnsville-heat-strip__levels'>
           {HEAT_LEVELS.map((level) => (
             <li className='burnsville-heat-strip__item' key={level.tone}>
-              <a
-                aria-label={`${level.label} sauces, heat level ${level.accessibleRange}`}
+              <div
+                aria-label={`${level.label}, heat level ${level.accessibleRange}`}
                 className={`burnsville-heat-strip__level burnsville-heat-strip__level--${level.tone}`}
-                href='#'
               >
                 <PepperMark image={level.image} />
                 <span className='burnsville-heat-strip__level-copy'>
@@ -109,16 +106,16 @@ const ShopByHeat = () => (
                   <span className='burnsville-heat-strip__range'>{level.range}</span>
                   <IntensityDots intensity={level.intensity} />
                 </span>
-              </a>
+              </div>
             </li>
           ))}
         </ul>
-      </nav>
+      </div>
 
-      <a className='burnsville-heat-strip__guide-link' href='#'>
-        <span className='burnsville-heat-strip__guide-copy'>View heat guide</span>
+      <Link className='burnsville-heat-strip__guide-link' to='/shop'>
+        <span className='burnsville-heat-strip__guide-copy'>View all sauces</span>
         <span aria-hidden='true' className='burnsville-heat-strip__guide-arrow'>→</span>
-      </a>
+      </Link>
     </div>
   </section>
 );

@@ -8,6 +8,7 @@ import App from './App';
 import './mobile-header-fixes.css';
 import './preview-qa-fixes.css';
 import './heat-strip-reference-fix.css';
+import './block-11a-loading-fixes.css';
 import * as serviceWorker from './serviceWorker';
 
 // <---- REDUX STORE ---->

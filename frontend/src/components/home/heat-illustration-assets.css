@@ -44,7 +44,7 @@
   }
 }
 
-/* Tablet and phone: preserve all five approved heat levels in view. */
+/* Tablet and phone: preserve all five approved heat levels in one row. */
 @media (max-width: 900px) {
   .burnsville-heat-strip {
     overflow: hidden !important;
@@ -210,14 +210,12 @@
   }
 }
 
-/* Narrow phones: use wrapping flexbox so the first line is three equal cells
-   and the second line is two equal cells centred beneath it. This avoids the
-   previous grid placement being flattened back to the left in-browser. */
-@media (max-width: 380px) {
+/* Very narrow phones keep the same five-across composition shown at wider
+   mobile widths. Scale the artwork and labels instead of wrapping/stacking. */
+@media (max-width: 340px) {
   .burnsville-heat-strip__levels {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    justify-content: center !important;
+    display: grid !important;
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
     width: 100% !important;
   }
 
@@ -225,33 +223,36 @@
   .burnsville-heat-strip__item:nth-child(4),
   .burnsville-heat-strip__item:nth-child(5) {
     display: flex !important;
-    flex: 0 0 33.333333% !important;
-    max-width: 33.333333% !important;
     min-width: 0 !important;
-    width: 33.333333% !important;
+    width: auto !important;
   }
 
   .burnsville-heat-strip__level {
-    min-height: 112px !important;
-    padding: 9px 6px 10px !important;
-    width: 100% !important;
+    min-height: 94px !important;
+    padding: 6px 1px 7px !important;
   }
 
   .burnsville-heat-strip__pepper {
-    height: 52px !important;
-    width: 52px !important;
+    height: 40px !important;
+    width: 40px !important;
   }
 
   .burnsville-heat-strip__level-copy strong {
-    font-size: 0.72rem !important;
+    font-size: 0.55rem !important;
+    letter-spacing: 0 !important;
   }
 
   .burnsville-heat-strip__range {
-    font-size: 0.62rem !important;
+    font-size: 0.48rem !important;
+  }
+
+  .burnsville-heat-strip__intensity {
+    gap: 1px !important;
+    margin-top: 4px !important;
   }
 
   .burnsville-heat-strip__dot {
-    height: 5px !important;
-    width: 5px !important;
+    height: 3px !important;
+    width: 3px !important;
   }
 }

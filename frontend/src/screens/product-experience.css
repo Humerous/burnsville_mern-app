@@ -71,6 +71,75 @@
   font-size: 1.35rem;
 }
 
+/* Inventory is supporting commerce information, not a display headline. */
+.burnsville-product-profile__fact:last-child dd {
+  align-items: center;
+  align-self: start;
+  background: rgba(62, 127, 58, 0.08);
+  border: 1px solid rgba(62, 127, 58, 0.3);
+  color: #2f6f35;
+  display: inline-flex;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1.35;
+  max-width: 100%;
+  padding: 7px 10px;
+  text-transform: none;
+  width: fit-content;
+}
+
+.burnsville-product-profile__fact:last-child dd::before {
+  background: currentColor;
+  border-radius: 50%;
+  content: '';
+  flex: 0 0 7px;
+  height: 7px;
+  margin-right: 8px;
+  width: 7px;
+}
+
+/* Give the purchase availability a compact retail status treatment. */
+.burnsville-product-detail__availability {
+  align-items: center;
+  align-self: start;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(17, 17, 17, 0.2);
+  display: inline-flex;
+  flex-direction: row;
+  gap: 10px;
+  min-height: 44px;
+  padding: 9px 12px;
+  width: fit-content;
+}
+
+.burnsville-product-detail__availability > span {
+  color: rgba(17, 17, 17, 0.56);
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.burnsville-product-detail__availability strong {
+  align-items: center;
+  display: inline-flex;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+}
+
+.burnsville-product-detail__availability strong::before {
+  background: currentColor;
+  border-radius: 50%;
+  content: '';
+  flex: 0 0 7px;
+  height: 7px;
+  margin-right: 7px;
+  width: 7px;
+}
+
 .burnsville-product-profile__pairings {
   border-top: 1px solid rgba(17, 17, 17, 0.18);
   padding: 18px 0;
@@ -126,5 +195,9 @@
   .burnsville-product-profile__fact:nth-child(even) {
     border-left: 0;
     padding-left: 0;
+  }
+
+  .burnsville-product-detail__availability {
+    width: 100%;
   }
 }

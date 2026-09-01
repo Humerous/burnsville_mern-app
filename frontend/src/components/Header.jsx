@@ -34,9 +34,12 @@ const Header = () => {
   const accountMenuRef = useRef(null);
   const searchButtonRef = useRef(null);
   const searchInputRef = useRef(null);
+  const shopButtonRef = useRef(null);
+  const shopMenuRef = useRef(null);
   const [accountOpen, setAccountOpen] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [shopOpen, setShopOpen] = useState(false);
 
   const { userInfo } = useSelector((state) => state.userLogin);
   const { cartItems = [] } = useSelector((state) => state.cart);
@@ -49,7 +52,37 @@ const Header = () => {
     setAccountOpen(false);
     setDrawerOpen(false);
     setSearchOpen(false);
+    setShopOpen(false);
   }, [location.pathname]);
+
+  useEffect(() => {
+    if (!shopOpen) {
+      return undefined;
+    }
+
+    const closeShopMenu = (event) => {
+      if (event.key === 'Escape') {
+        setShopOpen(false);
+        shopButtonRef.current?.focus();
+      }
+
+      if (
+        event.type === 'mousedown' &&
+        shopMenuRef.current &&
+        !shopMenuRef.current.contains(event.target)
+      ) {
+        setShopOpen(false);
+      }
+    };
+
+    document.addEventListener('keydown', closeShopMenu);
+    document.addEventListener('mousedown', closeShopMenu);
+
+    return () => {
+      document.removeEventListener('keydown', closeShopMenu);
+      document.removeEventListener('mousedown', closeShopMenu);
+    };
+  }, [shopOpen]);
 
   useEffect(() => {
     if (!accountOpen) {
@@ -115,12 +148,20 @@ const Header = () => {
 
   const toggleSearch = () => {
     setAccountOpen(false);
+    setShopOpen(false);
     setSearchOpen((isOpen) => !isOpen);
   };
 
   const toggleAccount = () => {
     setSearchOpen(false);
+    setShopOpen(false);
     setAccountOpen((isOpen) => !isOpen);
+  };
+
+  const toggleShop = () => {
+    setSearchOpen(false);
+    setAccountOpen(false);
+    setShopOpen((isOpen) => !isOpen);
   };
 
   return (
@@ -140,12 +181,47 @@ const Header = () => {
         <BrandLogo />
 
         <nav aria-label='Primary navigation' className='burnsville-header__nav'>
-          {DESKTOP_NAV_ITEMS.map((item) => (
-            <a href={item.href} key={item.label}>
-              {item.label}
-              {item.label === 'Shop' && <ChevronDownIcon />}
-            </a>
-          ))}
+          {DESKTOP_NAV_ITEMS.map((item) =>
+            item.label === 'Shop' ? (
+              <div
+                className='burnsville-header__shop-menu'
+                key={item.label}
+                ref={shopMenuRef}
+              >
+                <button
+                  aria-controls='burnsville-desktop-shop-menu'
+                  aria-expanded={shopOpen}
+                  className='burnsville-header__nav-button'
+                  onClick={toggleShop}
+                  ref={shopButtonRef}
+                  type='button'
+                >
+                  {item.label}
+                  <ChevronDownIcon />
+                </button>
+                <div
+                  className={`burnsville-header__shop-dropdown${
+                    shopOpen ? ' burnsville-header__shop-dropdown--open' : ''
+                  }`}
+                  id='burnsville-desktop-shop-menu'
+                >
+                  <Link onClick={() => setShopOpen(false)} to='/shop'>
+                    All sauces
+                  </Link>
+                  <a href='/#shop-by-heat' onClick={() => setShopOpen(false)}>
+                    Shop by heat
+                  </a>
+                  <Link onClick={() => setShopOpen(false)} to='/cart'>
+                    Cart
+                  </Link>
+                </div>
+              </div>
+            ) : (
+              <a href={item.href} key={item.label}>
+                {item.label}
+              </a>
+            )
+          )}
         </nav>
 
         <div className='burnsville-header__utilities'>

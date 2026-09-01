@@ -9,6 +9,7 @@ import './mobile-header-fixes.css';
 import './preview-qa-fixes.css';
 import './heat-strip-reference-fix.css';
 import './block-11a-loading-fixes.css';
+import './block-11b-navigation-heat-fixes.css';
 import * as serviceWorker from './serviceWorker';
 
 // <---- REDUX STORE ---->

@@ -44,9 +44,7 @@
   }
 }
 
-/* Tablet and phone: preserve all five approved heat levels in view.
-   The old horizontally scrolling rail hid Very Hot / Extreme at common
-   viewport widths, making the heat guide look incomplete. */
+/* Tablet and phone: preserve all five approved heat levels in view. */
 @media (max-width: 900px) {
   .burnsville-heat-strip {
     overflow: hidden !important;
@@ -106,6 +104,7 @@
 
   .burnsville-heat-strip__level {
     align-items: center !important;
+    cursor: default;
     display: flex !important;
     flex-direction: column !important;
     gap: 2px !important;
@@ -113,6 +112,13 @@
     min-height: 116px !important;
     padding: 9px 5px 10px !important;
     text-align: center !important;
+  }
+
+  .burnsville-heat-strip__level:hover,
+  .burnsville-heat-strip__level:active {
+    background: transparent !important;
+    box-shadow: none !important;
+    transform: none !important;
   }
 
   .burnsville-heat-strip__pepper {
@@ -201,5 +207,45 @@
 
   .burnsville-heat-strip__level--extreme .burnsville-heat-strip__pepper-image {
     transform: scale(1.04);
+  }
+}
+
+/* Very narrow phones: use a readable 3 + 2 grid instead of shrinking five
+   columns until the labels and heat values become microscopic. */
+@media (max-width: 360px) {
+  .burnsville-heat-strip__levels {
+    grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+  }
+
+  .burnsville-heat-strip__item {
+    grid-column: span 2 !important;
+  }
+
+  .burnsville-heat-strip__item:nth-child(4),
+  .burnsville-heat-strip__item:nth-child(5) {
+    grid-column: span 3 !important;
+  }
+
+  .burnsville-heat-strip__level {
+    min-height: 112px !important;
+    padding: 9px 6px 10px !important;
+  }
+
+  .burnsville-heat-strip__pepper {
+    height: 52px !important;
+    width: 52px !important;
+  }
+
+  .burnsville-heat-strip__level-copy strong {
+    font-size: 0.72rem !important;
+  }
+
+  .burnsville-heat-strip__range {
+    font-size: 0.62rem !important;
+  }
+
+  .burnsville-heat-strip__dot {
+    height: 5px !important;
+    width: 5px !important;
   }
 }

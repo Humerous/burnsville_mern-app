@@ -1,6 +1,27 @@
 import asyncHandler from 'express-async-handler';
 import Product from '../models/productModel.js';
 
+const withAuthoritativeReviewSummary = (product) => {
+  const productObject = product.toObject ? product.toObject() : product;
+  const reviews = Array.isArray(productObject.reviews)
+    ? productObject.reviews
+    : [];
+  const numReviews = reviews.length;
+  const rating = numReviews
+    ? reviews.reduce(
+        (total, review) => total + (Number(review.rating) || 0),
+        0
+      ) / numReviews
+    : 0;
+
+  return {
+    ...productObject,
+    reviews,
+    rating,
+    numReviews,
+  };
+};
+
 // <---- GET ROUTES - fetch all products ---->
 const getProducts = asyncHandler(async (req, res) => {
   const pageSize = 10;
@@ -16,9 +37,10 @@ const getProducts = asyncHandler(async (req, res) => {
     : {};
   // <---- GET ROUTES - count all products ---->
   const count = await Product.countDocuments({ ...keyword });
-  const products = await Product.find({ ...keyword })
+  const productDocuments = await Product.find({ ...keyword })
     .limit(pageSize)
     .skip(pageSize * (page - 1));
+  const products = productDocuments.map(withAuthoritativeReviewSummary);
 
   res.json({ products, page, pages: Math.ceil(count / pageSize) });
 });
@@ -28,7 +50,7 @@ const getProductById = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id);
 
   if (product) {
-    res.json(product);
+    res.json(withAuthoritativeReviewSummary(product));
   } else {
     res.status(404);
     throw new Error('Product not found');
@@ -63,7 +85,7 @@ const createProduct = asyncHandler(async (req, res) => {
   });
   // <---- CREATE ROUTES - new product ---->
   const createdProduct = await product.save();
-  res.status(201).json(createdProduct);
+  res.status(201).json(withAuthoritativeReviewSummary(createdProduct));
 });
 
 // <---- UPDATE PRODUCT ROUTES - update product ---->
@@ -103,7 +125,7 @@ const updateProduct = asyncHandler(async (req, res) => {
     product.ingredients = ingredients || '';
 
     const updatedProduct = await product.save();
-    res.json(updatedProduct);
+    res.json(withAuthoritativeReviewSummary(updatedProduct));
   } else {
     res.status(404);
     throw new Error('Product not found');
@@ -151,7 +173,17 @@ const createProductReview = asyncHandler(async (req, res) => {
 
 // <---- GET ALL TOPS PRODUCT REVIEW ROUTE - top product review product ---->
 const getTopProducts = asyncHandler(async (req, res) => {
-  const products = await Product.find({}).sort({ rating: -1 }).limit(3);
+  const productDocuments = await Product.find({});
+  const products = productDocuments
+    .map(withAuthoritativeReviewSummary)
+    .sort((a, b) => {
+      if (b.rating !== a.rating) {
+        return b.rating - a.rating;
+      }
+
+      return b.numReviews - a.numReviews;
+    })
+    .slice(0, 3);
 
   res.json(products);
 });

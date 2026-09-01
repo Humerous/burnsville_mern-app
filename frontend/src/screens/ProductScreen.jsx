@@ -40,6 +40,9 @@ const ProductScreen = ({ history, match }) => {
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
 
+  const cart = useSelector((state) => state.cart);
+  const { cartItems = [] } = cart;
+
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
@@ -60,6 +63,17 @@ const ProductScreen = ({ history, match }) => {
     }
     dispatch(listProductDetails(match.params.id));
   }, [dispatch, match, successProductReview]);
+
+  const stockCount = product ? Number(product.countInStock) || 0 : 0;
+  const cartItem = cartItems.find((item) => item.product === match.params.id);
+  const qtyInCart = cartItem ? Number(cartItem.qty) || 0 : 0;
+  const availableToAdd = Math.max(stockCount - qtyInCart, 0);
+
+  useEffect(() => {
+    if (availableToAdd > 0 && Number(qty) > availableToAdd) {
+      setQty(availableToAdd);
+    }
+  }, [availableToAdd, qty]);
 
   const addToCartHandler = async () => {
     setAddingToCart(true);
@@ -103,12 +117,19 @@ const ProductScreen = ({ history, match }) => {
   const pairings = product && Array.isArray(product.pairings)
     ? product.pairings.filter(Boolean)
     : [];
-  const stockCount = product ? Number(product.countInStock) || 0 : 0;
   const productRating = product ? Number(product.rating) || 0 : 0;
   const heatLevel = product && product.heatLevel ? Number(product.heatLevel) : null;
   const reviewLabel = `${reviews.length} ${
     reviews.length === 1 ? 'review' : 'reviews'
   }`;
+  const stockLabel = stockCount > 0
+    ? `${availableToAdd} available to add${qtyInCart > 0 ? ` · ${qtyInCart} in cart` : ''}`
+    : 'Out of stock';
+  const availabilityLabel = availableToAdd > 0
+    ? 'In stock'
+    : qtyInCart > 0
+    ? 'Maximum in cart'
+    : 'Out of stock';
 
   return (
     <section className='burnsville-product-detail'>
@@ -242,7 +263,7 @@ const ProductScreen = ({ history, match }) => {
                       </div>
                       <div className='burnsville-product-profile__fact'>
                         <dt>Stock</dt>
-                        <dd>{stockCount > 0 ? `${stockCount} available` : 'Out of stock'}</dd>
+                        <dd>{stockLabel}</dd>
                       </div>
                     </dl>
 
@@ -270,17 +291,17 @@ const ProductScreen = ({ history, match }) => {
                       <span>Availability</span>
                       <strong
                         className={
-                          stockCount > 0
+                          availableToAdd > 0
                             ? 'burnsville-product-detail__in-stock'
                             : 'burnsville-product-detail__out-of-stock'
                         }
                         id='burnsville-product-stock'
                       >
-                        {stockCount > 0 ? 'In stock' : 'Out of stock'}
+                        {availabilityLabel}
                       </strong>
                     </div>
 
-                    {stockCount > 0 && (
+                    {availableToAdd > 0 && (
                       <div className='burnsville-product-detail__quantity'>
                         <label htmlFor='burnsville-product-quantity'>
                           Quantity
@@ -291,7 +312,7 @@ const ProductScreen = ({ history, match }) => {
                           onChange={(event) => setQty(event.target.value)}
                           aria-describedby='burnsville-product-stock'
                         >
-                          {[...Array(stockCount).keys()].map((value) => (
+                          {[...Array(availableToAdd).keys()].map((value) => (
                             <option key={value + 1} value={value + 1}>
                               {value + 1}
                             </option>
@@ -304,7 +325,7 @@ const ProductScreen = ({ history, match }) => {
                       className='burnsville-product-detail__cart-button'
                       onClick={addToCartHandler}
                       type='button'
-                      disabled={stockCount === 0 || addingToCart}
+                      disabled={availableToAdd === 0 || addingToCart}
                     >
                       {addingToCart ? 'Adding…' : 'Add to cart'}
                     </button>

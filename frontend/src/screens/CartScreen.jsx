@@ -7,6 +7,8 @@ import { removeFromCart, setCartQuantity } from '../actions/cartActions';
 import './cart-screen.css';
 
 const formatPrice = (price) => `R${Number(price).toFixed(2)}`;
+const roundCurrency = (value) =>
+  Math.round((Number(value) + Number.EPSILON) * 100) / 100;
 
 const CartScreen = ({ match, location, history }) => {
   const productId = match.params.id;
@@ -37,10 +39,12 @@ const CartScreen = ({ match, location, history }) => {
   };
 
   const itemCount = cartItems.reduce((total, item) => total + item.qty, 0);
-  const subtotal = cartItems.reduce(
-    (total, item) => total + item.qty * item.price,
-    0
+  const subtotal = roundCurrency(
+    cartItems.reduce((total, item) => total + item.qty * item.price, 0)
   );
+  const shippingPrice = subtotal > 100 || subtotal === 0 ? 0 : 100;
+  const vatPrice = roundCurrency(subtotal * 0.15);
+  const estimatedTotal = roundCurrency(subtotal + shippingPrice + vatPrice);
 
   return (
     <section className='burnsville-cart' aria-labelledby='burnsville-cart-title'>
@@ -156,9 +160,21 @@ const CartScreen = ({ match, location, history }) => {
                 <dt>Items</dt>
                 <dd>{itemCount}</dd>
               </div>
-              <div className='burnsville-cart__subtotal'>
-                <dt>Subtotal</dt>
+              <div>
+                <dt>Items subtotal</dt>
                 <dd>{formatPrice(subtotal)}</dd>
+              </div>
+              <div>
+                <dt>Shipping</dt>
+                <dd>{formatPrice(shippingPrice)}</dd>
+              </div>
+              <div>
+                <dt>VAT (15%)</dt>
+                <dd>{formatPrice(vatPrice)}</dd>
+              </div>
+              <div className='burnsville-cart__subtotal'>
+                <dt>Estimated total</dt>
+                <dd>{formatPrice(estimatedTotal)}</dd>
               </div>
             </dl>
 

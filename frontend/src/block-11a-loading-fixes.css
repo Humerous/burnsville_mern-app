@@ -4,6 +4,14 @@
   min-height: 160px;
 }
 
+/* The legacy global main rule reserves 80vh. During compact loading states
+   that creates a large empty canvas beneath a small loader, so release that
+   reservation only while these status panels are present. */
+main:has(.burnsville-shop__state[role='status']),
+main:has(.burnsville-product-detail__state[role='status']) {
+  min-height: 0;
+}
+
 .burnsville-shop:has(.burnsville-shop__state[role='status']) {
   min-height: auto;
 }

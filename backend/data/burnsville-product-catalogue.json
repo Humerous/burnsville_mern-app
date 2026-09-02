@@ -1,0 +1,34 @@
+{
+  "project": "BURNSVILLE",
+  "status": "PRODUCT DESIGN CLOSED / BUILD SOURCE LOCKED",
+  "rules": {
+    "core_range_count": 10,
+    "limited_vintage_count": 6,
+    "total_products": 16,
+    "logo": "Use exact approved BURNSVILLE EST. 2020 crest only.",
+    "core_design": "Do not redesign. Preserve approved cream-label core system.",
+    "limited_design": "Do not redesign. Preserve adopted Limited Vintage vertical highlighter stripe system.",
+    "bottle_geometry": "Use one consistent master bottle geometry across all products.",
+    "no_regeneration": "Do not regenerate approved product designs unless explicitly reopened."
+  },
+  "core": [
+    {"id":"core-01","number":"01","name":"LIME STRIKE","flavour":"Jalapeño + Lime","series":"core","status":"locked"},
+    {"id":"core-02","number":"02","name":"GOLD RUSH","flavour":"Aji Amarillo + Pineapple","series":"core","status":"locked"},
+    {"id":"core-03","number":"03","name":"CITRUS FLARE","flavour":"Habanero + Yuzu","series":"core","status":"locked"},
+    {"id":"core-04","number":"04","name":"RED FORGE","flavour":"Roasted Red Pepper + Cayenne + Garlic","series":"core","status":"locked"},
+    {"id":"core-05","number":"05","name":"CULTURE SHOCK","flavour":"Fermented Fresno / Red Chilli + Garlic","series":"core","status":"locked"},
+    {"id":"core-06","number":"06","name":"OAK & EMBER","flavour":"Chipotle + Smoked Plum + Oak","series":"core","status":"locked"},
+    {"id":"core-07","number":"07","name":"TROPIC FIRE","flavour":"Scotch Bonnet + Mango","series":"core","status":"locked"},
+    {"id":"core-08","number":"08","name":"VIOLET FUSE","flavour":"Bolivian Rainbow + Blackberry","series":"core","status":"locked"},
+    {"id":"core-09","number":"09","name":"BLACK GHOST","flavour":"Ghost Pepper + Black Garlic","series":"core","status":"locked"},
+    {"id":"core-10","number":"10","name":"REAPER RESERVE","flavour":"Carolina Reaper + Molasses","series":"core","status":"locked"}
+  ],
+  "limited_vintage": [
+    {"id":"limited-r13","code":"R-13","name":"CASK 13","flavour":"Carolina Reaper + Smoked Rooibos + Black Lime","ribbon":"Acid Yellow","series":"limited-vintage","status":"locked"},
+    {"id":"limited-x27","code":"X-27","name":"DESERT STATIC","flavour":"7 Pot Primo + Prickly Pear + Strawberry","ribbon":"Neon Pink","series":"limited-vintage","status":"locked"},
+    {"id":"limited-f09","code":"F-09","name":"GOLDEN FERMENT","flavour":"Fatalii + Cape Gooseberry + Fermented Honey","ribbon":"Neon Green","series":"limited-vintage","status":"locked"},
+    {"id":"limited-v17","code":"V-17","name":"VELVET BURN","flavour":"Chocolate Habanero + Sour Cherry + Cacao Nib","ribbon":"Electric Blue","series":"limited-vintage","status":"locked"},
+    {"id":"limited-b42","code":"B-42","name":"NIGHT ORCHARD","flavour":"7 Pot Douglah + Black Plum + Star Anise","ribbon":"Electric Purple","series":"limited-vintage","status":"locked"},
+    {"id":"limited-xx99","code":"XX-99","name":"FINAL BURN","flavour":"Superhot Blend + Tamarind + Burnt Pineapple","ribbon":"Bright Orange","series":"limited-vintage","status":"locked"}
+  ]
+}

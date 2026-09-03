@@ -1,34 +1,33 @@
 {
   "project": "BURNSVILLE",
-  "status": "PRODUCT DESIGN CLOSED / BUILD SOURCE LOCKED",
+  "status": "REFERENCE CATALOGUE / FINAL USER HANDOFF PENDING",
   "rules": {
     "core_range_count": 10,
     "limited_vintage_count": 6,
     "total_products": 16,
-    "logo": "Use exact approved BURNSVILLE EST. 2020 crest only.",
-    "core_design": "Do not redesign. Preserve approved cream-label core system.",
-    "limited_design": "Do not redesign. Preserve adopted Limited Vintage vertical highlighter stripe system.",
-    "bottle_geometry": "Use one consistent master bottle geometry across all products.",
-    "no_regeneration": "Do not regenerate approved product designs unless explicitly reopened."
+    "logo": "Use the exact approved BURNSVILLE EST. 2020 crest when the final visual handoff requires it.",
+    "product_facts": "The entries below are preserved as repository reference only. Do not use them to fill missing final product facts unless the user or final design handoff explicitly reconfirms them.",
+    "visual_design_authority": "The separate Burnsville product-card design workflow owns the final card visual direction.",
+    "final_asset_mapping": "Pending. Do not infer filenames, dimensions, paths, crop rules, or integration mode."
   },
   "core": [
-    {"id":"core-01","number":"01","name":"LIME STRIKE","flavour":"Jalapeño + Lime","series":"core","status":"locked","image":"/images/burnsville/burnsville-core-01-lime-strike.webp"},
-    {"id":"core-02","number":"02","name":"GOLD RUSH","flavour":"Aji Amarillo + Pineapple","series":"core","status":"locked","image":"/images/burnsville/burnsville-core-02-gold-rush.webp"},
-    {"id":"core-03","number":"03","name":"CITRUS FLARE","flavour":"Habanero + Yuzu","series":"core","status":"locked","image":"/images/burnsville/burnsville-core-03-citrus-flare.webp"},
-    {"id":"core-04","number":"04","name":"RED FORGE","flavour":"Roasted Red Pepper + Cayenne + Garlic","series":"core","status":"locked","image":"/images/burnsville/burnsville-core-04-red-forge.webp"},
-    {"id":"core-05","number":"05","name":"CULTURE SHOCK","flavour":"Fermented Fresno / Red Chilli + Garlic","series":"core","status":"locked","image":"/images/burnsville/burnsville-core-05-culture-shock.webp"},
-    {"id":"core-06","number":"06","name":"OAK & EMBER","flavour":"Chipotle + Smoked Plum + Oak","series":"core","status":"locked","image":"/images/burnsville/burnsville-core-06-oak-and-ember.webp"},
-    {"id":"core-07","number":"07","name":"TROPIC FIRE","flavour":"Scotch Bonnet + Mango","series":"core","status":"locked","image":"/images/burnsville/burnsville-core-07-tropic-fire.webp"},
-    {"id":"core-08","number":"08","name":"VIOLET FUSE","flavour":"Bolivian Rainbow + Blackberry","series":"core","status":"locked","image":"/images/burnsville/burnsville-core-08-violet-fuse.webp"},
-    {"id":"core-09","number":"09","name":"BLACK GHOST","flavour":"Ghost Pepper + Black Garlic","series":"core","status":"locked","image":"/images/burnsville/burnsville-core-09-black-ghost.webp"},
-    {"id":"core-10","number":"10","name":"REAPER RESERVE","flavour":"Carolina Reaper + Molasses","series":"core","status":"locked","image":"/images/burnsville/burnsville-core-10-reaper-reserve.webp"}
+    {"id":"core-01","number":"01","name":"LIME STRIKE","flavour":"Jalapeño + Lime","series":"core","status":"reference-pending-final-handoff"},
+    {"id":"core-02","number":"02","name":"GOLD RUSH","flavour":"Aji Amarillo + Pineapple","series":"core","status":"reference-pending-final-handoff"},
+    {"id":"core-03","number":"03","name":"CITRUS FLARE","flavour":"Habanero + Yuzu","series":"core","status":"reference-pending-final-handoff"},
+    {"id":"core-04","number":"04","name":"RED FORGE","flavour":"Roasted Red Pepper + Cayenne + Garlic","series":"core","status":"reference-pending-final-handoff"},
+    {"id":"core-05","number":"05","name":"CULTURE SHOCK","flavour":"Fermented Fresno / Red Chilli + Garlic","series":"core","status":"reference-pending-final-handoff"},
+    {"id":"core-06","number":"06","name":"OAK & EMBER","flavour":"Chipotle + Smoked Plum + Oak","series":"core","status":"reference-pending-final-handoff"},
+    {"id":"core-07","number":"07","name":"TROPIC FIRE","flavour":"Scotch Bonnet + Mango","series":"core","status":"reference-pending-final-handoff"},
+    {"id":"core-08","number":"08","name":"VIOLET FUSE","flavour":"Bolivian Rainbow + Blackberry","series":"core","status":"reference-pending-final-handoff"},
+    {"id":"core-09","number":"09","name":"BLACK GHOST","flavour":"Ghost Pepper + Black Garlic","series":"core","status":"reference-pending-final-handoff"},
+    {"id":"core-10","number":"10","name":"REAPER RESERVE","flavour":"Carolina Reaper + Molasses","series":"core","status":"reference-pending-final-handoff"}
   ],
   "limited_vintage": [
-    {"id":"limited-r13","code":"R-13","name":"CASK 13","flavour":"Carolina Reaper + Smoked Rooibos + Black Lime","ribbon":"Acid Yellow","series":"limited-vintage","status":"locked","image":"/images/burnsville/burnsville-limited-r13-cask-13.webp"},
-    {"id":"limited-x27","code":"X-27","name":"DESERT STATIC","flavour":"7 Pot Primo + Prickly Pear + Strawberry","ribbon":"Neon Pink","series":"limited-vintage","status":"locked","image":"/images/burnsville/burnsville-limited-x27-desert-static.webp"},
-    {"id":"limited-f09","code":"F-09","name":"GOLDEN FERMENT","flavour":"Fatalii + Cape Gooseberry + Fermented Honey","ribbon":"Neon Green","series":"limited-vintage","status":"locked","image":"/images/burnsville/burnsville-limited-f09-golden-ferment.webp"},
-    {"id":"limited-v17","code":"V-17","name":"VELVET BURN","flavour":"Chocolate Habanero + Sour Cherry + Cacao Nib","ribbon":"Electric Blue","series":"limited-vintage","status":"locked","image":"/images/burnsville/burnsville-limited-v17-velvet-burn.webp"},
-    {"id":"limited-b42","code":"B-42","name":"NIGHT ORCHARD","flavour":"7 Pot Douglah + Black Plum + Star Anise","ribbon":"Electric Purple","series":"limited-vintage","status":"locked","image":"/images/burnsville/burnsville-limited-b42-night-orchard.webp"},
-    {"id":"limited-xx99","code":"XX-99","name":"FINAL BURN","flavour":"Superhot Blend + Tamarind + Burnt Pineapple","ribbon":"Bright Orange","series":"limited-vintage","status":"locked","image":"/images/burnsville/burnsville-limited-xx99-final-burn.webp"}
+    {"id":"limited-r13","code":"R-13","name":"CASK 13","flavour":"Carolina Reaper + Smoked Rooibos + Black Lime","ribbon":"Acid Yellow","series":"limited-vintage","status":"reference-pending-final-handoff"},
+    {"id":"limited-x27","code":"X-27","name":"DESERT STATIC","flavour":"7 Pot Primo + Prickly Pear + Strawberry","ribbon":"Neon Pink","series":"limited-vintage","status":"reference-pending-final-handoff"},
+    {"id":"limited-f09","code":"F-09","name":"GOLDEN FERMENT","flavour":"Fatalii + Cape Gooseberry + Fermented Honey","ribbon":"Neon Green","series":"limited-vintage","status":"reference-pending-final-handoff"},
+    {"id":"limited-v17","code":"V-17","name":"VELVET BURN","flavour":"Chocolate Habanero + Sour Cherry + Cacao Nib","ribbon":"Electric Blue","series":"limited-vintage","status":"reference-pending-final-handoff"},
+    {"id":"limited-b42","code":"B-42","name":"NIGHT ORCHARD","flavour":"7 Pot Douglah + Black Plum + Star Anise","ribbon":"Electric Purple","series":"limited-vintage","status":"reference-pending-final-handoff"},
+    {"id":"limited-xx99","code":"XX-99","name":"FINAL BURN","flavour":"Superhot Blend + Tamarind + Burnt Pineapple","ribbon":"Bright Orange","series":"limited-vintage","status":"reference-pending-final-handoff"}
   ]
 }

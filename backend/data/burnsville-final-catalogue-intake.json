@@ -1,0 +1,19 @@
+{
+  "status": "PENDING FINAL PRODUCT HANDOFF",
+  "products": [
+    {
+      "name": "PENDING",
+      "identifier": "PENDING",
+      "image": "PENDING",
+      "brand": "PENDING",
+      "category": "PENDING",
+      "description": "PENDING",
+      "heatLevel": "PENDING",
+      "flavourProfile": "PENDING",
+      "ingredients": "PENDING",
+      "pairings": ["PENDING"],
+      "price": "PENDING",
+      "countInStock": "PENDING"
+    }
+  ]
+}

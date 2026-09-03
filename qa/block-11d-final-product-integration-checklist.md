@@ -17,6 +17,19 @@ Do not infer missing product facts. Do not redesign supplied artwork. Do not mut
 - [ ] Any missing heat, price, stock, description, ingredients, pairings or commercial status is explicitly marked unresolved.
 - [ ] No old catalogue document is used to fill a missing value automatically.
 
+## 1A. INTEGRATION DECISION GATES
+
+Do not decide these automatically from historical code or old visual work.
+
+- [ ] Confirm whether the Shop should retain the current API page size of 10 products.
+- [ ] If final catalogue count exceeds 10, confirm whether pagination is acceptable or should be changed.
+- [ ] Confirm which products, if any, should be featured in the homepage four-product showcase.
+- [ ] Confirm whether finished product cards are flat runtime images, page-design references, or bottle/product art.
+- [ ] Confirm whether the current single `image` product field is sufficient.
+- [ ] If separate supporting/gallery images are required, approve schema/UI expansion before implementation.
+- [ ] Confirm whether the current MongoDB-ID product routes remain acceptable; do not introduce slugs automatically.
+- [ ] Confirm the heat strip remains a visual guide unless heat filtering is explicitly requested.
+
 ## 2. ASSET QA
 
 For every delivered final asset:
@@ -64,11 +77,13 @@ For every replacement product record:
 - [ ] View sauce route works.
 - [ ] Quick add works when in stock.
 - [ ] Sold-out state works when stock is zero.
+- [ ] Homepage featured-product selection matches the approved decision.
 
 ### SHOP
 
-- [ ] All expected products appear.
+- [ ] All expected products appear across the approved catalogue browsing structure.
 - [ ] Pagination/search behaviour still works.
+- [ ] If pagination remains, final product count/pages match the approved decision.
 - [ ] No legacy third-party product appears.
 - [ ] Product cards preserve responsive layout.
 
@@ -87,6 +102,7 @@ For every replacement product record:
 - [ ] Quantity cannot exceed available stock.
 - [ ] Add to cart works.
 - [ ] Review UI still works.
+- [ ] If gallery/supporting imagery was explicitly approved, all gallery assets and controls pass.
 
 ### CART
 
@@ -149,13 +165,16 @@ Then verify before deletion:
 - [ ] No runtime record references old third-party image paths.
 - [ ] No frontend surface exposes third-party product names.
 - [ ] No required rollback source would be destroyed.
+- [ ] Legacy cleanup inventory has been checked against the repository tree.
 
 Only then remove or supersede, as separately authorised:
 
 - [ ] legacy third-party entries in `backend/data/products.js`
 - [ ] third-party product JPGs under `frontend/public/images/`
-- [ ] rejected Burnsville asset-map files
+- [ ] orphan legacy product JPGs identified in the readiness audit
 - [ ] stale catalogue documentation that claims rejected filenames/design decisions are final
+- [ ] README instructions that encourage the destructive legacy seeder workflow
+- [ ] README third-party catalogue/source references that no longer describe the modernised project
 
 ## 8. DATABASE MIGRATION GATE
 

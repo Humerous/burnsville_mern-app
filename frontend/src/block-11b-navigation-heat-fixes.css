@@ -1,0 +1,139 @@
+/* BLOCK 11 — desktop Shop dropdown + clearer heat progression. */
+
+.burnsville-header__shop-menu {
+  align-items: stretch;
+  display: flex;
+  position: relative;
+}
+
+.burnsville-header__nav-button {
+  align-items: center;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: var(--burnsville-cream);
+  cursor: pointer;
+  display: inline-flex;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 0.82rem;
+  gap: 4px;
+  letter-spacing: 0.09em;
+  padding: 0 10px;
+  position: relative;
+  text-transform: uppercase;
+}
+
+.burnsville-header__nav-button::after {
+  background: var(--burnsville-chilli);
+  bottom: 9px;
+  content: '';
+  height: 2px;
+  left: 10px;
+  position: absolute;
+  right: 10px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--burnsville-motion-fast) var(--burnsville-ease-standard);
+}
+
+.burnsville-header__nav-button:hover::after,
+.burnsville-header__nav-button:focus-visible::after,
+.burnsville-header__nav-button[aria-expanded='true']::after {
+  transform: scaleX(1);
+}
+
+.burnsville-header__nav-button:focus-visible {
+  outline: 2px solid var(--burnsville-chilli);
+  outline-offset: 3px;
+}
+
+.burnsville-header__nav-button svg {
+  transition: transform var(--burnsville-motion-fast) var(--burnsville-ease-standard);
+}
+
+.burnsville-header__nav-button[aria-expanded='true'] svg {
+  transform: rotate(180deg);
+}
+
+.burnsville-header__shop-dropdown {
+  background: var(--burnsville-cream);
+  border-top: 3px solid var(--burnsville-chilli);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.26);
+  display: flex;
+  flex-direction: column;
+  left: 0;
+  min-width: 210px;
+  opacity: 0;
+  padding: 8px;
+  pointer-events: none;
+  position: absolute;
+  top: calc(100% + 5px);
+  transform: translateY(-6px);
+  transition: opacity var(--burnsville-motion-fast) var(--burnsville-ease-standard),
+    transform var(--burnsville-motion-fast) var(--burnsville-ease-standard),
+    visibility var(--burnsville-motion-fast);
+  visibility: hidden;
+  z-index: 1200;
+}
+
+.burnsville-header__shop-dropdown--open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+  visibility: visible;
+}
+
+.burnsville-header__nav .burnsville-header__shop-dropdown a {
+  color: var(--burnsville-onyx);
+  display: block;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.86rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  min-height: 42px;
+  padding: 11px 12px;
+  text-transform: none;
+}
+
+.burnsville-header__nav .burnsville-header__shop-dropdown a::after {
+  content: none;
+}
+
+.burnsville-header__nav .burnsville-header__shop-dropdown a:hover,
+.burnsville-header__nav .burnsville-header__shop-dropdown a:focus-visible {
+  background: rgba(210, 43, 33, 0.09);
+  color: var(--burnsville-chilli-text);
+}
+
+.burnsville-heat-strip__pepper-image {
+  transform-origin: center bottom;
+}
+
+.burnsville-heat-strip__level--mild .burnsville-heat-strip__pepper-image {
+  transform: rotate(-2deg) scale(0.82);
+}
+
+.burnsville-heat-strip__level--medium .burnsville-heat-strip__pepper-image {
+  transform: rotate(1deg) scale(0.94);
+}
+
+.burnsville-heat-strip__level--hot .burnsville-heat-strip__pepper-image {
+  transform: rotate(2deg) scale(1.05);
+}
+
+.burnsville-heat-strip__level--very-hot .burnsville-heat-strip__pepper-image {
+  transform: scale(1.16);
+}
+
+/* The Extreme artwork fills more of its source canvas than the other assets.
+   A lower CSS scale keeps its perceived size only slightly above Very Hot. */
+.burnsville-heat-strip__level--extreme .burnsville-heat-strip__pepper-image {
+  transform: scale(1.08);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .burnsville-header__nav-button svg,
+  .burnsville-header__shop-dropdown {
+    transition: none;
+  }
+}

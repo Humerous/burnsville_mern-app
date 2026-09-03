@@ -1,0 +1,302 @@
+.burnsville-account-auth,
+.burnsville-account-auth * {
+  box-sizing: border-box;
+}
+
+.burnsville-account-auth {
+  --auth-cream: var(--burnsville-cream, #f3ede4);
+  --auth-onyx: var(--burnsville-onyx, #111111);
+  --auth-red: var(--burnsville-chilli, #d2282b);
+  --auth-red-dark: var(--burnsville-chilli-text, #b8231b);
+  --auth-green: var(--burnsville-pepper, #3e7f3a);
+  --auth-orange: #d98b21;
+  background-color: var(--auth-cream);
+  background-image:
+    radial-gradient(circle at 17% 31%, rgba(17, 17, 17, 0.08) 0 0.7px, transparent 1px),
+    radial-gradient(circle at 82% 68%, rgba(184, 35, 27, 0.07) 0 0.7px, transparent 1px);
+  background-size: 37px 41px, 43px 47px;
+  color: var(--auth-onyx);
+  margin-bottom: -1rem;
+  margin-left: calc(50% - 50vw);
+  margin-top: -1rem;
+  min-height: 80vh;
+  padding: 58px 44px 72px;
+  width: 100vw;
+}
+
+.burnsville-account-auth__inner {
+  display: grid;
+  grid-template-columns: minmax(300px, 0.82fr) minmax(0, 1.18fr);
+  margin: 0 auto;
+  max-width: 1160px;
+  min-height: 620px;
+}
+
+.burnsville-account-auth--register .burnsville-account-auth__inner {
+  min-height: 760px;
+}
+
+.burnsville-account-auth__introduction {
+  background: linear-gradient(145deg, rgba(210, 40, 43, 0.08), transparent 52%), var(--auth-onyx);
+  color: var(--auth-cream);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  padding: clamp(42px, 6vw, 78px);
+  position: relative;
+}
+
+.burnsville-account-auth__introduction::after {
+  border: 1px solid rgba(243, 237, 228, 0.18);
+  content: '';
+  inset: 20px;
+  pointer-events: none;
+  position: absolute;
+}
+
+.burnsville-account-auth__eyebrow {
+  color: var(--auth-red-dark);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 0.76rem;
+  letter-spacing: 0.13em;
+  margin: 0 0 12px;
+  text-transform: uppercase;
+}
+
+.burnsville-account-auth__introduction .burnsville-account-auth__eyebrow {
+  color: var(--auth-orange);
+  position: relative;
+  z-index: 1;
+}
+
+.burnsville-account-auth__eyebrow::after {
+  background: currentColor;
+  content: '';
+  display: inline-block;
+  height: 1px;
+  margin-left: 12px;
+  transform: translateY(-3px);
+  width: 48px;
+}
+
+.burnsville-account-auth__introduction h2 {
+  color: var(--auth-cream);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: clamp(3.1rem, 5.5vw, 5.3rem);
+  font-weight: 900;
+  letter-spacing: 0.015em;
+  line-height: 0.92;
+  margin: 0;
+  max-width: 520px;
+  padding: 0;
+  position: relative;
+  text-transform: uppercase;
+  z-index: 1;
+}
+
+.burnsville-account-auth__introduction > p:last-of-type {
+  color: rgba(243, 237, 228, 0.72);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.94rem;
+  line-height: 1.55;
+  margin: 24px 0 0;
+  max-width: 32ch;
+  position: relative;
+  z-index: 1;
+}
+
+.burnsville-account-auth__accent {
+  background: linear-gradient(90deg, var(--auth-green) 0 28%, transparent 28% 34%, var(--auth-orange) 34% 63%, transparent 63% 69%, var(--auth-red) 69% 100%);
+  bottom: 52px;
+  height: 4px;
+  left: clamp(42px, 6vw, 78px);
+  position: absolute;
+  width: 126px;
+  z-index: 1;
+}
+
+.burnsville-account-auth__panel {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(17, 17, 17, 0.3);
+  border-left: 0;
+  padding: clamp(42px, 6vw, 78px);
+}
+
+.burnsville-account-auth__panel header {
+  border-bottom: 1px solid rgba(17, 17, 17, 0.24);
+  margin-bottom: 28px;
+  padding-bottom: 24px;
+}
+
+.burnsville-account-auth__panel h1 {
+  color: var(--auth-onyx);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: clamp(2.8rem, 5vw, 4.5rem);
+  font-weight: 900;
+  letter-spacing: 0.015em;
+  line-height: 0.92;
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
+}
+
+.burnsville-account-auth__panel > .alert {
+  border-radius: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.82rem;
+  margin-bottom: 20px;
+}
+
+.burnsville-account-auth__panel > .spinner-border {
+  color: var(--auth-red);
+  display: block;
+  margin: 0 auto 20px;
+}
+
+.burnsville-account-auth__panel form {
+  display: grid;
+  gap: 20px;
+}
+
+.burnsville-account-auth__field {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.burnsville-account-auth__field label {
+  color: var(--auth-onyx);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.burnsville-account-auth__field input {
+  background: rgba(255, 255, 255, 0.28);
+  border: 1px solid rgba(17, 17, 17, 0.46);
+  border-radius: 0;
+  box-shadow: none;
+  color: var(--auth-onyx);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.92rem;
+  min-height: 52px;
+  padding: 12px 14px;
+  width: 100%;
+}
+
+.burnsville-account-auth__field input::placeholder {
+  color: rgba(17, 17, 17, 0.48);
+}
+
+.burnsville-account-auth__panel form > button {
+  align-items: center;
+  background: var(--auth-red);
+  border: 1px solid var(--auth-red);
+  border-radius: 0;
+  color: #ffffff;
+  display: inline-flex;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 0.82rem;
+  justify-content: center;
+  justify-self: start;
+  letter-spacing: 0.1em;
+  margin-top: 6px;
+  min-height: 52px;
+  min-width: 190px;
+  padding: 12px 24px;
+  text-transform: uppercase;
+  transition: background-color 150ms cubic-bezier(0.25, 0.7, 0.2, 1), border-color 150ms cubic-bezier(0.25, 0.7, 0.2, 1), transform 150ms cubic-bezier(0.25, 0.7, 0.2, 1);
+}
+
+.burnsville-account-auth__panel form > button:hover {
+  background: var(--auth-onyx);
+  border-color: var(--auth-onyx);
+  transform: translateY(-1px);
+}
+
+.burnsville-account-auth__switch {
+  color: rgba(17, 17, 17, 0.68);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.84rem;
+  margin: 28px 0 0;
+}
+
+.burnsville-account-auth__switch a {
+  color: var(--auth-red-dark);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.burnsville-account-auth a:focus-visible,
+.burnsville-account-auth button:focus-visible,
+.burnsville-account-auth input:focus-visible {
+  outline: 3px solid var(--auth-red-dark);
+  outline-offset: 3px;
+}
+
+@media (max-width: 840px) {
+  .burnsville-account-auth {
+    padding-inline: 26px;
+  }
+
+  .burnsville-account-auth__inner {
+    grid-template-columns: 1fr;
+  }
+
+  .burnsville-account-auth__introduction {
+    min-height: 390px;
+  }
+
+  .burnsville-account-auth__panel {
+    border-left: 1px solid rgba(17, 17, 17, 0.3);
+    border-top: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .burnsville-account-auth {
+    padding: 28px 18px 50px;
+  }
+
+  .burnsville-account-auth__introduction {
+    min-height: 350px;
+    padding: 42px 30px;
+  }
+
+  .burnsville-account-auth__introduction::after {
+    inset: 14px;
+  }
+
+  .burnsville-account-auth__introduction h2 {
+    font-size: clamp(2.9rem, 16vw, 4.2rem);
+  }
+
+  .burnsville-account-auth__accent {
+    bottom: 34px;
+    left: 30px;
+    width: 94px;
+  }
+
+  .burnsville-account-auth__panel {
+    padding: 36px 24px;
+  }
+
+  .burnsville-account-auth__panel form > button {
+    justify-self: stretch;
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .burnsville-account-auth__panel form > button {
+    transition: none;
+  }
+
+  .burnsville-account-auth__panel form > button:hover {
+    transform: none;
+  }
+}

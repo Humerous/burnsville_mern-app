@@ -1,0 +1,447 @@
+.burnsville-profile,
+.burnsville-profile * {
+  box-sizing: border-box;
+}
+
+.burnsville-profile {
+  --profile-cream: var(--burnsville-cream, #f3ede4);
+  --profile-onyx: var(--burnsville-onyx, #111111);
+  --profile-red: var(--burnsville-chilli, #d2282b);
+  --profile-red-dark: var(--burnsville-chilli-text, #b8231b);
+  --profile-green: var(--burnsville-pepper, #3e7f3a);
+  --profile-orange: #d98b21;
+  background-color: var(--profile-cream);
+  background-image:
+    radial-gradient(circle at 17% 31%, rgba(17, 17, 17, 0.08) 0 0.7px, transparent 1px),
+    radial-gradient(circle at 82% 68%, rgba(184, 35, 27, 0.07) 0 0.7px, transparent 1px);
+  background-size: 37px 41px, 43px 47px;
+  color: var(--profile-onyx);
+  margin-bottom: -1rem;
+  margin-left: calc(50% - 50vw);
+  margin-top: -1rem;
+  min-height: 80vh;
+  width: 100vw;
+}
+
+.burnsville-profile__inner {
+  margin: 0 auto;
+  max-width: 1440px;
+  padding: 48px 44px 76px;
+}
+
+.burnsville-profile__header {
+  border-bottom: 1px solid rgba(17, 17, 17, 0.3);
+  margin-bottom: 34px;
+  padding-bottom: 30px;
+  position: relative;
+}
+
+.burnsville-profile__header::after {
+  background: linear-gradient(90deg, var(--profile-green) 0 28%, transparent 28% 34%, var(--profile-orange) 34% 63%, transparent 63% 69%, var(--profile-red) 69% 100%);
+  bottom: -2px;
+  content: '';
+  height: 4px;
+  left: 0;
+  position: absolute;
+  width: 126px;
+}
+
+.burnsville-profile__eyebrow,
+.burnsville-profile__section-number {
+  color: var(--profile-red-dark);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 0.76rem;
+  letter-spacing: 0.13em;
+  margin: 0 0 10px;
+  text-transform: uppercase;
+}
+
+.burnsville-profile__eyebrow::after {
+  background: currentColor;
+  content: '';
+  display: inline-block;
+  height: 1px;
+  margin-left: 12px;
+  transform: translateY(-3px);
+  width: 48px;
+}
+
+.burnsville-profile__header h1 {
+  color: var(--profile-onyx);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: clamp(3.2rem, 6vw, 5.8rem);
+  font-weight: 900;
+  letter-spacing: 0.015em;
+  line-height: 0.92;
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
+}
+
+.burnsville-profile__header > p:last-child {
+  color: rgba(17, 17, 17, 0.65);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  margin: 18px 0 0;
+}
+
+.burnsville-profile__layout {
+  align-items: start;
+  display: grid;
+  gap: 28px;
+  grid-template-columns: minmax(300px, 0.72fr) minmax(0, 1.28fr);
+}
+
+.burnsville-profile__panel {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(17, 17, 17, 0.3);
+  min-width: 0;
+}
+
+.burnsville-profile__section-heading {
+  align-items: end;
+  border-bottom: 1px solid rgba(17, 17, 17, 0.3);
+  display: flex;
+  justify-content: space-between;
+  min-height: 104px;
+  padding: 24px 26px 20px;
+}
+
+.burnsville-profile__section-heading h2 {
+  color: var(--profile-onyx);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 1.75rem;
+  letter-spacing: 0.035em;
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
+}
+
+.burnsville-profile__section-heading > span {
+  color: rgba(17, 17, 17, 0.56);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.67rem;
+  letter-spacing: 0.08em;
+  padding-bottom: 4px;
+  text-transform: uppercase;
+}
+
+.burnsville-profile__panel-body,
+.burnsville-profile__orders-body {
+  padding: 26px;
+}
+
+.burnsville-profile__panel-body > .alert,
+.burnsville-profile__orders-body > .alert {
+  border-radius: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.8rem;
+  margin-bottom: 20px;
+}
+
+.burnsville-profile__state {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  min-height: 220px;
+}
+
+.burnsville-profile__state .spinner-border {
+  color: var(--profile-red);
+}
+
+.burnsville-profile__form {
+  display: grid;
+  gap: 19px;
+}
+
+.burnsville-profile__field {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.burnsville-profile__field label {
+  color: var(--profile-onyx);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.burnsville-profile__field input {
+  background: rgba(255, 255, 255, 0.32);
+  border: 1px solid rgba(17, 17, 17, 0.45);
+  border-radius: 0;
+  box-shadow: none;
+  color: var(--profile-onyx);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.9rem;
+  min-height: 50px;
+  padding: 12px 14px;
+  width: 100%;
+}
+
+.burnsville-profile__field input::placeholder {
+  color: rgba(17, 17, 17, 0.48);
+}
+
+.burnsville-profile__form > button {
+  align-items: center;
+  background: var(--profile-red);
+  border: 1px solid var(--profile-red);
+  border-radius: 0;
+  color: #ffffff;
+  display: inline-flex;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 0.8rem;
+  justify-content: center;
+  justify-self: start;
+  letter-spacing: 0.1em;
+  margin-top: 5px;
+  min-height: 50px;
+  min-width: 190px;
+  padding: 12px 24px;
+  text-transform: uppercase;
+  transition: background-color 150ms cubic-bezier(0.25, 0.7, 0.2, 1), border-color 150ms cubic-bezier(0.25, 0.7, 0.2, 1), transform 150ms cubic-bezier(0.25, 0.7, 0.2, 1);
+}
+
+.burnsville-profile__form > button:hover {
+  background: var(--profile-onyx);
+  border-color: var(--profile-onyx);
+  transform: translateY(-1px);
+}
+
+.burnsville-profile__orders-body {
+  padding: 0;
+}
+
+.burnsville-profile__table-wrap {
+  overflow-x: auto;
+}
+
+.burnsville-profile__table {
+  border-collapse: collapse;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  min-width: 760px;
+  width: 100%;
+}
+
+.burnsville-profile__table th,
+.burnsville-profile__table td {
+  border-bottom: 1px solid rgba(17, 17, 17, 0.18);
+  padding: 17px 13px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.burnsville-profile__table th {
+  background: var(--profile-onyx);
+  color: var(--profile-cream);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.burnsville-profile__table td {
+  color: rgba(17, 17, 17, 0.72);
+  font-size: 0.74rem;
+}
+
+.burnsville-profile__table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.burnsville-profile__order-id {
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.burnsville-profile__table .is-complete,
+.burnsville-profile__table .is-pending {
+  display: inline-block;
+  font-weight: 700;
+}
+
+.burnsville-profile__table .is-complete {
+  color: var(--profile-green);
+}
+
+.burnsville-profile__table .is-pending {
+  color: var(--profile-red-dark);
+}
+
+.burnsville-profile__details-link {
+  text-align: right !important;
+}
+
+.burnsville-profile__details-link a,
+.burnsville-profile__empty a {
+  color: var(--profile-red-dark);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 0.73rem;
+  letter-spacing: 0.07em;
+  text-decoration: underline;
+  text-transform: uppercase;
+  text-underline-offset: 4px;
+}
+
+.burnsville-profile__empty {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  min-height: 340px;
+  padding: 46px;
+}
+
+.burnsville-profile__empty h3 {
+  color: var(--profile-onyx);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: clamp(2.1rem, 4vw, 3.4rem);
+  letter-spacing: 0.02em;
+  margin: 34px 0 10px;
+  text-transform: uppercase;
+}
+
+.burnsville-profile__empty > p:not(.burnsville-profile__eyebrow) {
+  color: rgba(17, 17, 17, 0.62);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  margin: 0 0 28px;
+}
+
+.burnsville-profile a:focus-visible,
+.burnsville-profile button:focus-visible,
+.burnsville-profile input:focus-visible {
+  outline: 3px solid var(--profile-red-dark);
+  outline-offset: 3px;
+}
+
+@media (max-width: 860px) {
+  .burnsville-profile__inner {
+    padding-inline: 26px;
+  }
+
+  .burnsville-profile__layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 620px) {
+  .burnsville-profile__inner {
+    padding: 36px 18px 54px;
+  }
+
+  .burnsville-profile__header {
+    margin-bottom: 26px;
+  }
+
+  .burnsville-profile__header h1 {
+    font-size: clamp(3rem, 16vw, 4.5rem);
+  }
+
+  .burnsville-profile__section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 0;
+    padding: 22px 20px 18px;
+  }
+
+  .burnsville-profile__panel-body {
+    padding: 22px 20px;
+  }
+
+  .burnsville-profile__form > button {
+    justify-self: stretch;
+    width: 100%;
+  }
+
+  .burnsville-profile__table-wrap {
+    overflow: visible;
+  }
+
+  .burnsville-profile__table,
+  .burnsville-profile__table tbody,
+  .burnsville-profile__table tr,
+  .burnsville-profile__table td {
+    display: block;
+    min-width: 0;
+    width: 100%;
+  }
+
+  .burnsville-profile__table thead {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
+
+  .burnsville-profile__table tr {
+    border-bottom: 1px solid rgba(17, 17, 17, 0.35);
+    padding: 20px;
+  }
+
+  .burnsville-profile__table tr:last-child {
+    border-bottom: 0;
+  }
+
+  .burnsville-profile__table td {
+    align-items: baseline;
+    border: 0;
+    display: flex;
+    gap: 18px;
+    justify-content: space-between;
+    max-width: none;
+    padding: 7px 0;
+    text-align: right;
+    white-space: normal;
+  }
+
+  .burnsville-profile__table td::before {
+    color: rgba(17, 17, 17, 0.5);
+    content: attr(data-label);
+    flex: 0 0 auto;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .burnsville-profile__details-link {
+    border-top: 1px solid rgba(17, 17, 17, 0.15) !important;
+    justify-content: flex-end !important;
+    margin-top: 10px;
+    padding-top: 16px !important;
+  }
+
+  .burnsville-profile__details-link::before {
+    content: none !important;
+  }
+
+  .burnsville-profile__empty {
+    min-height: 300px;
+    padding: 34px 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .burnsville-profile__form > button {
+    transition: none;
+  }
+
+  .burnsville-profile__form > button:hover {
+    transform: none;
+  }
+}

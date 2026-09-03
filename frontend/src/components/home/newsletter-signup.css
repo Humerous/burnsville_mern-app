@@ -1,0 +1,220 @@
+.burnsville-newsletter,
+.burnsville-newsletter * {
+  box-sizing: border-box;
+}
+
+.burnsville-newsletter {
+  --newsletter-cream: var(--burnsville-cream, #f3ede4);
+  --newsletter-onyx: var(--burnsville-onyx, #111111);
+  --newsletter-red: var(--burnsville-chilli, #d2282b);
+  --newsletter-red-dark: var(--burnsville-chilli-text, #b8231b);
+  background-color: var(--newsletter-cream);
+  background-image:
+    radial-gradient(circle at 18% 34%, rgba(17, 17, 17, 0.09) 0 0.7px, transparent 1px),
+    radial-gradient(circle at 82% 68%, rgba(184, 35, 27, 0.07) 0 0.7px, transparent 1px);
+  background-size: 37px 43px, 47px 41px;
+  border-bottom: 1px solid rgba(17, 17, 17, 0.24);
+  color: var(--newsletter-onyx);
+  margin-left: calc(50% - 50vw);
+  width: 100vw;
+}
+
+.burnsville-newsletter__inner {
+  align-items: center;
+  display: grid;
+  gap: 24px;
+  grid-template-columns: 82px minmax(280px, 0.7fr) minmax(420px, 1fr);
+  margin: 0 auto;
+  max-width: 1440px;
+  min-height: 132px;
+  padding: 24px 56px;
+}
+
+.burnsville-newsletter__mark {
+  align-items: center;
+  display: flex;
+  height: 68px;
+  justify-content: center;
+  position: relative;
+  width: 72px;
+}
+
+.burnsville-newsletter__mark::before,
+.burnsville-newsletter__mark::after {
+  border: 2px solid var(--newsletter-red-dark);
+  content: '';
+  inset: 9px 4px;
+  position: absolute;
+}
+
+.burnsville-newsletter__mark::after {
+  border-width: 0 0 2px 2px;
+  inset: 10px 5px 27px;
+  transform: rotate(-38deg) skewX(13deg);
+}
+
+.burnsville-newsletter__mark span::before,
+.burnsville-newsletter__mark span::after {
+  border-top: 2px solid var(--newsletter-red-dark);
+  content: '';
+  position: absolute;
+  top: 21px;
+  width: 39px;
+}
+
+.burnsville-newsletter__mark span::before {
+  left: 7px;
+  transform: rotate(31deg);
+}
+
+.burnsville-newsletter__mark span::after {
+  right: 7px;
+  transform: rotate(-31deg);
+}
+
+.burnsville-newsletter__copy p {
+  color: var(--newsletter-red-dark);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  margin: 0 0 4px;
+  text-transform: uppercase;
+}
+
+.burnsville-newsletter__copy h2 {
+  color: var(--newsletter-onyx);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: clamp(1.65rem, 2.1vw, 2.3rem);
+  letter-spacing: 0.025em;
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
+}
+
+.burnsville-newsletter__copy > span {
+  color: rgba(17, 17, 17, 0.72);
+  display: block;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.82rem;
+  margin-top: 7px;
+}
+
+.burnsville-newsletter__form label {
+  border: 0;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.burnsville-newsletter__controls {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 150px;
+}
+
+.burnsville-newsletter__controls input {
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(17, 17, 17, 0.4);
+  border-radius: 0;
+  box-shadow: none;
+  color: var(--newsletter-onyx);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.9rem;
+  min-height: 50px;
+  padding: 12px 16px;
+  width: 100%;
+}
+
+.burnsville-newsletter__controls input::placeholder {
+  color: rgba(17, 17, 17, 0.58);
+}
+
+.burnsville-newsletter__controls button {
+  background: var(--newsletter-red);
+  border: 1px solid var(--newsletter-red);
+  border-radius: 0;
+  color: #ffffff;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.09em;
+  min-height: 50px;
+  padding: 12px 24px;
+  text-transform: uppercase;
+  transition:
+    background-color 150ms cubic-bezier(0.25, 0.7, 0.2, 1),
+    border-color 150ms cubic-bezier(0.25, 0.7, 0.2, 1),
+    color 150ms cubic-bezier(0.25, 0.7, 0.2, 1);
+}
+
+.burnsville-newsletter__controls button:hover {
+  background: var(--newsletter-onyx);
+  border-color: var(--newsletter-onyx);
+  color: var(--newsletter-cream);
+}
+
+.burnsville-newsletter__controls input:focus-visible,
+.burnsville-newsletter__controls button:focus-visible {
+  outline: 3px solid var(--newsletter-onyx);
+  outline-offset: 3px;
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 900px) {
+  .burnsville-newsletter__inner {
+    grid-template-columns: 64px minmax(220px, 0.7fr) minmax(320px, 1fr);
+    padding-inline: 30px;
+  }
+
+  .burnsville-newsletter__mark {
+    transform: scale(0.82);
+    transform-origin: left center;
+  }
+}
+
+@media (max-width: 700px) {
+  .burnsville-newsletter__inner {
+    display: grid;
+    gap: 18px;
+    grid-template-columns: 54px minmax(0, 1fr);
+    padding: 30px 20px 34px;
+  }
+
+  .burnsville-newsletter__mark {
+    grid-row: 1;
+  }
+
+  .burnsville-newsletter__copy {
+    grid-column: 2;
+  }
+
+  .burnsville-newsletter__copy h2 {
+    font-size: 1.9rem;
+  }
+
+  .burnsville-newsletter__form {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 430px) {
+  .burnsville-newsletter__controls {
+    grid-template-columns: 1fr;
+  }
+
+  .burnsville-newsletter__controls button {
+    margin-top: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .burnsville-newsletter__controls button {
+    transition: none;
+  }
+}

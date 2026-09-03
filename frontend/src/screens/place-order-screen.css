@@ -1,0 +1,466 @@
+.burnsville-place-order,
+.burnsville-place-order * {
+  box-sizing: border-box;
+}
+
+.burnsville-place-order {
+  --review-cream: var(--burnsville-cream, #f3ede4);
+  --review-onyx: var(--burnsville-onyx, #111111);
+  --review-red: var(--burnsville-chilli, #d2282b);
+  --review-red-dark: var(--burnsville-chilli-text, #b8231b);
+  --review-green: var(--burnsville-pepper, #3e7f3a);
+  --review-orange: #d98b21;
+  background-color: var(--review-cream);
+  background-image:
+    radial-gradient(circle at 17% 31%, rgba(17, 17, 17, 0.08) 0 0.7px, transparent 1px),
+    radial-gradient(circle at 82% 68%, rgba(184, 35, 27, 0.07) 0 0.7px, transparent 1px);
+  background-size: 37px 41px, 43px 47px;
+  color: var(--review-onyx);
+  margin-bottom: -1rem;
+  margin-left: calc(50% - 50vw);
+  margin-top: -1rem;
+  min-height: 80vh;
+  width: 100vw;
+}
+
+.burnsville-place-order__inner {
+  margin: 0 auto;
+  max-width: 1440px;
+  padding: 42px 44px 72px;
+}
+
+.burnsville-place-order__header {
+  align-items: end;
+  border-bottom: 1px solid rgba(17, 17, 17, 0.3);
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 34px;
+  padding-bottom: 30px;
+  position: relative;
+}
+
+.burnsville-place-order__header::after {
+  background: linear-gradient(90deg, var(--review-green) 0 28%, transparent 28% 34%, var(--review-orange) 34% 63%, transparent 63% 69%, var(--review-red) 69% 100%);
+  bottom: -2px;
+  content: '';
+  height: 4px;
+  left: 0;
+  position: absolute;
+  width: 126px;
+}
+
+.burnsville-place-order__eyebrow,
+.burnsville-place-order__section-number {
+  color: var(--review-red-dark);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 0.76rem;
+  letter-spacing: 0.13em;
+  margin: 0 0 10px;
+  text-transform: uppercase;
+}
+
+.burnsville-place-order__eyebrow::after {
+  background: currentColor;
+  content: '';
+  display: inline-block;
+  height: 1px;
+  margin-left: 12px;
+  transform: translateY(-3px);
+  width: 48px;
+}
+
+.burnsville-place-order__header h1 {
+  color: var(--review-onyx);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: clamp(3.2rem, 6vw, 5.8rem);
+  font-weight: 900;
+  letter-spacing: 0.015em;
+  line-height: 0.92;
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
+}
+
+.burnsville-place-order__header > p {
+  color: rgba(17, 17, 17, 0.68);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  margin: 0 0 5px 40px;
+  max-width: 34ch;
+}
+
+.burnsville-place-order__layout {
+  align-items: start;
+  display: grid;
+  gap: 30px;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 390px);
+}
+
+.burnsville-place-order__details {
+  display: grid;
+  gap: 26px;
+  min-width: 0;
+}
+
+.burnsville-place-order__overview {
+  display: grid;
+  gap: 1px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.burnsville-place-order__overview section,
+.burnsville-place-order__items-panel {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(17, 17, 17, 0.3);
+  padding: 28px;
+}
+
+.burnsville-place-order__overview section + section {
+  border-left: 0;
+}
+
+.burnsville-place-order__overview h2,
+.burnsville-place-order__section-heading h2,
+.burnsville-place-order__summary h2 {
+  color: var(--review-onyx);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  letter-spacing: 0.035em;
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
+}
+
+.burnsville-place-order__overview h2 {
+  font-size: 1.55rem;
+}
+
+.burnsville-place-order__overview section > p:last-child {
+  color: rgba(17, 17, 17, 0.7);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.86rem;
+  line-height: 1.55;
+  margin: 16px 0 0;
+}
+
+.burnsville-place-order__overview strong {
+  color: var(--review-onyx);
+  margin-right: 4px;
+}
+
+.burnsville-place-order__items-panel {
+  padding: 0;
+}
+
+.burnsville-place-order__section-heading {
+  align-items: end;
+  border-bottom: 1px solid rgba(17, 17, 17, 0.3);
+  display: flex;
+  justify-content: space-between;
+  padding: 26px 28px 22px;
+}
+
+.burnsville-place-order__section-heading h2 {
+  font-size: 1.8rem;
+}
+
+.burnsville-place-order__section-heading > span {
+  color: rgba(17, 17, 17, 0.58);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  padding-bottom: 4px;
+  text-transform: uppercase;
+}
+
+.burnsville-place-order__items {
+  list-style: none;
+  margin: 0;
+  padding: 0 28px;
+}
+
+.burnsville-place-order__items-panel > .alert {
+  background: rgba(184, 35, 27, 0.08);
+  border: 0;
+  border-radius: 0;
+  border-top: 1px solid rgba(184, 35, 27, 0.28);
+  color: var(--review-onyx);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.82rem;
+  margin: 0;
+  padding: 16px 28px;
+}
+
+.burnsville-place-order__item {
+  align-items: center;
+  border-bottom: 1px solid rgba(17, 17, 17, 0.2);
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 82px minmax(0, 1fr) auto;
+  min-height: 126px;
+  padding: 20px 0;
+}
+
+.burnsville-place-order__item:last-child {
+  border-bottom: 0;
+}
+
+.burnsville-place-order__image-wrap {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.35);
+  border: 1px solid rgba(17, 17, 17, 0.22);
+  display: flex;
+  height: 84px;
+  justify-content: center;
+  overflow: hidden;
+  padding: 7px;
+  width: 82px;
+}
+
+.burnsville-place-order__image-wrap img {
+  height: 100%;
+  object-fit: contain;
+  width: 100%;
+}
+
+.burnsville-place-order__item-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.burnsville-place-order__item-details a {
+  color: var(--review-onyx);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 1.15rem;
+  letter-spacing: 0.035em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.burnsville-place-order__item-details span,
+.burnsville-place-order__item-price span {
+  color: rgba(17, 17, 17, 0.62);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.76rem;
+}
+
+.burnsville-place-order__item-price {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  text-align: right;
+}
+
+.burnsville-place-order__item-price strong {
+  color: var(--review-onyx);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 1.15rem;
+  letter-spacing: 0.04em;
+}
+
+.burnsville-place-order__summary {
+  background: linear-gradient(145deg, rgba(210, 40, 43, 0.08), transparent 52%), var(--review-onyx);
+  color: var(--review-cream);
+  min-height: 440px;
+  padding: 38px;
+  position: sticky;
+  top: 100px;
+}
+
+.burnsville-place-order__summary::after {
+  border: 1px solid rgba(243, 237, 228, 0.18);
+  content: '';
+  inset: 15px;
+  pointer-events: none;
+  position: absolute;
+}
+
+.burnsville-place-order__summary .burnsville-place-order__eyebrow {
+  color: var(--review-orange);
+  position: relative;
+  z-index: 1;
+}
+
+.burnsville-place-order__summary h2 {
+  color: var(--review-cream);
+  font-size: 2.4rem;
+  line-height: 1;
+  position: relative;
+  z-index: 1;
+}
+
+.burnsville-place-order__summary dl {
+  margin: 30px 0 28px;
+  position: relative;
+  z-index: 1;
+}
+
+.burnsville-place-order__summary dl > div {
+  align-items: center;
+  border-bottom: 1px solid rgba(243, 237, 228, 0.18);
+  display: flex;
+  justify-content: space-between;
+  padding: 13px 0;
+}
+
+.burnsville-place-order__summary dt,
+.burnsville-place-order__summary dd {
+  margin: 0;
+}
+
+.burnsville-place-order__summary dt {
+  color: rgba(243, 237, 228, 0.7);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.82rem;
+  font-weight: 400;
+}
+
+.burnsville-place-order__summary dd {
+  color: var(--review-cream);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+}
+
+.burnsville-place-order__summary dl > .burnsville-place-order__total {
+  border-bottom: 0;
+  margin-top: 6px;
+  padding-top: 18px;
+}
+
+.burnsville-place-order__total dt,
+.burnsville-place-order__total dd {
+  color: var(--review-cream);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 1.5rem;
+  letter-spacing: 0.035em;
+  text-transform: uppercase;
+}
+
+.burnsville-place-order__summary > button {
+  align-items: center;
+  background: var(--review-red);
+  border: 1px solid var(--review-red);
+  border-radius: 0;
+  color: #ffffff;
+  display: inline-flex;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 0.82rem;
+  justify-content: center;
+  letter-spacing: 0.1em;
+  min-height: 52px;
+  padding: 12px 24px;
+  position: relative;
+  text-transform: uppercase;
+  transition: background-color 150ms cubic-bezier(0.25, 0.7, 0.2, 1), border-color 150ms cubic-bezier(0.25, 0.7, 0.2, 1), transform 150ms cubic-bezier(0.25, 0.7, 0.2, 1);
+  width: 100%;
+  z-index: 1;
+}
+
+.burnsville-place-order__summary > button:hover {
+  background: var(--review-cream);
+  border-color: var(--review-cream);
+  color: var(--review-onyx);
+  transform: translateY(-1px);
+}
+
+.burnsville-place-order__summary > button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.burnsville-place-order__error {
+  position: relative;
+  z-index: 1;
+}
+
+.burnsville-place-order a:focus-visible,
+.burnsville-place-order button:focus-visible {
+  outline: 3px solid var(--review-red-dark);
+  outline-offset: 3px;
+}
+
+@media (max-width: 900px) {
+  .burnsville-place-order__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .burnsville-place-order__summary {
+    position: relative;
+    top: auto;
+  }
+}
+
+@media (max-width: 650px) {
+  .burnsville-place-order__inner {
+    padding: 28px 18px 50px;
+  }
+
+  .burnsville-place-order__header {
+    align-items: start;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .burnsville-place-order__header h1 {
+    font-size: clamp(3rem, 16vw, 4.3rem);
+  }
+
+  .burnsville-place-order__header > p {
+    margin: 0;
+  }
+
+  .burnsville-place-order__overview {
+    grid-template-columns: 1fr;
+  }
+
+  .burnsville-place-order__overview section + section {
+    border-left: 1px solid rgba(17, 17, 17, 0.3);
+    border-top: 0;
+  }
+
+  .burnsville-place-order__overview section,
+  .burnsville-place-order__section-heading {
+    padding: 24px;
+  }
+
+  .burnsville-place-order__items {
+    padding: 0 24px;
+  }
+
+  .burnsville-place-order__item {
+    gap: 14px;
+    grid-template-columns: 70px minmax(0, 1fr);
+  }
+
+  .burnsville-place-order__image-wrap {
+    height: 74px;
+    width: 70px;
+  }
+
+  .burnsville-place-order__item-price {
+    align-items: center;
+    flex-direction: row;
+    grid-column: 2;
+    justify-content: space-between;
+    text-align: left;
+  }
+
+  .burnsville-place-order__summary {
+    padding: 36px 30px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .burnsville-place-order__summary > button {
+    transition: none;
+  }
+
+  .burnsville-place-order__summary > button:hover {
+    transform: none;
+  }
+}

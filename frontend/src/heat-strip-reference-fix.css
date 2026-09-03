@@ -1,0 +1,76 @@
+/* Mobile Shop by Heat refinement based on the approved compact reference strip. */
+
+@media (max-width: 560px) {
+  .burnsville-heat-strip__levels {
+    display: grid !important;
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+    height: auto !important;
+  }
+
+  .burnsville-heat-strip__item,
+  .burnsville-heat-strip__item:nth-child(4),
+  .burnsville-heat-strip__item:nth-child(5) {
+    grid-column: auto !important;
+  }
+
+  .burnsville-heat-strip__level {
+    align-items: center;
+    border-bottom: 0 !important;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    justify-content: center;
+    min-height: 84px !important;
+    padding: 7px 1px 8px !important;
+    text-align: center;
+  }
+
+  .burnsville-heat-strip__pepper {
+    height: 38px;
+    margin: 0 auto;
+    transform: scale(calc(var(--pepper-scale) * 0.68)) !important;
+    transform-origin: center center;
+    width: 30px;
+  }
+
+  .burnsville-heat-strip__level-copy {
+    align-items: center;
+    min-width: 0;
+  }
+
+  .burnsville-heat-strip__level-copy strong {
+    font-size: 0.56rem !important;
+    letter-spacing: 0.015em !important;
+    line-height: 0.96 !important;
+    white-space: normal;
+  }
+
+  .burnsville-heat-strip__level-copy > span {
+    font-size: 0.52rem !important;
+    line-height: 1 !important;
+    margin-top: 3px !important;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 390px) {
+  .burnsville-heat-strip__inner {
+    padding-inline: 10px;
+  }
+
+  .burnsville-heat-strip__level {
+    min-height: 80px !important;
+  }
+
+  .burnsville-heat-strip__pepper {
+    transform: scale(calc(var(--pepper-scale) * 0.62)) !important;
+  }
+
+  .burnsville-heat-strip__level-copy strong {
+    font-size: 0.52rem !important;
+  }
+
+  .burnsville-heat-strip__level-copy > span {
+    font-size: 0.49rem !important;
+  }
+}

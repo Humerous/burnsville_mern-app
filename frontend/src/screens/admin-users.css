@@ -1,0 +1,605 @@
+.burnsville-admin-users,
+.burnsville-admin-users * {
+  box-sizing: border-box;
+}
+
+.burnsville-admin-users {
+  --admin-cream: var(--burnsville-cream, #f3ede4);
+  --admin-onyx: var(--burnsville-onyx, #111111);
+  --admin-red: var(--burnsville-chilli, #d2282b);
+  --admin-red-dark: var(--burnsville-chilli-text, #b8231b);
+  --admin-green: var(--burnsville-pepper, #3e7f3a);
+  --admin-orange: #d98b21;
+  background-color: var(--admin-cream);
+  background-image:
+    radial-gradient(circle at 17% 31%, rgba(17, 17, 17, 0.08) 0 0.7px, transparent 1px),
+    radial-gradient(circle at 82% 68%, rgba(184, 35, 27, 0.07) 0 0.7px, transparent 1px);
+  background-size: 37px 41px, 43px 47px;
+  color: var(--admin-onyx);
+  margin-bottom: -1rem;
+  margin-left: calc(50% - 50vw);
+  margin-top: -1rem;
+  min-height: 80vh;
+  width: 100vw;
+}
+
+.burnsville-admin-users__inner {
+  margin: 0 auto;
+  max-width: 1440px;
+  padding: 48px 44px 76px;
+}
+
+.burnsville-admin-users__inner--edit {
+  max-width: 1080px;
+}
+
+.burnsville-admin-users__header {
+  align-items: end;
+  border-bottom: 1px solid rgba(17, 17, 17, 0.3);
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 34px;
+  padding-bottom: 30px;
+  position: relative;
+}
+
+.burnsville-admin-users__header::after {
+  background: linear-gradient(90deg, var(--admin-green) 0 28%, transparent 28% 34%, var(--admin-orange) 34% 63%, transparent 63% 69%, var(--admin-red) 69% 100%);
+  bottom: -2px;
+  content: '';
+  height: 4px;
+  left: 0;
+  position: absolute;
+  width: 126px;
+}
+
+.burnsville-admin-users__eyebrow,
+.burnsville-admin-users__section-number {
+  color: var(--admin-red-dark);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 0.76rem;
+  letter-spacing: 0.13em;
+  margin: 0 0 10px;
+  text-transform: uppercase;
+}
+
+.burnsville-admin-users__eyebrow::after {
+  background: currentColor;
+  content: '';
+  display: inline-block;
+  height: 1px;
+  margin-left: 12px;
+  transform: translateY(-3px);
+  width: 48px;
+}
+
+.burnsville-admin-users__header h1 {
+  color: var(--admin-onyx);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: clamp(3.2rem, 6vw, 5.8rem);
+  font-weight: 900;
+  letter-spacing: 0.015em;
+  line-height: 0.92;
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
+}
+
+.burnsville-admin-users__header > div > p:last-child {
+  color: rgba(17, 17, 17, 0.65);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  margin: 18px 0 0;
+}
+
+.burnsville-admin-users__count,
+.burnsville-admin-users__reference {
+  border: 1px solid rgba(17, 17, 17, 0.38);
+  color: rgba(17, 17, 17, 0.65);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  margin-left: 24px;
+  max-width: 320px;
+  overflow-wrap: anywhere;
+  padding: 11px 15px;
+  text-transform: uppercase;
+}
+
+.burnsville-admin-users__panel {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(17, 17, 17, 0.3);
+  min-width: 0;
+}
+
+.burnsville-admin-users__edit-panel {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 760px;
+}
+
+.burnsville-admin-users__panel-heading {
+  align-items: end;
+  border-bottom: 1px solid rgba(17, 17, 17, 0.3);
+  display: flex;
+  justify-content: space-between;
+  min-height: 104px;
+  padding: 24px 26px 20px;
+}
+
+.burnsville-admin-users__panel-heading h2,
+.burnsville-admin-users__empty h3 {
+  color: var(--admin-onyx);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  letter-spacing: 0.035em;
+  margin: 0;
+  padding: 0;
+  text-transform: uppercase;
+}
+
+.burnsville-admin-users__panel-heading h2 {
+  font-size: 1.75rem;
+}
+
+.burnsville-admin-users__panel-heading > span {
+  color: rgba(17, 17, 17, 0.56);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.67rem;
+  letter-spacing: 0.08em;
+  padding-bottom: 4px;
+  text-transform: uppercase;
+}
+
+.burnsville-admin-users__panel-body {
+  padding: 0;
+}
+
+.burnsville-admin-users__panel-body > .alert,
+.burnsville-admin-users__edit-body > .alert {
+  border-radius: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.8rem;
+  margin: 24px;
+}
+
+.burnsville-admin-users__state {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  min-height: 300px;
+}
+
+.burnsville-admin-users__state .spinner-border,
+.burnsville-admin-users__inline-loader .spinner-border {
+  color: var(--admin-red);
+}
+
+.burnsville-admin-users__table-wrap {
+  overflow-x: auto;
+}
+
+.burnsville-admin-users__table {
+  border-collapse: collapse;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  min-width: 850px;
+  width: 100%;
+}
+
+.burnsville-admin-users__table th,
+.burnsville-admin-users__table td {
+  border-bottom: 1px solid rgba(17, 17, 17, 0.18);
+  padding: 17px 18px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.burnsville-admin-users__table th {
+  background: var(--admin-onyx);
+  color: var(--admin-cream);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.burnsville-admin-users__table td {
+  color: rgba(17, 17, 17, 0.74);
+  font-size: 0.78rem;
+}
+
+.burnsville-admin-users__table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.burnsville-admin-users__table td a:not(.burnsville-admin-users__action) {
+  color: var(--admin-red-dark);
+  overflow-wrap: anywhere;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.burnsville-admin-users__id {
+  max-width: 190px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.burnsville-admin-users__status {
+  border: 1px solid currentColor;
+  display: inline-block;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 0.66rem;
+  letter-spacing: 0.07em;
+  min-width: 76px;
+  padding: 7px 9px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.burnsville-admin-users__status.is-admin {
+  color: var(--admin-green);
+}
+
+.burnsville-admin-users__status.is-customer {
+  color: rgba(17, 17, 17, 0.58);
+}
+
+.burnsville-admin-users__actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.burnsville-admin-users__action {
+  align-items: center;
+  border: 1px solid rgba(17, 17, 17, 0.5);
+  border-radius: 0;
+  display: inline-flex;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 0.66rem;
+  justify-content: center;
+  letter-spacing: 0.07em;
+  min-height: 38px;
+  min-width: 66px;
+  padding: 8px 11px;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background-color 150ms cubic-bezier(0.25, 0.7, 0.2, 1), color 150ms cubic-bezier(0.25, 0.7, 0.2, 1);
+}
+
+.burnsville-admin-users__action--edit {
+  background: transparent;
+  color: var(--admin-onyx);
+}
+
+.burnsville-admin-users__action--delete {
+  background: var(--admin-red);
+  border-color: var(--admin-red);
+  color: #ffffff;
+}
+
+.burnsville-admin-users__action:hover {
+  background: var(--admin-onyx);
+  border-color: var(--admin-onyx);
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.burnsville-admin-users__empty {
+  min-height: 340px;
+  padding: 48px;
+}
+
+.burnsville-admin-users__empty h3 {
+  font-size: clamp(2.2rem, 4vw, 3.5rem);
+  margin-top: 48px;
+}
+
+.burnsville-admin-users__empty > p:last-child {
+  color: rgba(17, 17, 17, 0.62);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  margin: 12px 0 0;
+}
+
+.burnsville-admin-users__back-link {
+  color: var(--admin-red-dark);
+  display: inline-flex;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  margin-bottom: 28px;
+  text-decoration: underline;
+  text-transform: uppercase;
+  text-underline-offset: 4px;
+}
+
+.burnsville-admin-users__edit-body {
+  padding: 32px;
+}
+
+.burnsville-admin-users__edit-body > .alert {
+  margin: 0 0 22px;
+}
+
+.burnsville-admin-users__inline-loader {
+  margin-bottom: 22px;
+}
+
+.burnsville-admin-users__inline-loader .spinner-border {
+  height: 48px !important;
+  width: 48px !important;
+}
+
+.burnsville-admin-users__form {
+  display: grid;
+  gap: 22px;
+}
+
+.burnsville-admin-users__field {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.burnsville-admin-users__field label {
+  color: var(--admin-onyx);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 0.74rem;
+  letter-spacing: 0.08em;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.burnsville-admin-users__field input {
+  background: rgba(255, 255, 255, 0.32);
+  border: 1px solid rgba(17, 17, 17, 0.45);
+  border-radius: 0;
+  box-shadow: none;
+  color: var(--admin-onyx);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.9rem;
+  min-height: 52px;
+  padding: 12px 14px;
+  width: 100%;
+}
+
+.burnsville-admin-users__field input::placeholder {
+  color: rgba(17, 17, 17, 0.48);
+}
+
+.burnsville-admin-users__checkbox {
+  align-items: center;
+  border: 1px solid rgba(17, 17, 17, 0.24);
+  cursor: pointer;
+  display: grid;
+  gap: 2px 14px;
+  grid-template-columns: 24px minmax(0, 1fr);
+  padding: 17px;
+}
+
+.burnsville-admin-users__checkbox input {
+  height: 1px;
+  opacity: 0;
+  position: absolute;
+  width: 1px;
+}
+
+.burnsville-admin-users__checkbox > span {
+  align-items: center;
+  border: 1px solid rgba(17, 17, 17, 0.65);
+  display: flex;
+  grid-row: 1 / 3;
+  height: 24px;
+  justify-content: center;
+  width: 24px;
+}
+
+.burnsville-admin-users__checkbox input:checked + span {
+  background: var(--admin-green);
+  border-color: var(--admin-green);
+}
+
+.burnsville-admin-users__checkbox input:checked + span::after {
+  border: solid #ffffff;
+  border-width: 0 2px 2px 0;
+  content: '';
+  height: 11px;
+  transform: rotate(45deg) translate(-1px, -1px);
+  width: 6px;
+}
+
+.burnsville-admin-users__checkbox input:focus-visible + span {
+  outline: 3px solid var(--admin-red-dark);
+  outline-offset: 3px;
+}
+
+.burnsville-admin-users__checkbox strong {
+  color: var(--admin-onyx);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.burnsville-admin-users__checkbox small {
+  color: rgba(17, 17, 17, 0.58);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.72rem;
+  line-height: 1.4;
+}
+
+.burnsville-admin-users__form > button {
+  align-items: center;
+  background: var(--admin-red);
+  border: 1px solid var(--admin-red);
+  border-radius: 0;
+  color: #ffffff;
+  display: inline-flex;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+  font-size: 0.8rem;
+  justify-content: center;
+  justify-self: start;
+  letter-spacing: 0.1em;
+  min-height: 52px;
+  min-width: 190px;
+  padding: 12px 24px;
+  text-transform: uppercase;
+  transition: background-color 150ms cubic-bezier(0.25, 0.7, 0.2, 1), border-color 150ms cubic-bezier(0.25, 0.7, 0.2, 1), transform 150ms cubic-bezier(0.25, 0.7, 0.2, 1);
+}
+
+.burnsville-admin-users__form > button:hover {
+  background: var(--admin-onyx);
+  border-color: var(--admin-onyx);
+  transform: translateY(-1px);
+}
+
+.burnsville-admin-users a:focus-visible,
+.burnsville-admin-users button:focus-visible,
+.burnsville-admin-users input:focus-visible {
+  outline: 3px solid var(--admin-red-dark);
+  outline-offset: 3px;
+}
+
+@media (max-width: 860px) {
+  .burnsville-admin-users__inner {
+    padding-inline: 26px;
+  }
+}
+
+@media (max-width: 680px) {
+  .burnsville-admin-users__inner {
+    padding: 36px 18px 54px;
+  }
+
+  .burnsville-admin-users__header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 22px;
+    margin-bottom: 26px;
+  }
+
+  .burnsville-admin-users__header h1 {
+    font-size: clamp(3rem, 16vw, 4.5rem);
+  }
+
+  .burnsville-admin-users__count,
+  .burnsville-admin-users__reference {
+    margin-left: 0;
+    max-width: 100%;
+  }
+
+  .burnsville-admin-users__panel-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 0;
+    padding: 22px 20px 18px;
+  }
+
+  .burnsville-admin-users__table-wrap {
+    overflow: visible;
+  }
+
+  .burnsville-admin-users__table,
+  .burnsville-admin-users__table tbody,
+  .burnsville-admin-users__table tr,
+  .burnsville-admin-users__table td {
+    display: block;
+    min-width: 0;
+    width: 100%;
+  }
+
+  .burnsville-admin-users__table thead {
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
+
+  .burnsville-admin-users__table tr {
+    border-bottom: 1px solid rgba(17, 17, 17, 0.35);
+    padding: 20px;
+  }
+
+  .burnsville-admin-users__table tr:last-child {
+    border-bottom: 0;
+  }
+
+  .burnsville-admin-users__table td {
+    align-items: baseline;
+    border: 0;
+    display: flex;
+    gap: 18px;
+    justify-content: space-between;
+    max-width: none;
+    padding: 7px 0;
+    text-align: right;
+    white-space: normal;
+  }
+
+  .burnsville-admin-users__table td::before {
+    color: rgba(17, 17, 17, 0.5);
+    content: attr(data-label);
+    flex: 0 0 auto;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', 'Arial Narrow', sans-serif;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .burnsville-admin-users__id {
+    overflow-wrap: anywhere;
+    text-overflow: clip;
+  }
+
+  .burnsville-admin-users__actions {
+    align-items: stretch !important;
+    border-top: 1px solid rgba(17, 17, 17, 0.15) !important;
+    justify-content: flex-end !important;
+    margin-top: 10px;
+    padding-top: 16px !important;
+  }
+
+  .burnsville-admin-users__actions::before {
+    content: none !important;
+  }
+
+  .burnsville-admin-users__action {
+    min-height: 44px;
+  }
+
+  .burnsville-admin-users__edit-body {
+    padding: 24px 20px;
+  }
+
+  .burnsville-admin-users__form > button {
+    justify-self: stretch;
+    width: 100%;
+  }
+
+  .burnsville-admin-users__empty {
+    min-height: 300px;
+    padding: 34px 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .burnsville-admin-users__action,
+  .burnsville-admin-users__form > button {
+    transition: none;
+  }
+
+  .burnsville-admin-users__form > button:hover {
+    transform: none;
+  }
+}

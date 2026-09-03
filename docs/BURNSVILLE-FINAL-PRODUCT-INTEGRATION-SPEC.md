@@ -19,10 +19,17 @@ This repository work must not:
 - invent or rename products
 - invent ingredients, descriptions, heat values, prices, stock, or availability
 - redesign product cards or bottle artwork
-- treat old asset maps as authority
+- treat old catalogue or asset maps as final authority
 - seed or mutate Preview/Production Atlas
 - run the legacy destructive seeder
 - run catalogue bootstrap against a database that already contains products
+
+Historical catalogue data is retained only for comparison in:
+
+- `docs/BURNSVILLE-PRODUCT-CATALOGUE-REFERENCE.md`
+- `backend/data/burnsville-product-catalogue.json`
+
+Those references must not fill missing final values automatically.
 
 ## REQUIRED FINAL HANDOFF FROM DESIGN CHAT
 
@@ -77,7 +84,7 @@ Final public product assets should live in a dedicated Burnsville public asset d
 
 The exact final filenames are not locked by this document.
 
-Do not reuse the rejected 517×941 crop/padding filename map as authority.
+The rejected 517×941 crop/padding filename map has been removed from the integration branch and must not be recreated as authority.
 
 ## ASSET RULES
 
@@ -174,7 +181,7 @@ Already supports:
 - quantity
 - add to cart
 
-If the final product-card design is a PAGE DESIGN REFERENCE, this is the primary implementation surface.
+If the final product-card design is a `PAGE DESIGN REFERENCE`, this is the primary implementation surface.
 
 ### ADMIN
 
@@ -214,65 +221,40 @@ Preview/Production Atlas remains unchanged until an isolated migration procedure
 
 ## LEGACY CLEANUP BOUNDARY
 
-The old third-party catalogue and images may be removed only after the final Burnsville replacement set is integrated and verified.
+The old third-party runtime catalogue and images may be removed only after the final Burnsville replacement set is integrated and verified.
 
-Legacy cleanup includes, when authorised:
+The rejected Burnsville asset-map files are different: because they are known-invalid planning artifacts, they have been removed from this integration branch before final product handoff.
 
-- `backend/data/products.js` third-party catalogue entries
-- old third-party JPG product assets under `frontend/public/images/`
-- rejected asset-map documents/data
-- stale catalogue statements that incorrectly claim old asset filenames or visual decisions are final
+Runtime legacy cleanup includes, when separately authorised:
 
-Do not delete legacy files before replacement assets and runtime records are proven working.
+- third-party entries in `backend/data/products.js`
+- third-party product JPGs under `frontend/public/images/`
+- any stale runtime references to those files
 
-## FINAL ASSET HANDOFF CHECK
+Do not remove runtime legacy data until replacement QA passes.
 
-For each product, verify:
+## FINAL INTEGRATION SEQUENCE
 
-- correct approved product
-- correct approved artwork
-- correct filename/path
-- no crop or distortion
-- no unexpected border/background
-- correct responsive behaviour
-- correct alt text/name
-- correct product detail route
-- correct cart item image/name
-- correct checkout/order image/name
-- no third-party branding remains in the live product experience
-
-## RESPONSIVE QA TARGETS
-
-At minimum test:
-
-- desktop: 1440px
-- tablet: 768px
-- mobile: 390px
-- narrow mobile: 320px
-
-Also verify intermediate responsive behaviour rather than relying only on four screenshots.
-
-## IMPLEMENTATION ORDER AFTER FINAL DESIGN HANDOFF
-
-1. Receive approved product handoff.
+1. Receive final approved handoff.
 2. Confirm integration mode.
-3. Validate source files and dimensions.
-4. Optimise copies without altering the approved artwork.
-5. Place assets in the final public asset directory.
-6. Build the complete replacement product-data set.
-7. Review product names, paths, commercial data and heat values against approved source.
-8. Replace the legacy runtime catalogue in source control.
-9. Run local/isolated database migration tests only.
-10. Run frontend build and automated QA.
-11. Run desktop/tablet/mobile visual QA.
-12. Verify home, shop, product detail, cart, checkout and admin.
-13. Only then prepare the separately authorised Preview/Production catalogue migration.
-14. Remove legacy third-party content after the replacement passes.
+3. Record final product count and identity.
+4. Validate source assets visually.
+5. Approve final filenames and runtime paths.
+6. Optimise runtime copies without changing artwork.
+7. Build the replacement product dataset from approved values only.
+8. Validate the dataset offline.
+9. Integrate into isolated/local QA first.
+10. Test Home, Shop, Product Detail, Cart, Checkout/Order and Admin.
+11. Test responsive behaviour at 1440, 768, 390 and 320 widths.
+12. Review isolated migration procedure.
+13. Migrate a shared environment only after explicit approval.
+14. Remove remaining third-party runtime data/assets only after replacement QA passes.
+15. Run final performance and Preview regression.
 
 ## PASS CONDITION
 
-This integration phase passes only when the approved final Burnsville product set flows correctly through:
+Integration passes only when the final approved handoff travels through:
 
-`ASSET → PRODUCT DATA → API → HOME/SHOP → PRODUCT DETAIL → CART → CHECKOUT/ORDER`
+`ASSET → DATA → API → HOME/SHOP → PRODUCT DETAIL → CART → CHECKOUT/ORDER`
 
-with no invented product data, no visual alteration, no third-party catalogue content exposed to users, and no unauthorised production database mutation.
+without reinterpretation, missing assets, legacy third-party content, or unauthorised database changes.

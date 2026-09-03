@@ -1,188 +1,64 @@
-/* Approved illustrated chilli artwork for the Burnsville heat rail.
-   This file owns artwork sizing and the responsive spacing between artwork,
-   labels, ranges and intensity dots. */
+/* Approved illustrated chilli artwork for the Option 01 heat rail. */
 
 .burnsville-heat-strip__pepper {
   align-items: center;
   display: flex;
-  height: 68px;
+  height: 76px;
   justify-content: center;
-  margin: 0;
   transform: none;
-  width: 58px;
+  width: 64px;
 }
 
 .burnsville-heat-strip__pepper-image {
   display: block;
   height: 100%;
-  max-width: 100%;
+  max-width: none;
   object-fit: contain;
   width: 100%;
 }
 
 .burnsville-heat-strip__level--mild .burnsville-heat-strip__pepper-image {
-  transform: rotate(-2deg) scale(0.9);
+  transform: rotate(-2deg) scale(0.92);
 }
 
 .burnsville-heat-strip__level--medium .burnsville-heat-strip__pepper-image {
-  transform: rotate(1deg) scale(0.93);
+  transform: rotate(1deg) scale(0.95);
 }
 
 .burnsville-heat-strip__level--hot .burnsville-heat-strip__pepper-image {
-  transform: rotate(2deg) scale(0.96);
+  transform: rotate(2deg) scale(0.98);
 }
 
 .burnsville-heat-strip__level--very-hot .burnsville-heat-strip__pepper-image {
-  transform: scale(0.98);
+  transform: scale(1.04);
 }
 
 .burnsville-heat-strip__level--extreme .burnsville-heat-strip__pepper-image {
-  transform: scale(1);
+  transform: scale(1.08);
 }
 
-/* Desktop: protect a dedicated artwork column so flames never collide with text. */
-@media (min-width: 1121px) {
-  .burnsville-heat-strip__inner {
-    grid-template-columns: 150px minmax(0, 1fr) 132px;
-    min-height: 104px;
-    padding-left: 32px;
-    padding-right: 32px;
-  }
-
-  .burnsville-heat-strip__heading {
-    padding: 16px 22px 16px 0;
-  }
-
-  .burnsville-heat-strip__level {
-    align-items: center;
-    gap: 10px;
-    grid-template-columns: 62px minmax(0, 1fr);
-    min-height: 104px;
-    padding: 10px 10px;
-  }
-
+@media (max-width: 1120px) {
   .burnsville-heat-strip__pepper {
     height: 68px;
-    justify-self: center;
-    width: 58px;
-  }
-
-  .burnsville-heat-strip__level-copy {
-    align-items: flex-start;
-    align-self: stretch;
-    justify-content: center;
-    margin: 0;
-    min-width: 0;
-    padding: 0;
-  }
-
-  .burnsville-heat-strip__level-copy strong {
-    display: block;
-    font-size: 0.8rem;
-    letter-spacing: 0.02em;
-    line-height: 1;
-    margin: 0;
-    max-width: 100%;
-    white-space: nowrap;
-  }
-
-  .burnsville-heat-strip__level--very-hot .burnsville-heat-strip__level-copy strong,
-  .burnsville-heat-strip__level--extreme .burnsville-heat-strip__level-copy strong {
-    font-size: 0.76rem;
-    letter-spacing: 0.01em;
-  }
-
-  .burnsville-heat-strip__range {
-    font-size: 0.66rem;
-    line-height: 1.1;
-    margin: 4px 0 0;
-  }
-
-  .burnsville-heat-strip__intensity {
-    gap: 3px;
-    margin: 6px 0 0;
-  }
-
-  .burnsville-heat-strip__guide-link {
-    padding: 14px 0 14px 16px;
+    width: 56px;
   }
 }
 
-/* Compact desktop / tablet landscape. */
-@media (min-width: 901px) and (max-width: 1120px) {
-  .burnsville-heat-strip__inner {
-    grid-template-columns: 126px minmax(0, 1fr) 116px;
-    min-height: 100px;
-    padding-left: 16px;
-    padding-right: 16px;
-  }
-
-  .burnsville-heat-strip__heading {
-    padding: 14px 14px 14px 0;
-  }
-
-  .burnsville-heat-strip__level {
-    gap: 6px;
-    grid-template-columns: 50px minmax(0, 1fr);
-    min-height: 100px;
-    padding: 8px 6px;
-  }
-
-  .burnsville-heat-strip__pepper {
-    height: 58px;
-    justify-self: center;
-    width: 48px;
-  }
-
-  .burnsville-heat-strip__level-copy {
-    align-items: flex-start;
-    justify-content: center;
-    margin: 0;
-    min-width: 0;
-    padding: 0;
-  }
-
-  .burnsville-heat-strip__level-copy strong {
-    font-size: 0.68rem;
-    letter-spacing: 0.01em;
-    line-height: 1;
-    margin: 0;
-    white-space: nowrap;
-  }
-
-  .burnsville-heat-strip__level--very-hot .burnsville-heat-strip__level-copy strong,
-  .burnsville-heat-strip__level--extreme .burnsville-heat-strip__level-copy strong {
-    font-size: 0.64rem;
-  }
-
-  .burnsville-heat-strip__range {
-    font-size: 0.58rem;
-    line-height: 1.1;
-    margin: 4px 0 0;
-  }
-
-  .burnsville-heat-strip__intensity {
-    gap: 2px;
-    margin: 5px 0 0;
-  }
-}
-
-/* Tablet and phone: retain all five approved heat levels in one row without
-   inherited desktop margins or padding creating horizontal drift. */
+/* Tablet and phone: preserve all five approved heat levels in one row. */
 @media (max-width: 900px) {
   .burnsville-heat-strip {
-    margin-left: 0 !important;
     overflow: hidden !important;
-    width: 100% !important;
   }
 
   .burnsville-heat-strip__inner {
     display: block !important;
+    grid-template-columns: none !important;
     margin: 0 !important;
     max-width: none !important;
     min-height: 0 !important;
     overflow: visible !important;
     padding: 0 !important;
+    scroll-snap-type: none !important;
     width: 100% !important;
   }
 
@@ -190,17 +66,15 @@
     border-bottom: 1px solid var(--heat-strip-rule) !important;
     border-right: 0 !important;
     display: flex !important;
-    margin: 0 !important;
-    min-height: 58px !important;
-    padding: 13px 18px !important;
+    min-height: 62px !important;
+    padding: 14px 20px !important;
   }
 
   .burnsville-heat-strip__heading h2 {
     display: flex !important;
-    font-size: 1.08rem !important;
-    gap: 6px !important;
+    font-size: 1.16rem !important;
+    gap: 6px;
     line-height: 1 !important;
-    margin: 0 !important;
   }
 
   .burnsville-heat-strip__heading h2 span {
@@ -210,7 +84,6 @@
   .burnsville-heat-strip__nav {
     height: auto !important;
     margin: 0 !important;
-    padding: 0 !important;
     width: 100% !important;
   }
 
@@ -218,8 +91,6 @@
     display: grid !important;
     grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
     height: auto !important;
-    margin: 0 !important;
-    padding: 0 !important;
     width: 100% !important;
   }
 
@@ -228,9 +99,7 @@
   .burnsville-heat-strip__item:nth-child(5) {
     display: flex !important;
     flex: 1 1 auto !important;
-    margin: 0 !important;
     min-width: 0 !important;
-    padding: 0 !important;
   }
 
   .burnsville-heat-strip__level {
@@ -240,9 +109,8 @@
     flex-direction: column !important;
     gap: 2px !important;
     justify-content: center !important;
-    margin: 0 !important;
-    min-height: 112px !important;
-    padding: 8px 4px 9px !important;
+    min-height: 116px !important;
+    padding: 9px 5px 10px !important;
     text-align: center !important;
   }
 
@@ -254,35 +122,29 @@
   }
 
   .burnsville-heat-strip__pepper {
-    height: 54px !important;
-    margin: 0 !important;
+    height: 58px !important;
     transform: none !important;
-    width: 50px !important;
+    width: 56px !important;
   }
 
   .burnsville-heat-strip__level-copy {
     align-items: center !important;
-    margin: 0 !important;
-    padding: 0 !important;
   }
 
   .burnsville-heat-strip__level-copy strong {
-    font-size: 0.68rem !important;
-    letter-spacing: 0.01em !important;
-    line-height: 1 !important;
-    margin: 0 !important;
+    font-size: 0.72rem !important;
+    letter-spacing: 0.02em !important;
     white-space: nowrap !important;
   }
 
   .burnsville-heat-strip__range {
-    font-size: 0.58rem !important;
-    line-height: 1.1 !important;
-    margin: 3px 0 0 !important;
+    font-size: 0.6rem !important;
+    margin-top: 3px !important;
   }
 
   .burnsville-heat-strip__intensity {
     gap: 2px !important;
-    margin: 5px 0 0 !important;
+    margin-top: 5px !important;
   }
 
   .burnsville-heat-strip__dot {
@@ -293,10 +155,10 @@
   .burnsville-heat-strip__guide-link {
     border-top: 1px solid var(--heat-strip-rule) !important;
     display: flex !important;
+    flex: none !important;
     justify-content: center !important;
-    margin: 0 !important;
-    min-height: 42px !important;
-    padding: 9px 12px !important;
+    min-height: 44px !important;
+    padding: 10px 14px !important;
     width: 100% !important;
   }
 
@@ -308,31 +170,30 @@
 
 @media (max-width: 560px) {
   .burnsville-heat-strip__heading {
-    min-height: 50px !important;
-    padding: 11px 14px !important;
+    min-height: 52px !important;
+    padding: 12px 14px !important;
   }
 
   .burnsville-heat-strip__heading h2 {
-    font-size: 0.98rem !important;
+    font-size: 1rem !important;
   }
 
   .burnsville-heat-strip__level {
-    min-height: 100px !important;
-    padding: 7px 2px 8px !important;
+    min-height: 104px !important;
+    padding: 8px 2px 9px !important;
   }
 
   .burnsville-heat-strip__pepper {
-    height: 44px !important;
-    width: 42px !important;
+    height: 46px !important;
+    width: 46px !important;
   }
 
   .burnsville-heat-strip__level-copy strong {
-    font-size: 0.58rem !important;
-    letter-spacing: 0 !important;
+    font-size: 0.61rem !important;
   }
 
   .burnsville-heat-strip__range {
-    font-size: 0.5rem !important;
+    font-size: 0.53rem !important;
   }
 
   .burnsville-heat-strip__dot {
@@ -341,31 +202,48 @@
   }
 
   .burnsville-heat-strip__level--very-hot .burnsville-heat-strip__pepper-image {
-    transform: scale(0.96);
+    transform: scale(1.02);
   }
 
   .burnsville-heat-strip__level--extreme .burnsville-heat-strip__pepper-image {
-    transform: scale(0.98);
+    transform: scale(1.04);
   }
 }
 
+/* Very narrow phones keep the same five-across composition shown at wider
+   mobile widths. Scale the artwork and labels instead of wrapping/stacking. */
 @media (max-width: 340px) {
+  .burnsville-heat-strip__levels {
+    display: grid !important;
+    grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+    width: 100% !important;
+  }
+
+  .burnsville-heat-strip__item,
+  .burnsville-heat-strip__item:nth-child(4),
+  .burnsville-heat-strip__item:nth-child(5) {
+    display: flex !important;
+    min-width: 0 !important;
+    width: auto !important;
+  }
+
   .burnsville-heat-strip__level {
-    min-height: 92px !important;
+    min-height: 94px !important;
     padding: 6px 1px 7px !important;
   }
 
   .burnsville-heat-strip__pepper {
-    height: 38px !important;
-    width: 36px !important;
+    height: 40px !important;
+    width: 40px !important;
   }
 
   .burnsville-heat-strip__level-copy strong {
-    font-size: 0.52rem !important;
+    font-size: 0.55rem !important;
+    letter-spacing: 0 !important;
   }
 
   .burnsville-heat-strip__range {
-    font-size: 0.46rem !important;
+    font-size: 0.48rem !important;
   }
 
   .burnsville-heat-strip__intensity {

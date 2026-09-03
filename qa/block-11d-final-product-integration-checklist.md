@@ -66,6 +66,7 @@ For every replacement product record:
 - [ ] New replacement rating begins at 0 unless real migrated review data is separately authorised.
 - [ ] New replacement review count begins at 0 unless real migrated review data is separately authorised.
 - [ ] No legacy third-party review content is carried forward.
+- [ ] Run `node qa/block-11d-validate-final-catalogue.mjs <final-catalogue.json>` and obtain PASS before any database migration.
 
 ## 4. FRONTEND FLOW QA
 
@@ -148,6 +149,7 @@ Test at minimum:
 
 - [ ] Frontend production build passes.
 - [ ] Existing automated QA passes.
+- [ ] Read-only final catalogue validator passes.
 - [ ] API product list passes.
 - [ ] API product detail passes.
 - [ ] Cart flow passes.
@@ -188,6 +190,6 @@ Only then remove or supersede, as separately authorised:
 
 ## FINAL PASS
 
-`ASSET → DATA → API → HOME/SHOP → PRODUCT DETAIL → CART → CHECKOUT/ORDER`
+`ASSET → DATA → VALIDATOR → API → HOME/SHOP → PRODUCT DETAIL → CART → CHECKOUT/ORDER`
 
 must pass with approved Burnsville data and artwork only.

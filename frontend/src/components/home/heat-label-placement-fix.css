@@ -1,0 +1,84 @@
+/* Desktop placement correction for the upgraded heat-guide artwork.
+   The illustrated pepper canvases are wider than the original 52px grid slot,
+   so the copy needs its own protected column to prevent label overlap. */
+
+@media (min-width: 1121px) {
+  .burnsville-heat-strip__level {
+    gap: 8px !important;
+    grid-template-columns: 72px minmax(0, 1fr) !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+  }
+
+  .burnsville-heat-strip__pepper {
+    height: 76px !important;
+    justify-self: center;
+    width: 64px !important;
+  }
+
+  .burnsville-heat-strip__level-copy {
+    align-items: flex-start !important;
+    align-self: stretch;
+    justify-content: center;
+    min-width: 0;
+    padding-left: 2px;
+  }
+
+  .burnsville-heat-strip__level-copy strong {
+    display: block;
+    font-size: 0.84rem !important;
+    letter-spacing: 0.025em !important;
+    line-height: 0.98 !important;
+    margin: 0;
+    white-space: nowrap !important;
+  }
+
+  .burnsville-heat-strip__range {
+    font-size: 0.68rem !important;
+    line-height: 1.15 !important;
+    margin-top: 4px !important;
+  }
+
+  .burnsville-heat-strip__intensity {
+    gap: 3px !important;
+    margin-top: 6px !important;
+  }
+}
+
+@media (min-width: 901px) and (max-width: 1120px) {
+  .burnsville-heat-strip__level {
+    gap: 6px !important;
+    grid-template-columns: 58px minmax(0, 1fr) !important;
+    padding-left: 7px !important;
+    padding-right: 7px !important;
+  }
+
+  .burnsville-heat-strip__pepper {
+    height: 68px !important;
+    justify-self: center;
+    width: 56px !important;
+  }
+
+  .burnsville-heat-strip__level-copy {
+    align-items: flex-start !important;
+    justify-content: center;
+    min-width: 0;
+  }
+
+  .burnsville-heat-strip__level-copy strong {
+    font-size: 0.72rem !important;
+    letter-spacing: 0.015em !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+  }
+
+  .burnsville-heat-strip__range {
+    font-size: 0.61rem !important;
+    margin-top: 4px !important;
+  }
+
+  .burnsville-heat-strip__intensity {
+    gap: 2px !important;
+    margin-top: 5px !important;
+  }
+}

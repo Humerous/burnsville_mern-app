@@ -7,6 +7,7 @@ import veryHotPepper from '../../assets/heat/very-hot.webp';
 import extremePepper from '../../assets/heat/extreme-approved.webp';
 import './shop-by-heat.css';
 import './heat-illustration-assets.css';
+import './heat-label-placement-fix.css';
 
 const HEAT_LEVELS = [
   {
